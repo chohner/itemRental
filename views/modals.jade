@@ -1,0 +1,73 @@
+block modals
+  // Location Modal
+  #locationModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLocationLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#myLocationLabel.modal-title Item location
+        .modal-body
+          #locationArea
+          #locationImage
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+  // Borrow Modal
+  #borrowModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myBorrowLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#myBorrowLabel.modal-title Borrow Item
+        .modal-body
+          | You are borrowing the following item:
+          #borrowItem
+            table#borrowTable.table.table-condensed.table-striped.table-hover
+              thead
+                tr
+                  th.borrowTypeHead.col-xs-3 Type
+                  th.borrowItemHead Item
+                  th.borrowIDHead Label
+              tbody
+                tr
+                  td#borrowType
+                  td#borrowTitle
+                  td#borrowLabel
+          | Please check if the label is correct and hit 
+          strong Check Out Item
+          |  to complete check-out.
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+          button#checkoutButton.btn.btn-primary(type='button') Check Out Item
+
+  // Login Modal
+  #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLoginLabel', aria-hidden='true')
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#myLoginLabel.modal-title Log In
+        .modal-body
+          br
+          br
+          form#loginForm(accept-charset='UTF-8', role='form')
+            fieldset
+              .form-group.has-feedback
+                label.control-label.sr-only(for='loginIDForm') Input for LoginID
+                input#loginIDForm.form-control(placeholder='lastname.firstname', name='email', type='text', autocomplete='off', required='')
+                span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.hidden
+                span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.hidden
+              .form-group.has-feedback
+                label.control-label.sr-only(for='loginPasswordForm') Input for Password
+                input#loginPasswordForm.form-control(placeholder='Password', name='password', type='password', value='', required='')
+                span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.hidden
+                span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.hidden
+              input#performLogin.btn.btn-lg.btn-primary.btn-block(type='button', value='Login')
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel

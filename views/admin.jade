@@ -1,0 +1,135 @@
+style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-nav-tabs.nav-tabs{ border-bottom: none;} .panel.with-nav-tabs.nav-justified{ margin-bottom: -1px;}
+.panel.with-nav-tabs.panel-default
+  .panel-heading(style='padding: 5px 5px 0 5px')
+    ul.nav.nav-tabs.nav-justified(style='border-bottom: none;margin-bottom: -1px')
+      li.active
+        a(href='#addItems',data-toggle='tab') Add item
+      li
+        a(href='#listUsers',data-toggle='tab') List of users
+      li
+        a(href='#addCSV',data-toggle='tab') Add CSV file
+  .panel-body
+    .tab-content
+      #addItems.tab-pane.fade.in.active
+        form(action='/createItem',method='post',id='addItemForm')
+          table#search-results-table.table.table-condensed.table-striped
+            thead
+              tr
+                th.col-md-1 Category
+                th.col-md-5 Item
+                th.col-md-1 ID
+                th.col-md-2 Location
+                th.col-md-2 Status
+            tbody
+              tr
+                td
+                  select(id='category' class='form-control' name='category')
+                    option(value='Accessories') Accessories
+                    option(value='Amplifier') Amplifier
+                    option(value='Audio Hardware') Audio Hardware
+                    option(value='Audio Interface') Audio Interface
+                    option(value='Cables') Cables
+                    option(value='Headphone Amplifier') Headphone Amplifier
+                    option(value='Headphones') Headphones
+                    option(value='Headset') Headset
+                    option(value='Laptop') Laptop
+                    option(value='Loudspeaker') Loudspeaker
+                    option(value='Measurement Technology') Measurement Technology
+                    option(value='Microphone') Microphone
+                    option(value='Microphone Amplifier') Microphone Amplifier
+                    option(value='Mobile Device') Mobile Device
+                    option(value='Motion Input Device') Motion Input Device
+                    option(value='Permanently Installed Devices') Permanently Installed Devices
+                    option(value='Recording Device') Recording Device
+                    option(value='Software') Software
+                    option(value='Telephone Device') Telephone Device
+                    option(value='Tools') Tools
+                    option(value='Video Interface') Video Interface
+                    option(value='Webcam') Webcam
+                  input(id='category' type='text' class='form-control' placeholder='new category' name='category')
+                td
+                  input(id='name' type='text' class='form-control' placeholder='Sennheiser HD-25' name='name')
+                  input(id='description' type='text' class='form-control' placeholder='Closed on-ear headphones, 25ohm impedance' name='description')
+                  input(id='url' type='text' class='form-control' placeholder='http://en-de.sennheiser.com/on-ear-dj-headphones-hd-25-1-ii' name='url')
+                td
+                  input(id='label' type='text' class='form-control' placeholder='0001' name='label')
+                  small Current label maximum: 
+                    b
+                      = ("0000" + maxLabel).substr(-4,4)
+                td
+                  input(id='location' type='text' class='form-control' placeholder='Pinta 2.3' name='location')
+                  //-input(id='status' type='text' class='form-control' placeholder='In' name='status')
+                  <input type='radio' id='status' name='status' value='In'><label for='status'> Available</label></br>
+                  <input type='radio' id='status' name='status' value='nocirc'><label for='status'> No circulation</label>
+
+                  //select(id='status' class='form-control' name='status')
+                    option(value='In') Available
+                    option(value='nocirc') No circulation
+                td
+                  //-input(id='condition' type='text' class='form-control' placeholder='Working' name='condition')
+                  select(id='condition' class='form-control' name='condition')
+                    option(value='Working') Working
+                    option(value='Mended') Mended
+                    option(value='Broken') Broken
+                    option(value='Other') Other
+                  textarea.form-control(rows='3', id='comment', placeholder='Bought 20.10.2014, repaired 24.11.2015', name='comment')
+                  //input(id='comment' type='text' class='form-control' placeholder='- Bought 20.110.2014  -Repaired 24.11.2015' name='comment')
+          button(type='submit', form='addItemForm').btn.btn-default Add Item
+      #listUsers.tab-pane.fade.in
+        table.table.table-striped.table-condensed.table-hover
+          thead
+            tr
+              th.col-md-2 Username
+              th.col-md-2 First Name
+              th.col-md-2 Last Name
+              th.col-md-2 E-mail
+              th.col-md-1 role
+              th.col-md-1 active
+            tbody
+              each user in users
+                tr
+                  td
+                    = user.username
+                  td
+                    = user.firstname
+                  td
+                    = user.lastname
+                  td
+                    =user.email
+                  td
+                    =user.role
+                  td
+                    =user.active
+        strong Add new user
+        form(action='/createUser',method='post',id='addUserForm')
+          table.table.table-striped.table-condensed
+            tbody
+              tr
+                td.col-md-2
+                  input(id='username' type='text' class='form-control' placeholder='doe.john' name='username')
+                td.col-md-2
+                  input(id='firstname' type='text' class='form-control' placeholder='John' name='firstname')
+                td.col-md-2
+                  input(id='lastname' type='text' class='form-control' placeholder='Doe' name='lastname')
+                td.col-md-2
+                  input(id='email' type='text' class='form-control' placeholder='johndoe@email.com' name='email')
+                td.col-md-1
+                  select(id='role' class='form-control' name='role')
+                    option(value='User') User
+                    option(value='Admin') Admin
+                td.col-md-1
+                  select(id='active' class='form-control' name='active')
+                    option(value='true') true
+                    option(value='false') false
+          button(type='submit', form='addUserForm').btn.btn-default Add User
+      #addCSV.tab-pane.fade.in
+        span(id='uploadStatus')
+        .form-horizontal
+          .form-group
+            .col-md-12
+              p Paste CSV data with ';' delimiter
+              textarea(class='form-control', id='csvInputField', rows='3', placeholder='Sennheiser HD 25-1;Headphones;;0005;;Belafonte 1.1;')
+              button.btn.btn-default(id='submitCSV') Submit
+        #parsedTable
+        //+itemTable('parseTable',parsedData)
+    

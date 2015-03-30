@@ -1,0 +1,25 @@
+{
+  "name": "libnode",
+  "version": "0.0.0",
+  "authors": [
+    "Chris Clock <me@chrisclock.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.x.x",
+    "list.fuzzysearch.js": "~0.x.x",
+    "list.js": "~1.x.x",
+    "list.pagination.js": "~0.x.x"
+  }
+}

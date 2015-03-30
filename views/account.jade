@@ -1,0 +1,15 @@
+- var curUser = { firstname: 'Christoph', lastname: 'Hohnerlein' }
+
+if !curUser
+  #greeting.pull-right You are currently not logged in.
+  br
+  #loginButton.pull-right
+    a(data-toggle='modal', href='#', data-target='#loginModal') Log in
+else
+  #greeting.pull-right Welcome 
+    a(href='#tab-account', role='tab', data-toggle='tab') #{curUser.firstname} #{curUser.lastname}
+  br
+  #adminButton.pull-left
+    a(href='#tab-admin', role='tab', data-toggle='tab') View Admin
+  #logoutButton.pull-right
+    a(href='logout') Log out

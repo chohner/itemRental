@@ -1,0 +1,19 @@
+{
+  "name": "libnode",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "1.x.x",
+    "cookie-parser": "1.x.x",
+    "debug": "~2.x.x",
+    "express": "4.x.x",
+    "morgan": "1.x.x",
+    "sequelize": "2.x.x",
+    "jade": "1.x.x",
+    "sqlite": "3.x.x",
+
+  }
+}
