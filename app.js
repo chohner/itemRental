@@ -81,17 +81,34 @@ app.post('/uploadCSV', function(req,res){
 });
 
 app.post('/createItem', function(req, res) {
-  // TODO: check if item with label exists
+  //TODO: check if item with label exists
   models.Item.create({
-    label: req.param('label'),
-    name: req.param('name'),
-    description: req.param('description'),
-    category: req.param('category'),
-    url: req.param('url'),
-    location: req.param('location'),
-    status: req.param('status'),
-    condition: req.param('condition'),
-    comment: req.param('comment')
+    label: req.body.label,
+    name: req.body.name,
+    description: req.body.description,
+    category: req.body.category,
+    url: req.body.url,
+    location: req.body.location,
+    status: req.body.status,
+    condition: req.body.condition,
+    comment: req.body.comment
+  }).success(function(title) {
+    res.redirect('./');
+  }).error(function(error){
+    console.log(error);
+    res.redirect('./');
+  })
+});
+
+app.post('/createUser', function(req, res) {
+  // TODO: check if user with label exists
+  models.User.create({
+    username: req.param('username'),
+    firstname: req.param('firstname'),
+    lastname: req.param('lastname'),
+    email: req.param('email'),
+    role: req.param('role'),
+    active: req.param('active'),
   }).success(function(title) {
     res.redirect('./');
   }).error(function(error){
