@@ -4,48 +4,53 @@ window.onload = function() {
   var options = {valueNames: [ 'category', 'name', 'labelID','location','condition'], plugins: [ListPagination({})]};
   var itemList = new List('search-results', options);
 
-  // CSV PARSING
+  
 
-  $('#submitCSV').click(function()
-  {
-    //var config = buildConfig();
+  // initialize DataTable with parsed content
+  // turn of paging
+   var parsedTableList = $('#parsedTable').DataTable({
+    paging: false
+   });
+
+  // CSV STUFF
+
+  // Parser Config
+  var parseConfig = {
+    delimiter: "",  // auto-detect
+    newline: "",  // auto-detect
+    header: false,
+    dynamicTyping: false,
+    preview: 0,
+    encoding: "",
+    worker: false,
+    comments: false,
+    step: undefined,
+    complete: undefined,
+    error: undefined,
+    download: false,
+    skipEmptyLines: false,
+    chunk: undefined,
+    fastMode: undefined
+  };
+
+  // Hide parsedData div on pageload since its empty
+  $('#parsedData').hide();
+
+  // Submit button for parsing
+  $('#submitCSV').click(function(){
     var input = $('#csvInputField').val();
 
-    var results = Papa.parse(input);
-    parsedData = results;
+    // parse our data from the input field
+    var results = Papa.parse(input, parseConfig);
 
-    jade.render(document.getElementById('parsedTable'), 'parsedTable', { items : parsedData.data });
+    // assume following format:
+    // Category; Item; Description; Label; SN (part of ID); Location; Status; Condition; Comment; URL
 
-    parsedData = results;
-    console.log(results);
+    // First we clear the table, add our rows and finally draw it
+    parsedTableList.clear().rows.add(results.data).draw();
+
+    // show the parsedData div with the filled elements
+    $('#parsedData').show();
   });
-  
-  // status('Choose a .csv file');
-  // // Check to see when a user has selected a file
-  // var timerId;
-  // timerId = setInterval(function() {
-  //   if($('#libraryDataInput').val() !== '') {
-  //     clearInterval(timerId);
-  //     $('#uploadForm').submit();
-  //   }
-  // }, 500);
-
-  // $('#uploadForm').submit(function() {
-  //   status('uploading the file ...');
-  //   $('#uploadForm').ajaxSubmit({ 
-  //     error: function(xhr) {
-  //       status('Error: ' + xhr.status);
-  //     },
-  //     success: function(response) {
-  //       //TODO: We will fill this in later
-  //     }
-  //   });
-  //   // Stop page refresh
-  //   return false;
-  // });
-
-  // function status(message) {
-  //   $('#uploadStatus').text(message);
-  // }
 
 };

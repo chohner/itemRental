@@ -46,7 +46,7 @@ style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-n
                     option(value='Tools') Tools
                     option(value='Video Interface') Video Interface
                     option(value='Webcam') Webcam
-                  input(id='category' type='text' class='form-control' placeholder='new category' name='category')
+                  //-input(id='category' type='text' class='form-control' placeholder='new category' name='category')
                 td
                   input(id='name' type='text' class='form-control' placeholder='Sennheiser HD-25' name='name')
                   input(id='description' type='text' class='form-control' placeholder='Closed on-ear headphones, 25ohm impedance' name='description')
@@ -130,6 +130,22 @@ style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-n
               p Paste CSV data with ';' delimiter
               textarea(class='form-control', id='csvInputField', rows='3', placeholder='Sennheiser HD 25-1;Headphones;;0005;;Belafonte 1.1;')
               button.btn.btn-default(id='submitCSV') Submit
-        #parsedTable
-        //+itemTable('parseTable',parsedData)
-    
+        #parsedData
+          table.table.table-condensed.table-striped.table-hover(id='parsedTable')
+            thead
+              tr
+                th.col-md-2.noselect.handcursor Category
+                th.col-md-5.noselect.handcursor Item
+                th.col-md-1.noselect.handcursor ID
+                th.col-md-1.noselect.handcursor Location
+                th.col-md-3.noselect.handcursor Condition
+            tbody.list
+              tr
+                td.category
+                td.name
+                td.labelID.centered
+                td.location.success
+                td.condition.success
+                //- +itemTable('parsedTable1',a)
+          button Looks good? SUBMIT!
+        //- +itemTable('parseTable',parsedData)

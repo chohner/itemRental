@@ -1,72 +1,74 @@
 mixin itemTable(id, items)
   if items
-    table.table.table-condensed.table-striped.table-hover(id=id)
-      thead
+  else
+    -var items=['']
+  table.table.table-condensed.table-striped.table-hover(id=id)
+    thead
+      tr
+        th.col-md-2.noselect.handcursor.sort(data-sort='category') Category
+        th.col-md-5.noselect.handcursor.sort(data-sort='name') Item
+        th.col-md-1.noselect.handcursor.centered.sort(data-sort='labelID') ID
+        th.col-md-1.noselect.handcursor.sort(data-sort='location') Location
+        th.col-md-3.noselect.handcursor.sort(data-sort='condition') Condition
+    tbody.list
+      each item in items
         tr
-          th.col-md-2.noselect.handcursor.sort(data-sort='category') Category
-          th.col-md-5.noselect.handcursor.sort(data-sort='name') Item
-          th.col-md-1.noselect.handcursor.centered.sort(data-sort='labelID') ID
-          th.col-md-1.noselect.handcursor.sort(data-sort='location') Location
-          th.col-md-3.noselect.handcursor.sort(data-sort='condition') Condition
-      tbody.list
-        each item in items
-          tr
-            td.category
-              p
-                = item.category
-            td.name
-              p
-                b
-                  = item.name
-              small
-                = item.description
-                != '<a href="http://'+item.url+'" target="_blank" class="pull-right">More Information</a>'
-            td.labelID.centered
+          td.category
+            p
+              = item.category
+          td.name
+            p
               b
-                = ("0000" + item.label).substr(-4,4)
-            if item.status=='available'
-              td.location.success
-                p
-                  = item.location
-                p
-                  = item.status
-            else if item.status=='borrowed'
-              td.location.warning
-                p
-                  = item.location
-                p
-                  = item.status
-            else
-              td.location.info
-                p
-                  = item.location
-                p
-                  = item.status
-            if item.condition=='Working'
-              td.condition.success
-                p
-                  = item.condition
-                p
-                  = item.comment
-            else if item.condition=='Mended'
-              td.condition.warning
-                p
-                  = item.condition
-                p
-                  = item.comment
-            else if item.condition=='Broken'
-              td.condition.danger
-                p
-                  = item.condition
-                p
-                  = item.comment
-            else
-              td.condition.info
-                p
-                  = item.condition
-                p
-                  = item.comment
-    p
-    = 'Displaying ' + items.length + ' items.'
-    p.handcursor
-    ul.pagination
+                = item.name
+            small
+              = item.description
+              != '<a href="http://'+item.url+'" target="_blank" class="pull-right">More Information</a>'
+          td.labelID.centered
+            b
+              = ("0000" + item.label).substr(-4,4)
+          if item.status=='available'
+            td.location.success
+              p
+                = item.location
+              p
+                = item.status
+          else if item.status=='borrowed'
+            td.location.warning
+              p
+                = item.location
+              p
+                = item.status
+          else
+            td.location.info
+              p
+                = item.location
+              p
+                = item.status
+          if item.condition=='Working'
+            td.condition.success
+              p
+                = item.condition
+              p
+                = item.comment
+          else if item.condition=='Mended'
+            td.condition.warning
+              p
+                = item.condition
+              p
+                = item.comment
+          else if item.condition=='Broken'
+            td.condition.danger
+              p
+                = item.condition
+              p
+                = item.comment
+          else
+            td.condition.info
+              p
+                = item.condition
+              p
+                = item.comment
+  p
+  = 'Displaying ' + items.length + ' items.'
+  p.handcursor
+  ul.pagination
