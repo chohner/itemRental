@@ -50,6 +50,10 @@ app.get('/', function(req, res) {
   });
 });
 
+// TODO security authentification
+// app.all('/api/*', requireAuthentication);
+
+
 app.get('/listItems', function(req, res) {
   models.Item.findAll().then(function(items){
     res.json({'items': items});
