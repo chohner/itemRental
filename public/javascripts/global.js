@@ -49,8 +49,12 @@ window.onload = function() {
     // First we clear the table, add our rows and finally draw it
     parsedTableList.clear().rows.add(results.data).draw();
 
-    // show the parsedData div with the filled elements
-    $('#parsedData').show();
+    // We only show results if we have some
+    if(results.data != 0){
+      $('#parsedData').show();
+    }
+    else{
+      $('#parsedData').hide();
+    };
   });
-
 };
