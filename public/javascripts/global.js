@@ -2,26 +2,37 @@ window.onload = function() {
   
   // Initialize DataTable items
   var itemTableList = $('#itemTable').DataTable({
+
+    // DOM control of table:
+    // l - length changing input control
+    // f - filtering input (disabled)
+    // t - The table!
+    // i - Table information summary
+    // p - pagination control
+    // r - processing display element
+
+    dom: 'lrtip',
+
+    // Data source: ajax call to /listItems, where 'items' object is passed
     ajax:  {
       url: '/listItems',
       dataSrc: 'items'
     },
-    "columns": [
+
+    // Extract each column value from a different object variable
+    columns: [
       { data: 'category' },
       { data: 'name' },
       { data: 'id' },
       { data: 'location' },
       { data: 'condition' }
     ]
-    } );
+  });
 
-    // Make search available
-    // #myInput is a <input type="text"> element
+    // Make navbar textfield filter the table
     $('#searchBar').on( 'keyup', function () {
       itemTableList.search( this.value ).draw();
     } );
-
-  
 
   // initialize DataTable with parsed content
    var parsedTableList = $('#parsedTable').DataTable({
