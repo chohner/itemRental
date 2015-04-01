@@ -15,6 +15,12 @@ window.onload = function() {
     ]
     } );
 
+    // Make search available
+    // #myInput is a <input type="text"> element
+    $('#searchBar').on( 'keyup', function () {
+      itemTableList.search( this.value ).draw();
+    } );
+
   
 
   // initialize DataTable with parsed content
