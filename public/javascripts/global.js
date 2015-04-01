@@ -1,8 +1,19 @@
 window.onload = function() {
   
-  // List.js - searchable, sortable and paginated table
-  var options = {valueNames: [ 'category', 'name', 'labelID','location','condition'], plugins: [ListPagination({})]};
-  var itemList = new List('search-results', options);
+  // Initialize DataTable items
+  var itemTableList = $('#itemTable').DataTable({
+    ajax:  {
+      url: '/listItems',
+      dataSrc: 'items'
+    },
+    "columns": [
+      { data: 'category' },
+      { data: 'name' },
+      { data: 'id' },
+      { data: 'location' },
+      { data: 'condition' }
+    ]
+    } );
 
   
 
