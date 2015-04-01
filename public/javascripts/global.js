@@ -23,7 +23,7 @@ window.onload = function() {
     columns: [
       { data: 'category' },
       { data: 'name' },
-      { data: 'id' },
+      { data: 'label' },
       { data: 'location' },
       { data: 'condition' }
     ]
