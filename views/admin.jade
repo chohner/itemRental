@@ -123,29 +123,29 @@ style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-n
                     option(value='false') false
           button(type='submit', form='addUserForm').btn.btn-default Add User
       #addCSV.tab-pane.fade.in
-        span(id='uploadStatus')
-        .form-horizontal
-          .form-group
-            .col-md-12
-              p Paste CSV data with ';' delimiter
-              textarea(class='form-control', id='csvInputField', rows='3', placeholder='Sennheiser HD 25-1;Headphones;;0005;;Belafonte 1.1;')
-              button.btn.btn-default(id='submitCSV') Submit
-        #parsedData
-          table.table.table-condensed.table-striped.table-hover(id='parsedTable')
-            thead
-              tr
-                th.col-md-2.noselect.handcursor Category
-                th.col-md-5.noselect.handcursor Item
-                th.col-md-1.noselect.handcursor ID
-                th.col-md-1.noselect.handcursor Location
-                th.col-md-3.noselect.handcursor Condition
-            tbody.list
-              tr
-                td.category
-                td.name
-                td.labelID.centered
-                td.location.success
-                td.condition.success
-                //- +itemTable('parsedTable1',a)
-          button Looks good? SUBMIT!
-        //- +itemTable('parseTable',parsedData)
+        .col-sm-12
+          p Paste CSV data below and hit submit. Delimiter is auto-detected but ';' works well.
+          form.form-horizontal
+            .form-group
+              .col-sm-10
+                textarea.form-control(id='csvInputField', rows='3', placeholder='Sennheiser HD 25-1;Headphones;;0005;;Belafonte 1.1;')
+              .col-sm-2
+                button.btn.btn-default(id='submitCSV', type='button') Submit
+        .col-sm-12
+          #parsedData
+            table.table.table-condensed.table-striped.table-hover(id='parsedTable')
+              thead
+                tr
+                  th.col-md-2.noselect.handcursor Category
+                  th.col-md-5.noselect.handcursor Item
+                  th.col-md-1.noselect.handcursor ID
+                  th.col-md-1.noselect.handcursor Location
+                  th.col-md-3.noselect.handcursor Condition
+              tbody.list
+                tr
+                  td.category
+                  td.name
+                  td.labelID.centered
+                  td.location.success
+                  td.condition.success
+            button.btn.btn-default(id='writeCSV', type='button') Looks good? Write to db!
