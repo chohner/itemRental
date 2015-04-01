@@ -53,9 +53,9 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/items', function(req, res) {
+app.get('/listItems', function(req, res) {
   models.Item.findAll().then(function(items){
-    res.send(items);
+    res.json({'items': items});
   });
 });
 
