@@ -7,9 +7,12 @@ window.onload = function() {
   
 
   // initialize DataTable with parsed content
-  // turn of paging
    var parsedTableList = $('#parsedTable').DataTable({
-    paging: false
+    paging: false,  // turn of paging
+    columnDefs: [{
+      targets: '_all',
+      defaultContent: ''
+    }] 
    });
 
   // CSV STUFF
