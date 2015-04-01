@@ -53,6 +53,12 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/items', function(req, res) {
+  models.Item.findAll().then(function(items){
+    res.send(items);
+  });
+});
+
 app.get('/uploadCSV', function(req,res){
   models.User.findAll({
     include: [ models.Item ]
