@@ -10,9 +10,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var items = require('./routes/items');
 
-// CSV PARSE
-
-
 // set global curUser
 var curUser;
 
@@ -57,33 +54,6 @@ app.get('/listItems', function(req, res) {
   models.Item.findAll().then(function(items){
     res.json({'items': items});
   });
-});
-
-app.get('/uploadCSV', function(req,res){
-  models.User.findAll({
-    include: [ models.Item ]
-  }).success(function(users) {
-    models.Item.findAll({
-    }).success(function(items){
-      res.render('index', {
-        users: users,
-        items: items,
-        search: query
-      })
-    });
-  });
-});
-
-app.post('/uploadCSV', function(req,res){
-  
-  parse(req.body.csvText, {delimiter: ';', comment: '#'}, function(err, output){
-    if(err) throw err;
-    res.send({
-      newitems: output
-    });
-    console.log(output);
-  });
-
 });
 
 app.post('/createItem', function(req, res) {
