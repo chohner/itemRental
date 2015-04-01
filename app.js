@@ -101,6 +101,11 @@ app.post('/createUser', function(req, res) {
 //app.use('/users', users);
 //app.use('/items', items);
 
+// Redirect all unmatched routes to index
+// app.all('*', function(req, res) {
+//   res.redirect('/');
+// });
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
