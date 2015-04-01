@@ -2,7 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Item = sequelize.define("Item", {
-      label: DataTypes.INTEGER(4).ZEROFILL , // sticker
+
+      // Label with custom getter that zero fills 4 chars
+      label: {
+        type: DataTypes.INTEGER(4).UNSIGNED,
+        allowNull: false,
+        get: function(){
+          return ("000"+this.getDataValue('label')).slice(-4);
+        }
+      },
       name: {type: DataTypes.TEXT, allowNull: false,notNull: true},
       description: DataTypes.TEXT,
       category: DataTypes.TEXT,
