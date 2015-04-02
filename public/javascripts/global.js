@@ -31,7 +31,8 @@ window.onload = function() {
   });
 
   // Add event listener for opening and closing details
-  $('#itemTable tbody ').on('click', 'tr', function () {
+  // TODO: select only row trs, to not try to expand details
+  $('#itemTable > tbody').on('click', 'tr', function () {
     
     var tr = $(this);
     var row = itemTableList.row( tr );
