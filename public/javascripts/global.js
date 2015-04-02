@@ -29,19 +29,19 @@ window.onload = function() {
     ]
   });
 
-    // Make navbar textfield filter the table
-    $('#searchBar').on( 'keyup', function () {
-      itemTableList.search( this.value ).draw();
-    } );
+  // Make navbar textfield filter the table
+  $('#searchBar').on( 'keyup', function () {
+    itemTableList.search( this.value ).draw();
+  } );
 
   // initialize DataTable with parsed content
-   var parsedTableList = $('#parsedTable').DataTable({
+  var parsedTableList = $('#parsedTable').DataTable({
     paging: false,  // turn of paging
     columnDefs: [{
       targets: '_all',
       defaultContent: ''
     }] 
-   });
+  });
 
   // CSV STUFF
 
