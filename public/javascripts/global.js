@@ -57,6 +57,16 @@ window.onload = function() {
   // initialize DataTable with parsed content
   var parsedTableList = $('#parsedTable').DataTable({
     paging: false,  // turn of paging
+    // Extract each column value from a different object variable
+    // this time capitalized, since they are extracted from the sortable list
+    columns: [
+      { data: 'Category' },
+      { data: 'Item' },
+      { data: 'Label' },
+      { data: 'Location' },
+      { data: 'Condition' }
+    ],
+    order: [[2, 'asc']], // Order by label
     columnDefs: [{
       targets: '_all',
       defaultContent: ''
@@ -96,7 +106,6 @@ window.onload = function() {
   // When user stopped sorting, extract new order from sortable list
   $('.sortable').sortable().bind('sortupdate', function(e, ui) {
     columOrder = $('#reorderList > li > button').contents();
-    //console.log(ui.item.children().html() + ' dragged to '+ ui.item.index());
   });
 
   // Submit button for parsing
@@ -106,13 +115,30 @@ window.onload = function() {
     // parse our data from the input field
     var results = Papa.parse(input, parseConfig);
 
-    // default format:
-    // Category; Item; Label; Location; Condition .....
-    // TODO: change order depending on columorder
-    // testdata = results.data;
+    // myItems array that holds all items
+    myItems = [];
 
-    // First we clear the table, add our rows and finally draw it
-    parsedTableList.clear().rows.add(results.data).draw();
+    // Reorder items according to the sortable list
+    results.data.forEach(function (itemElement, idx, array) {
+      // temporary item
+      var item = {};
+      itemElement.forEach(function(element,idx,array){
+
+        // if we have an sortable element for a value, save as key/value pair in item
+        if ( idx < columOrder.length ){
+          item[columOrder[idx].data] = itemElement[idx];
+          //console.log('key: '+ columOrder[idx].data + ', value: '+ testdata[0][idx])
+        } else {  // else, save as with an empty key
+          item[''] = itemElement[idx];
+        }
+      })
+
+      // Append the ordered item to our myItems array
+      myItems.push(item);
+    });
+
+    // Now we clear the table, add our rows and finally draw it
+    parsedTableList.clear().rows.add(myItems).draw();
 
     // We only show results if we have some
     if(results.data != 0){
