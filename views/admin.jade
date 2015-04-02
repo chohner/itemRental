@@ -124,13 +124,28 @@ style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-n
           button(type='submit', form='addUserForm').btn.btn-default Add User
       #addCSV.tab-pane.fade.in
         .col-sm-12
-          p Paste CSV data below and hit submit. Delimiter is auto-detected but ';' works well.
+          p Paste CSV data below, check order and hit submit. Delimiter is auto-detected but ';' works well.
           form.form-horizontal
             .form-group
               .col-sm-10
                 textarea.form-control(id='csvInputField', rows='3', placeholder='Sennheiser HD 25-1;Headphones;;0005;;Belafonte 1.1;')
+              .col-sm-12
+                p Order the data
+                ul.list-inline.btn-group.btn-group-justified.sortable(role='group')
+                  li.disabled
+                    button.btn.btn-default.disabled Item
+                  li
+                    button.btn.btn-default.disabled Category
+                  li
+                    button.btn.btn-default.disabled Comment
+                  li
+                    button.btn.btn-default.disabled Label
+                  li
+                    button.btn.btn-default.disabled 
+                  li
+                    button.btn.btn-default.disabled Location
               .col-sm-2
-                button.btn.btn-default(id='submitCSV', type='button') Submit
+                button.btn.btn-success(id='submitCSV', type='button') Submit
         .col-sm-12
           #parsedData
             table.table.table-condensed.table-striped.table-hover(id='parsedTable')
@@ -141,4 +156,4 @@ style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-n
                   th.col-md-1.noselect.handcursor ID
                   th.col-md-1.noselect.handcursor Location
                   th.col-md-3.noselect.handcursor Condition
-            button.btn.btn-default(id='writeCSV', type='button') Looks good? Write to db!
+            button.btn.btn-danger(id='writeCSV', type='button') Looks good? Write to db!
