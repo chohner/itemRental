@@ -86,6 +86,18 @@ window.onload = function() {
 
   // Hide parsedData div on pageload since its empty
   $('#parsedData').hide();
+  
+  // Initialize sortable list for parsing
+  $('.sortable').sortable();
+
+  // Initialize default list order from sortable list
+  var columOrder = $('#reorderList > li > button').contents();
+
+  // When user stopped sorting, extract new order from sortable list
+  $('.sortable').sortable().bind('sortupdate', function(e, ui) {
+    columOrder = $('#reorderList > li > button').contents();
+    //console.log(ui.item.children().html() + ' dragged to '+ ui.item.index());
+  });
 
   // Submit button for parsing
   $('#submitCSV').click(function(){
@@ -94,8 +106,10 @@ window.onload = function() {
     // parse our data from the input field
     var results = Papa.parse(input, parseConfig);
 
-    // assume following format:
-    // Category; Item; Description; Label; SN (part of ID); Location; Status; Condition; Comment; URL
+    // default format:
+    // Category; Item; Label; Location; Condition .....
+    // TODO: change order depending on columorder
+    // testdata = results.data;
 
     // First we clear the table, add our rows and finally draw it
     parsedTableList.clear().rows.add(results.data).draw();
@@ -107,14 +121,6 @@ window.onload = function() {
     else{
       $('#parsedData').hide();
     };
-  });
-
-  // Reorder parsing list
-  $('.sortable').sortable();
-
-  //Triggered when the user stopped sorting and the DOM position has changed.
-  $('.sortable').sortable().bind('sortupdate', function() {
-    
   });
 
 };
