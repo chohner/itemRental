@@ -108,6 +108,15 @@ window.onload = function() {
       $('#parsedData').hide();
     };
   });
+
+  // Reorder parsing list
+  $('.sortable').sortable();
+
+  //Triggered when the user stopped sorting and the DOM position has changed.
+  $('.sortable').sortable().bind('sortupdate', function() {
+    
+  });
+
 };
 
 // Formatting function for row details
