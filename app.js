@@ -61,23 +61,30 @@ app.get('/listItems', function(req, res) {
 });
 
 app.post('/createItem', function(req, res) {
-  //TODO: check if item with label exists
-  models.Item.create({
-    label: req.body.label,
-    name: req.body.name,
-    description: req.body.description,
-    category: req.body.category,
-    url: req.body.url,
-    location: req.body.location,
-    status: req.body.status,
-    condition: req.body.condition,
-    comment: req.body.comment
-  }).success(function(title) {
-    res.redirect('./');
-  }).error(function(error){
-    console.log(error);
-    res.redirect('./');
+  models.Item.findOrCreate({
+    where: {
+      label: req.body.label,
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      url: req.body.url,
+      location: req.body.location,
+      status: req.body.status,
+      condition: req.body.condition,
+      comment: req.body.comment
+    },
+    defaults: {
+      status: 'available',
+      condition: 'working'
+    }
   })
+  .spread(function(item, created) {
+    console.log(item.get({
+      plain: true
+    }))
+    console.log(created)
+  })
+  res.redirect('./');
 });
 
 app.post('/createUser', function(req, res) {
