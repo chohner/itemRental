@@ -1,5 +1,5 @@
 window.onload = function() {
-  
+
   // Initialize DataTable items
   var itemTableList = $('#itemTable').DataTable({
 
@@ -26,8 +26,27 @@ window.onload = function() {
       { data: 'label' },
       { data: 'location' },
       { data: 'condition' }
-    ]
+    ],
+    order: [[2, 'asc']] // Order by label
   });
+
+  // Add event listener for opening and closing details
+  $('#itemTable tbody ').on('click', 'tr', function () {
+    
+    var tr = $(this);
+    var row = itemTableList.row( tr );
+
+    if ( row.child.isShown() ) {
+      // This row is already open - close it
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      // Open this row
+      row.child( format(row.data()) ).show();
+      tr.addClass('shown');
+    }
+  } );
 
   // Make navbar textfield filter the table
   $('#searchBar').on( 'keyup', function () {
@@ -89,3 +108,18 @@ window.onload = function() {
     };
   });
 };
+
+// Formatting function for row details
+function format ( d ) {
+  // `d` is the original data object for the row
+  return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+    '<tr>'+
+      '<td>Description:</td>'+
+      '<td>'+d.description+'</td>'+
+      '<td>URL:</td>'+
+      '<td>'+d.url+'</td>'+
+      '<td>Comment:</td>'+
+      '<td>'+d.comment+'</td>'+
+    '</tr>'+
+  '</table>';
+}
