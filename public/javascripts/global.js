@@ -148,7 +148,36 @@ window.onload = function() {
       $('#parsedData').hide();
     };
   });
+  
+  // Write CSV to db
+  $('#writeCSV').click(function(){
+    $.post(
+      '/createItemsBulk',
+      [parsedTableList.data()]
+    ).done(function() {
+      window.replace('/');
+    })
 
+    // $.each(parsedTableList.data(), function(idx, value) {
+    //   $.post(
+    //     "/createItem",
+    //     {
+    //       label: value.Label,
+    //       name: value.Item,
+    //       description: value.Description,
+    //       category: value.Category,
+    //       url: value.URL,
+    //       location: value.Location,
+    //       status: value.Status,
+    //       condition: value.Condition,
+    //       comment: value.Comment
+    //     }
+    //   )
+    //   .done(function( msg ) {
+    //     window.location.replace('/');
+    //   });
+    // });
+  });
 };
 
 // Formatting function for row details
