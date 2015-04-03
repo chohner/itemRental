@@ -87,6 +87,18 @@ app.post('/createItem', function(req, res) {
   res.redirect('./');
 });
 
+app.post('/createItemsBulk', function(req, res) {
+  models.Item.bulkCreate(
+    [req.body]
+    // {fields: [
+    //   'label',
+    //   'name'
+    // ]}
+  );
+  res.send(req.body)
+  //res.redirect('./');
+});
+
 app.post('/createUser', function(req, res) {
   // TODO: check if user with label exists
   models.User.create({
