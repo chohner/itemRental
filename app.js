@@ -87,16 +87,18 @@ app.post('/createItem', function(req, res) {
   res.redirect('./');
 });
 
+// createItems Bulk POST
+// receives stringified JSON array of objects
+// TODO check format of input
 app.post('/createItemsBulk', function(req, res) {
+  bulkData = req.body;
   models.Item.bulkCreate(
-    [req.body]
-    // {fields: [
-    //   'label',
-    //   'name'
-    // ]}
-  );
-  res.send(req.body)
-  //res.redirect('./');
+    bulkData
+  ).then(function(){
+    models.Item.findAll().then(function(items){
+      res.send(items);
+    })
+  });
 });
 
 app.post('/createUser', function(req, res) {
