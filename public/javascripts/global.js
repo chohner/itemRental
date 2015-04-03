@@ -151,32 +151,26 @@ window.onload = function() {
   
   // Write CSV to db
   $('#writeCSV').click(function(){
-    $.post(
-      '/createItemsBulk',
-      [parsedTableList.data()]
-    ).done(function() {
-      window.replace('/');
+
+    // Collect all rows of parsedTableList into one parsedDataArray
+    parsedDataArray=[];
+    parsedTableList.data().each(function(elem,key){
+      parsedDataArray.push(elem)
     })
 
-    // $.each(parsedTableList.data(), function(idx, value) {
-    //   $.post(
-    //     "/createItem",
-    //     {
-    //       label: value.Label,
-    //       name: value.Item,
-    //       description: value.Description,
-    //       category: value.Category,
-    //       url: value.URL,
-    //       location: value.Location,
-    //       status: value.Status,
-    //       condition: value.Condition,
-    //       comment: value.Comment
-    //     }
-    //   )
-    //   .done(function( msg ) {
-    //     window.location.replace('/');
-    //   });
-    // });
+    // POST the stringified array of objects to createItemsBulk
+    // contentType important for parsing
+    $.ajax({
+      url: '/createItemsBulk',
+      type: 'POST',
+      data: JSON.stringify(parsedDataArray),
+      processData: false,
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8'
+    }).done(function() {
+      // When done, redirect to main page
+      window.location.replace('/');
+    })
   });
 };
 
