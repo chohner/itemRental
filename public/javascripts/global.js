@@ -21,11 +21,11 @@ window.onload = function() {
 
     // Extract each column value from a different object variable
     columns: [
-      { data: 'category' },
-      { data: 'name' },
-      { data: 'label' },
-      { data: 'location' },
-      { data: 'condition' }
+      { data: 'Category' },
+      { data: 'Item' },
+      { data: 'Label' },
+      { data: 'Location' },
+      { data: 'Condition' }
     ],
     order: [[2, 'asc']] // Order by label
   });
