@@ -180,11 +180,11 @@ function format ( d ) {
   return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
     '<tr>'+
       '<td>Description:</td>'+
-      '<td>'+d.description+'</td>'+
+      '<td>'+d.Description+'</td>'+
       '<td>URL:</td>'+
-      '<td>'+d.url+'</td>'+
+      '<td>'+d.URL+'</td>'+
       '<td>Comment:</td>'+
-      '<td>'+d.comment+'</td>'+
+      '<td>'+d.Comment+'</td>'+
     '</tr>'+
   '</table>';
 }
