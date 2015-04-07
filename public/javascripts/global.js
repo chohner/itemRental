@@ -47,6 +47,11 @@ window.onload = function() {
     modal.find('#borrowLabel').text(data.Label)
   })
 
+  // checkoutButton click event
+  $('#checkoutButton').click( function(){
+    
+  })
+
   // Add event listener for opening and closing details
   // TODO: select only row trs, to not try to expand details
   $('#itemTable > tbody').on('click', 'tr', function () {
