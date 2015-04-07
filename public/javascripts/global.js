@@ -25,7 +25,10 @@ window.onload = function() {
       { data: 'Item' },
       { data: 'Label' },
       { data: 'Location' },
-      { data: 'Condition' }
+      { data: 'Condition' },
+      { data: null,
+        orderable: false,
+        'defaultContent' : '<button class="btn btn-default">Check out</button>'}
     ],
     order: [[2, 'asc']] // Order by label
   });
