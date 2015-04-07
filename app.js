@@ -118,6 +118,29 @@ app.post('/createUser', function(req, res) {
   })
 });
 
+// Borrow Item route: send username and item label to borrow item
+app.post('/borrowItem', function(req,res) {
+  borrowusername: req.param('username');
+  borrowLabel: req.param('label');
+
+  // 1) find item with that label
+  // 2) find user with that username
+  // 3) borrow item
+  // TODO: check functionality. how is borrowlabel passed down?
+  models.Item.find({
+    where: {label: borrowLabel}
+  }).then(function(borrowItem){
+    models.User.find({
+      where: {username: borrowusername}
+    }).then(function(borrowUser){
+      models.User.borrowUser.setItem([borrowItem])
+    }).then(function(){
+      //maybe just close the modal?
+      res.redirect('./');
+    })
+  })
+});
+
 //app.use('/', routes);
 //app.use('/users', users);
 //app.use('/items', items);
