@@ -20,6 +20,8 @@
     "bootstrap": "~3.x.x",
     "list.fuzzysearch.js": "~0.x.x",
     "list.js": "~1.x.x",
-    "list.pagination.js": "~0.x.x"
+    "list.pagination.js": "~0.x.x",
+    "datatables": "~1.x.x",
+    "html5sortable": "*"
   }
 }
