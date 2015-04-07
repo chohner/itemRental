@@ -26,12 +26,26 @@ window.onload = function() {
       { data: 'Label' },
       { data: 'Location' },
       { data: 'Condition' },
+      // Insert column full of checkout buttons that open the borrowModal
       { data: null,
         orderable: false,
-        'defaultContent' : '<button class="btn btn-default">Check out</button>'}
+        'defaultContent' : '<button class="btn btn-default checkoutButton" data-toggle="modal" data-target="#borrowModal">Check out</button>'}
     ],
     order: [[2, 'asc']] // Order by label
   });
+
+  // Borrow modal fetches data from row it was opened from
+  $('#borrowModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    data = itemTableList.row( button.parents('tr') ).data(); // Data of tr
+    // data now contains an item object
+
+    // Update the modal's content
+    var modal = $(this)
+    modal.find('#borrowType').text(data.Category)
+    modal.find('#borrowTitle').text(data.Item)
+    modal.find('#borrowLabel').text(data.Label)
+  })
 
   // Add event listener for opening and closing details
   // TODO: select only row trs, to not try to expand details
