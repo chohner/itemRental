@@ -50,8 +50,19 @@ window.onload = function() {
   })
 
   // checkoutButton click event
+  // TODO error handling
   $('#checkoutButton').click( function(){
-    
+    // POST the username and label to borrowItem API[]
+    $.post('borrowItem',
+      { label: $('#borrowLabel').text(),
+        username : curUser.username}, 
+    function(returnedData){
+         //console.log(returnedData);
+    }).done(function(){
+      // Close modal and reload table once done
+      $('#borrowModal').modal('hide')
+      itemTableList.ajax.reload();
+    });
   })
 
   // Add event listener for opening and closing details
