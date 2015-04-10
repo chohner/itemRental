@@ -142,6 +142,15 @@ app.post('/borrowItem', function(req,res) {
   });
 });
 
+// Check Item route, returns Item details from label
+app.post('/checkItem', function(req,res) {
+  models.Item.find({
+    where: {label: req.body.label}
+  }).then(function(Item){
+    res.send(Item)
+  })
+});
+
 //app.use('/', routes);
 //app.use('/users', users);
 //app.use('/items', items);
