@@ -1,5 +1,7 @@
 window.onload = function() {
 
+  var curUser = {username : 'hohnerlein.christoph'};
+
   // Initialize DataTable items
   var itemTableList = $('#itemTable').DataTable({
 
