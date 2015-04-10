@@ -29,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 var models  = require('./models');
 
 app.get('/', function(req, res) {
+  // TODO: dont use param and .success
+  // TODO: simplify route
   query = req.param('s');
 
   models.Item.max('label').then(function(max) {
@@ -102,7 +104,8 @@ app.post('/createItemsBulk', function(req, res) {
 });
 
 app.post('/createUser', function(req, res) {
-  // TODO: check if user with label exists
+  // TODO: check if user with username exists
+  // TODO: dont use param and .success
   models.User.create({
     username: req.param('username'),
     firstname: req.param('firstname'),
@@ -120,10 +123,6 @@ app.post('/createUser', function(req, res) {
 
 // Borrow Item route: send username and item label to borrow item
 app.post('/borrowItem', function(req,res) {
-
-  // 1) find item with that label
-  // 2) find user with that username
-  // 3) borrow item
   
   // TODO: check if already borrowed (if same user -> confirm, else -> error)
   // TODO: handle missing item/user error
