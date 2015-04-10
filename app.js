@@ -124,6 +124,9 @@ app.post('/borrowItem', function(req,res) {
   // 1) find item with that label
   // 2) find user with that username
   // 3) borrow item
+  
+  // TODO: check if already borrowed (if same user -> confirm, else -> error)
+  // TODO: handle missing item/user error
 
   models.Item.find({
     where: {label: req.body.label}
