@@ -154,7 +154,7 @@ app.post('/checkItem', function(req,res) {
 // TODO: include borrowed items
 app.post('/checkUser', function(req,res) {
   models.User.find({
-    where: {label: req.body.username}
+    where: {username: req.body.username}
     //include: [ models.Item ]
   }).then(function(User){
     res.send(User)
