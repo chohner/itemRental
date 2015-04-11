@@ -27,27 +27,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var models  = require('./models');
 
+// TODO get users with listUsers API call
 app.get('/', function(req, res) {
   models.Item.max('label')
-  .then(function(max) {
-    maxLabel=max;
-  })
-  models.User.findAll({
-    include: [ models.Item ]
-  })
-  .then(function(allUsers) {
-    models.Item.findAll({
-      include: [ models.User ]
+  .then(function(maxLabel) {
+    res.render('index', {
+      curUser: req.session.user, //probably not very secure
+      maxLabel: maxLabel
     })
-    .then(function(allItems){
-      res.render('index', {
-        curUser: req.session.user, //probably not very secure
-        users: allUsers,
-        items: allItems,
-        maxLabel: maxLabel
-      })
-    });
-  });
+  })
 });
 
 // TODO LDAP check
@@ -84,6 +72,12 @@ app.all('/logout', function(req,res,next) {
 app.get('/listItems', function(req, res) {
   models.Item.findAll().then(function(items){
     res.json({'items': items});
+  });
+});
+
+app.get('/listUsers', function(req, res) {
+  models.User.findAll().then(function(users){
+    res.json({'users': users});
   });
 });
 
