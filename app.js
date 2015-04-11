@@ -31,23 +31,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 var models  = require('./models');
 
 app.get('/', function(req, res) {
-  // TODO: dont use param and .success
-  // TODO: simplify route
-  query = req.param('s');
-
-  models.Item.max('label').then(function(max) {
+  models.Item.max('label')
+  .then(function(max) {
     maxLabel=max;
   })
-
   models.User.findAll({
     include: [ models.Item ]
-  }).success(function(users) {
+  })
+  .then(function(allUsers) {
     models.Item.findAll({
-    }).success(function(items){
+      include: [ models.User ]
+    })
+    .then(function(allItems){
       res.render('index', {
-        users: users,
-        items: items,
-        search: query,
+        users: allUsers,
+        items: allItems,
         maxLabel: maxLabel
       })
     });
