@@ -2,7 +2,8 @@ window.onload = function() {
 
   var curUser = {username : 'hohnerlein.christoph'};
 
-  // Initialize DataTable items
+  //  MAIN TABLE ======================================================
+
   var itemTableList = $('#itemTable').DataTable({
 
     // DOM control of table:
@@ -52,7 +53,7 @@ window.onload = function() {
   // checkoutButton click event
   // TODO error handling
   $('#checkoutButton').click( function(){
-    // POST the username and label to borrowItem API[]
+    // POST the username and label to borrowItem API
     $.post('borrowItem',
       { label: $('#borrowLabel').text(),
         username : curUser.username}, 
@@ -72,13 +73,13 @@ window.onload = function() {
     var tr = $(this);
     var row = itemTableList.row( tr );
 
+    // Details are already open - close them, else open them
     if ( row.child.isShown() ) {
-      // This row is already open - close it
+      
       row.child.hide();
       tr.removeClass('shown');
     }
     else {
-      // Open this row
       row.child( format(row.data()) ).show();
       tr.addClass('shown');
     }
@@ -89,28 +90,11 @@ window.onload = function() {
     itemTableList.search( this.value ).draw();
   } );
 
-  // initialize DataTable with parsed content
-  var parsedTableList = $('#parsedTable').DataTable({
-    paging: false,  // turn of paging
-    // Extract each column value from a different object variable
-    // this time capitalized, since they are extracted from the sortable list
-    columns: [
-      { data: 'Category' },
-      { data: 'Item' },
-      { data: 'Label' },
-      { data: 'Location' },
-      { data: 'Condition' }
-    ],
-    order: [[2, 'asc']], // Order by label
-    columnDefs: [{
-      targets: '_all',
-      defaultContent: ''
-    }] 
-  });
+  //  USER TABLE ======================================================
 
-  // CSV STUFF
 
-  // Parser Config
+  //  CSV STUFF ======================================================
+
   var parseConfig = {
     delimiter: "",  // auto-detect
     newline: "",  // auto-detect
@@ -172,6 +156,25 @@ window.onload = function() {
       myItems.push(item);
     });
 
+    // Initialize DataTable for parsed content
+    var parsedTableList = $('#parsedTable').DataTable({
+      paging: false,  // turn of paging
+      // Extract each column value from a different object variable
+      // this time capitalized, since they are extracted from the sortable list
+      columns: [
+        { data: 'Category' },
+        { data: 'Item' },
+        { data: 'Label' },
+        { data: 'Location' },
+        { data: 'Condition' }
+      ],
+      order: [[2, 'asc']], // Order by label
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ''
+      }] 
+    });
+
     // Now we clear the table, add our rows and finally draw it
     parsedTableList.clear().rows.add(myItems).draw();
 
@@ -203,7 +206,6 @@ window.onload = function() {
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8'
     }).done(function() {
-      // When done, redirect to main page
       window.location.replace('/');
     })
   });
