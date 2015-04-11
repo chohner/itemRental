@@ -64,6 +64,13 @@ app.post('/login', function(req,res) {
   })
 });
 
+app.all('/logout', function(req,res,next) {
+  req.session.destroy(function(err) {
+    console.log(err);
+  })
+  res.redirect('/');
+});
+
 // auth middleware, might be interesting later
 // function requiredAuthentication(req, res, next) {
 //   if (req.session.user) {
