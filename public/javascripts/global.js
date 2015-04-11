@@ -92,6 +92,28 @@ window.onload = function() {
 
   //  USER TABLE ======================================================
 
+  // Initialize DataTable for user
+  var userTableList = $('#borrowedTable').DataTable({
+    // Data source: ajax call to /listItems, where 'items' object is passed
+    ajax:  {
+      url: '/checkUserItems',
+      dataSrc: 'items'
+    },
+    paging: false,  // turn of paging
+    // Extract each column value from a different object variable
+    columns: [
+      { data: 'Category' },
+      { data: 'Item' },
+      { data: 'Label' },
+      { data: 'Location' },
+      { data: 'Condition' }
+    ],
+    order: [[2, 'asc']], // Order by label
+    columnDefs: [{
+      targets: '_all',
+      defaultContent: ''
+    }] 
+  });
 
   //  CSV STUFF ======================================================
 
