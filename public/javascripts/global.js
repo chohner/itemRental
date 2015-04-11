@@ -62,7 +62,7 @@ window.onload = function() {
     }).done(function(){
       // Close modal and reload table once done
       $('#borrowModal').modal('hide')
-      itemTableList.ajax.reload();
+      window.location.replace('/');
     });
   })
 
@@ -90,7 +90,22 @@ window.onload = function() {
     itemTableList.search( this.value ).draw();
   } );
 
-  //  USER TABLE ======================================================
+  //  USER STUFF ======================================================
+
+  // Login handle
+  $('#performLogin').click(function(){
+    console.log($('#loginIDForm').text())
+    $.post('login',
+      { username : $('#loginIDForm').val()}, 
+    function(returnedData){
+         //console.log(returnedData);
+    }).done(function(){
+      // Close modal and redirect to main page
+      $('#loginModal').modal('hide')
+      window.location.reload()
+    });
+  });
+
 
   // Initialize DataTable for user
   var userTableList = $('#borrowedTable').DataTable({
