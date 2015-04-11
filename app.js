@@ -54,6 +54,29 @@ app.get('/', function(req, res) {
   });
 });
 
+// TODO LDAP check
+app.post('/login', function(req,res) {
+  models.User.findAndCountAll({
+    where: {username : req.body.username}
+  }).then(function(result){
+    if(result.count == 0){
+      res.status(401).end();
+    } else {
+      req.session.user = result.rows[0];
+      res.status(200).send(result.rows);
+    };
+  })
+});
+
+// auth middleware, might be interesting later
+// function requiredAuthentication(req, res, next) {
+//   if (req.session.user) {
+//     next();
+//   } else {
+//     req.session.error = 'Access denied!';
+//     res.redirect('/');
+//   }
+//}
 
 app.get('/listItems', function(req, res) {
   models.Item.findAll().then(function(items){
