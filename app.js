@@ -150,14 +150,25 @@ app.post('/checkItem', function(req,res) {
   })
 });
 
-// Check User route, returns user details and all borrowed items from username
-// TODO: include borrowed items
+// Check User route, returns user details
 app.post('/checkUser', function(req,res) {
   models.User.find({
     where: {username: req.body.username}
     //include: [ models.Item ]
-  }).then(function(User){
-    res.send(User)
+  }).then(function(myUser){
+    res.send(myUser);
+  })
+});
+
+// checkUserItems Route, returns all borrowed items from username
+app.post('/checkUserItems', function(req,res) {
+  models.User.find({
+    where: {username: req.body.username}
+    //include: [ models.Item ]
+  }).then(function(myUser){
+    myUser.getItems().then(function(associatedItems) {
+      res.send(associatedItems)
+    })
   })
 });
 
