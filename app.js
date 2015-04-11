@@ -11,9 +11,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var items = require('./routes/items');
 
-// set global curUser
-var curUser;
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -44,6 +41,7 @@ app.get('/', function(req, res) {
     })
     .then(function(allItems){
       res.render('index', {
+        curUser: req.session.user, //probably not very secure
         users: allUsers,
         items: allItems,
         maxLabel: maxLabel
