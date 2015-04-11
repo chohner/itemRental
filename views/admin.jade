@@ -76,30 +76,30 @@ style .panel.with-nav-tabs.panel-heading{ padding: 5px 5px 0 5px;} .panel.with-n
                   //input(id='comment' type='text' class='form-control' placeholder='- Bought 20.110.2014  -Repaired 24.11.2015' name='comment')
           button(type='submit', form='addItemForm').btn.btn-default Add Item
       #listUsers.tab-pane.fade.in
-        table.table.table-striped.table-condensed.table-hover
-          thead
-            tr
-              th.col-md-2 Username
-              th.col-md-2 First Name
-              th.col-md-2 Last Name
-              th.col-md-2 E-mail
-              th.col-md-1 role
-              th.col-md-1 active
-            tbody
-              each user in users
-                tr
-                  td
-                    = user.username
-                  td
-                    = user.firstname
-                  td
-                    = user.lastname
-                  td
-                    =user.email
-                  td
-                    =user.role
-                  td
-                    =user.active
+        //- table.table.table-striped.table-condensed.table-hover
+        //-   thead
+        //-     tr
+        //-       th.col-md-2 Username
+        //-       th.col-md-2 First Name
+        //-       th.col-md-2 Last Name
+        //-       th.col-md-2 E-mail
+        //-       th.col-md-1 role
+        //-       th.col-md-1 active
+        //-     tbody
+        //-       each user in users
+        //-         tr
+        //-           td
+        //-             = user.username
+        //-           td
+        //-             = user.firstname
+        //-           td
+        //-             = user.lastname
+        //-           td
+        //-             =user.email
+        //-           td
+        //-             =user.role
+        //-           td
+        //-             =user.active
         strong Add new user
         form(action='/createUser',method='post',id='addUserForm')
           table.table.table-striped.table-condensed
