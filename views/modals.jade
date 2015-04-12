@@ -61,13 +61,13 @@ block modals
               .form-group.has-feedback
                 label.control-label.sr-only(for='loginIDForm') Input for LoginID
                 input#loginIDForm.form-control(placeholder='lastname.firstname', name='email', type='text', autocomplete='off', required='')
-                span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.hidden
-                span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.hidden
+                span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.collapse
+                span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.collapse
               .form-group.has-feedback
                 label.control-label.sr-only(for='loginPasswordForm') Input for Password
                 input#loginPasswordForm.form-control(placeholder='Password', name='password', type='password', value='', required='')
-                span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.hidden
-                span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.hidden
+                span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.collapse
+                span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.collapse
               input#performLogin.btn.btn-lg.btn-primary.btn-block(value='Submit', type='submit')
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Cancel
