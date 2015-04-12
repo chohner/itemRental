@@ -91,6 +91,21 @@ window.onload = function() {
     itemTableList.search( this.value ).draw();
   } );
 
+  // Searchbar clearer
+  $(".hasclear").keyup(function () {
+    var t = $(this);
+    t.next('span').toggle(Boolean(t.val()));
+  });
+
+  $(".clearer").hide($(this).prev('input').val());
+
+  // clearer onClick: delete searchbar content,show all items, hide clearer
+  $(".clearer").click(function () {
+    $(this).prev('input').val('').focus();
+    itemTableList.search('').draw();
+    $(this).hide();
+  });
+
   //  USER STUFF ======================================================
 
   // Focus username field on login modal open

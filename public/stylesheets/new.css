@@ -78,11 +78,9 @@ body {
 }
 
 #search-clearer{
-    position: absolute;
-	top: 0px;
-    font-size: 16px;
-    cursor: pointer;
-    color: #ccc;
+	pointer-events: auto;
+	cursor: pointer;
+	color: #444;
 }
 
 #main-content{
