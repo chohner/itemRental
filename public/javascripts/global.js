@@ -125,14 +125,28 @@ window.onload = function() {
     // prevent default browser behaviour
     event.preventDefault();
 
-    $.post('login',
-      { username : $('#loginIDForm').val()}, 
-    function(returnedData){
-         //console.log(returnedData);
+    $.post('login',{
+      username : $('#loginIDForm').val()
     }).done(function(){
-      // Close modal and redirect to main page
+
+      // Feedback on succesfull login
+      $("#loginForm").addClass("has-success");
+      $("#loginForm").removeClass("has-error");
+
+      $(".loginFeedbackFail").hide();
+      $(".loginFeedbackSuccess").show();
+
+      // Close modal and reload main page
       $('#loginModal').modal('hide')
       window.location.reload()
+
+    }).fail(function(){
+
+      // Feedback on unsuccesfull login
+      $("#loginForm").removeClass("has-success");
+      $("#loginForm").addClass("has-error");
+      $(".loginFeedbackFail").show();
+      $(".loginFeedbackSuccess").hide();
     });
   });
 
