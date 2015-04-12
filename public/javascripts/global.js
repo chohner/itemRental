@@ -93,6 +93,11 @@ window.onload = function() {
 
   //  USER STUFF ======================================================
 
+  // Focus username field on login modal open
+  $('#loginModal').on('shown.bs.modal', function () {
+    $('#loginIDForm').focus();
+  })
+  
   // Login handle
   $('#performLogin').click(function(){
     console.log($('#loginIDForm').text())
