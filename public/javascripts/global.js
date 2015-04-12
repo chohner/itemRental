@@ -86,17 +86,23 @@ window.onload = function() {
     }
   } );
 
-  // Make navbar textfield filter the table
-  $('#searchBar').on( 'keyup', function () {
-    itemTableList.search( this.value ).draw();
-  } );
+  // Searchbar behaviour
+  $('#searchBar').on( 'keyup', function (e) {
 
-  // Searchbar clearer
-  $(".hasclear").keyup(function () {
     var t = $(this);
+
+    // Show clearer when no content
     t.next('span').toggle(Boolean(t.val()));
+
+    // On esc we clear the searchbar, otherwise search
+    if (e.keyCode == 27) {
+      $('.clearer').click();
+    } else {
+      itemTableList.search( t.val() ).draw();
+    }
   });
 
+  // decide clearer visibility on pageload
   $(".clearer").hide($(this).prev('input').val());
 
   // clearer onClick: delete searchbar content,show all items, hide clearer
