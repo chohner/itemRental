@@ -1,6 +1,7 @@
 window.onload = function() {
 
-  var curUser = {username : 'hohnerlein.christoph'};
+  // TODO: pass curUser from server to client
+  //var curUser = {username : 'hohnerlein.christoph'};
 
   //  MAIN TABLE ======================================================
 
