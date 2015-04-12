@@ -8,16 +8,5 @@ block navbar
             .form-group.has-feedback(style='width:100%')
               input#search-textbox.form-control.hasclear(type='text', autocomplete='off', placeholder='Search', style='width:100%')
               span#search-clearer.clearer.glyphicon.glyphicon-remove-circle.form-control-feedback
-              select#search-type.hidden
-                option(value='all') All
-              input#search-button.hidden(type='button', value='Search')
         #account-info.navbar-text.navbar-right(style='width:auto;')
           include account.jade
-          //#greeting.pull-right You are currently not logged in.
-          //br
-          //#loginButton.pull-right
-          //  a(data-toggle='modal', href='#', data-target='#loginModal') Log in
-          //#accountButton.pull-left
-            a#accountButton(href='#tab-account', role='tab', data-toggle='tab') View account
-          //#logoutButton.pull-right
-            a(href='logout') Log out
