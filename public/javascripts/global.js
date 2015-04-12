@@ -97,10 +97,13 @@ window.onload = function() {
   $('#loginModal').on('shown.bs.modal', function () {
     $('#loginIDForm').focus();
   })
-  
+
   // Login handle
-  $('#performLogin').click(function(){
-    console.log($('#loginIDForm').text())
+  $('#loginForm').submit(function(){
+    
+    // prevent default browser behaviour
+    event.preventDefault();
+
     $.post('login',
       { username : $('#loginIDForm').val()}, 
     function(returnedData){
