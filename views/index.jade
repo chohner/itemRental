@@ -32,10 +32,8 @@ html
     
     //- CONTENT
     .container-fluid
-      #main-content.tab-content
-        #tab-search.tab-pane.fade.in.active
-          //- SEARCH CONTENT
-          
+      .row
+        .col-xs-10.col-xs-offset-1
           table.table.table-condensed.table-hover(id='itemTable')
               thead
                 tr
@@ -46,13 +44,5 @@ html
                   th.col-md-1.noselect.handcursor Condition
                   th.col-md-1.noselect.handcursor 
 
-        #tab-account.tab-pane.fade
-          .container
-            .row
-              .cols-xs-12
-                #borrowedTable
-                p To return any of the borrowed items, simply put it in the RÜCKGABE
-                | box in Room Pinta. If the equipment is faulty, please instead put
-                | it into the <i>broken stuff</i> box and attach a note describing the fault.
   //- MODALS
   include modals.jade
