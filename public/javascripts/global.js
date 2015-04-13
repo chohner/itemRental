@@ -121,8 +121,7 @@ window.onload = function() {
 
   // Login handle
   $('#loginForm').submit(function(){
-    
-    // prevent default browser behaviour
+    // prevent default reload
     event.preventDefault();
 
     $.post('login',{
@@ -137,8 +136,10 @@ window.onload = function() {
       $(".loginFeedbackSuccess").show();
 
       // Close modal and reload main page
-      $('#loginModal').modal('hide')
-      window.location.reload()
+      window.setTimeout(function() { 
+        $('#loginModal').modal('hide');
+        window.location.reload();
+      }, 300);
 
     }).fail(function(){
 
