@@ -69,5 +69,17 @@ block modals
                 span.glyphicon.glyphicon-remove.form-control-feedback.loginFeedbackFail.collapse
                 span.glyphicon.glyphicon-ok.form-control-feedback.loginFeedbackSuccess.collapse
               input#performLogin.btn.btn-lg.btn-primary.btn-block(value='Submit', type='submit')
-          .modal-footer
-            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+
+  // Admin Modal
+  #adminModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myAdminLabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#myAdminLabel.modal-title Admin
+        .modal-body
+          include admin.jade
