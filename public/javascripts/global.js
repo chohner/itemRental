@@ -132,22 +132,22 @@ window.onload = function() {
       $("#loginForm").addClass("has-success");
       $("#loginForm").removeClass("has-error");
 
-      $(".loginFeedbackFail").hide();
-      $(".loginFeedbackSuccess").show();
+      $(".loginFeedbackFail").fadeOut();
+      $(".loginFeedbackSuccess").fadeIn();
 
       // Close modal and reload main page
       window.setTimeout(function() { 
         $('#loginModal').modal('hide');
         window.location.reload();
-      }, 300);
+      }, 400);
 
     }).fail(function(){
 
       // Feedback on unsuccesfull login
       $("#loginForm").removeClass("has-success");
       $("#loginForm").addClass("has-error");
-      $(".loginFeedbackFail").show();
-      $(".loginFeedbackSuccess").hide();
+      $(".loginFeedbackSuccess").fadeOut();
+      $(".loginFeedbackFail").fadeIn();
     });
   });
 
