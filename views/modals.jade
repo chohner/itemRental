@@ -83,6 +83,8 @@ block modals
           h4#myAdminLabel.modal-title Admin
         .modal-body
           include admin.jade
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Ok
 
   // User Modal
   #userModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myUserLabel', aria-hidden='true')
