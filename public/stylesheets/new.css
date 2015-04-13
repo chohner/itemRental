@@ -27,10 +27,11 @@ body {
 	box-shadow: none !important;
 }
 
+/*
 .my-navtab {
 	height: 56px;
-	/*background: -moz-linear-gradient(top,  #ececec 0%, #9b9b9b 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#9b9b9b));*/
+	background: -moz-linear-gradient(top,  #ececec 0%, #9b9b9b 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#9b9b9b));
 }
 
 .my-navtab.active {
@@ -76,6 +77,7 @@ body {
 	background: #FFF !important;
 	border-bottom: 0px solid #FF3399 !important;
 }
+*/
 
 #search-clearer{
 	pointer-events: auto;
