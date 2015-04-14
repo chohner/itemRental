@@ -10,30 +10,35 @@ router.get('/listAll', function(req, res) {
 
 
 router.post('/create', function(req, res) {
-  models.Item.findOrCreate({
-    where: {
-      label: req.body.label,
-      name: req.body.name,
-      description: req.body.description,
-      category: req.body.category,
-      url: req.body.url,
-      location: req.body.location,
-      status: req.body.status,
-      condition: req.body.condition,
-      comment: req.body.comment
-    },
-    defaults: {
-      status: 'available',
-      condition: 'working'
-    }
-  })
-  .spread(function(item, created) {
-    console.log(item.get({
-      plain: true
-    }))
-    console.log(created)
-  })
-  res.redirect('./');
+  if ( req.session.user && req.session.user.role == 'admin'){
+    models.Item.findOrCreate({
+      where: {
+        label: req.body.label,
+        name: req.body.name,
+        description: req.body.description,
+        category: req.body.category,
+        url: req.body.url,
+        location: req.body.location,
+        status: req.body.status,
+        condition: req.body.condition,
+        comment: req.body.comment
+      },
+      defaults: {
+        status: 'available',
+        condition: 'working'
+      }
+    })
+    .spread(function(item, created) {
+      console.log(item.get({
+        plain: true
+      }))
+      console.log(created)
+    })
+    res.redirect('./');
+  }
+  else {
+    res.status(401).end();
+  }
 });
 
 
