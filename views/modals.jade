@@ -1,5 +1,5 @@
 block modals
-  // Location Modal
+  //- Location Modal
   #locationModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLocationLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -14,7 +14,7 @@ block modals
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
 
-  // Borrow Modal
+  //- Borrow Modal
   #borrowModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myBorrowLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -44,7 +44,7 @@ block modals
           button.btn.btn-default(type='button', data-dismiss='modal') Cancel
           button#checkoutButton.btn.btn-primary(type='button') Check Out Item
 
-  // Login Modal
+  //- Login Modal
   #loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLoginLabel', aria-hidden='true')
     .modal-dialog.modal-sm
       .modal-content
@@ -72,7 +72,7 @@ block modals
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Cancel
 
-  // Admin Modal
+  //- Admin Modal
   if curUser && curUser.role == 'Admin'
     #adminModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myAdminLabel', aria-hidden='true')
       .modal-dialog.modal-lg
@@ -87,7 +87,7 @@ block modals
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Ok
 
-  // User Modal
+  //- User Modal
   #userModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myUserLabel', aria-hidden='true')
     .modal-dialog.modal-lg
       .modal-content
