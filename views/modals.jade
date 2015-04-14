@@ -73,18 +73,19 @@ block modals
           button.btn.btn-default(type='button', data-dismiss='modal') Cancel
 
   // Admin Modal
-  #adminModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myAdminLabel', aria-hidden='true')
-    .modal-dialog.modal-lg
-      .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal')
-            span(aria-hidden='true') &times;
-            span.sr-only Close
-          h4#myAdminLabel.modal-title Admin Dashboard
-        .modal-body
-          include admin.jade
-        .modal-footer
-          button.btn.btn-default(type='button', data-dismiss='modal') Ok
+  if curUser && curUser.role == 'Admin'
+    #adminModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myAdminLabel', aria-hidden='true')
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') &times;
+              span.sr-only Close
+            h4#myAdminLabel.modal-title Admin Dashboard
+          .modal-body
+            include admin.jade
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Ok
 
   // User Modal
   #userModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myUserLabel', aria-hidden='true')

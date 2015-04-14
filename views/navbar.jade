@@ -15,7 +15,8 @@
     #greeting.pull-right Welcome 
       a(href='#userModal', data-toggle="modal" data-target='#userModal') #{curUser.firstname} #{curUser.lastname}
     br
-    #adminButton.pull-left
+    if curUser.role == 'Admin'
+      #adminButton.pull-left
       a(href='#adminModal', data-toggle="modal" data-target="#adminModal") View Admin
     #logoutButton.pull-right
       a(href='logout') Log out
