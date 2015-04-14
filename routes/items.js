@@ -2,7 +2,7 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
-router.get('/listAll', function(req, res) {
+router.get('/', function(req, res) {
   // TODO: restrict some info if not logged in
   
   models.Item.findAll().then(function(items){
