@@ -3,6 +3,8 @@ var express = require('express');
 var router  = express.Router();
 
 router.get('/listAll', function(req, res) {
+  // TODO: restrict some info if not logged in
+  
   models.Item.findAll().then(function(items){
     res.json({'items': items});
   });
@@ -41,10 +43,10 @@ router.post('/create', function(req, res) {
 });
 
 
-// createItems Bulk POST
 // receives stringified JSON array of objects
-// TODO check format of input
 router.post('/createBulk', function(req, res) {
+  // TODO check format of input
+
   if ( req.session.user && req.session.user.role == 'admin'){
     bulkData = req.body;
     models.Item.bulkCreate(
@@ -62,9 +64,11 @@ router.post('/createBulk', function(req, res) {
 
 // Checkout route: send username and item label to borrow item
 router.post('/checkout', function(req,res) {
-  
+  // TODO: add :item/checkout route
   // TODO: check if already borrowed (if same user -> confirm, else -> error)
-  // TODO: handle missing item/user error
+  // TODO: stop if item doesnt exist
+  // TODO: use req.session.user.username as default
+
   if ( req.session.user ){
     models.Item.find({
       where: {label: req.body.label}
