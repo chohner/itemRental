@@ -35,8 +35,7 @@ router.post('/create', function(req, res) {
       console.log(created)
     })
     res.redirect('./');
-  }
-  else {
+  } else {
     res.status(401).end();
   }
 });
@@ -46,14 +45,18 @@ router.post('/create', function(req, res) {
 // receives stringified JSON array of objects
 // TODO check format of input
 router.post('/createItemsBulk', function(req, res) {
-  bulkData = req.body;
-  models.Item.bulkCreate(
-    bulkData
-  ).then(function(){
-    models.Item.findAll().then(function(items){
-      res.send(items);
-    })
-  });
+  if ( req.session.user && req.session.user.role == 'admin'){
+    bulkData = req.body;
+    models.Item.bulkCreate(
+      bulkData
+    ).then(function(){
+      models.Item.findAll().then(function(items){
+        res.send(items);
+      })
+    });
+  } else {
+    res.status(401).end();
+  }
 });
 
 
@@ -62,19 +65,22 @@ router.post('/borrowItem', function(req,res) {
   
   // TODO: check if already borrowed (if same user -> confirm, else -> error)
   // TODO: handle missing item/user error
-
-  models.Item.find({
-    where: {label: req.body.label}
-  }).then(function(borrowItem){
-    models.User.find({
-      where: {username: req.body.username}
-    }).then(function(borrowUser){
-      // borrowItem is item to be checked out
-      // borrowUser is user that is checking out
-      borrowItem.setUser(borrowUser.id);
-      res.send(borrowItem)
+  if ( req.session.user ){
+    models.Item.find({
+      where: {label: req.body.label}
+    }).then(function(borrowItem){
+      models.User.find({
+        where: {username: req.body.username}
+      }).then(function(borrowUser){
+        // borrowItem is item to be checked out
+        // borrowUser is user that is checking out
+        borrowItem.setUser(borrowUser.id);
+        res.send(borrowItem)
+      })
     })
-  });
+  } else {
+    res.status(401).end();
+  }
 });
 
 // Check Item route, returns Item details from label
