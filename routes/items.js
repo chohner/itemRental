@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
   });
 });
 
-
+// only label should be matched, the rest ignored or overwritten, so we can use this to update
 router.post('/create', function(req, res) {
   if ( req.session.user && req.session.user.role == 'admin'){
     models.Item.findOrCreate({
