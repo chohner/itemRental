@@ -9,7 +9,7 @@ router.get('/listAll', function(req, res) {
 });
 
 
-router.post('/createItem', function(req, res) {
+router.post('/create', function(req, res) {
   models.Item.findOrCreate({
     where: {
       label: req.body.label,
