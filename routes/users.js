@@ -17,18 +17,22 @@ router.post('/create', function(req, res) {
   // TODO: check if user with username exists
   // TODO: dont use param and .success
   if ( req.session.user && req.session.user.role == 'admin'){
-    models.User.create({
-      username: req.param('username'),
-      firstname: req.param('firstname'),
-      lastname: req.param('lastname'),
-      email: req.param('email'),
-      role: req.param('role'),
-      active: req.param('active'),
-    }).success(function(title) {
-      res.redirect('./');
-    }).error(function(error){
-      console.log(error);
-      res.redirect('./');
+    models.Users.findOrCreate({
+      where: {username: req.body.username},
+      defaults:  {firstname: req.body.firstname,
+                  lastname: req.body.lastname,
+                  email: req.body.email,
+                  role: req.body.role,
+                  active: req.body.active
+                }
+    }).spread(function(user, created){
+      if (created) {
+        console.log(user.get({plain: true}))
+        console.log(created)
+        res.status(200).end();
+      } else {
+        res.status(409).end();
+      }
     })
   } else {
     res.status(401).end();
