@@ -3,34 +3,51 @@ var express = require('express');
 var router  = express.Router();
 
 
-router.post('/:user_id/tasks/create', function (req, res) {
-  models.User.find({
-    where: { id: req.param('user_id') }
-  }).success(function(user) {
-    models.Task.create({
-      title: req.param('title')
-    }).success(function(title) {
-      title.setUser(user).success(function() {
-        res.redirect('/');
-      });
-    });
+router.get('/listUsers', function(req, res) {
+  models.User.findAll().then(function(users){
+    res.json({'users': users});
   });
 });
 
-router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
+
+router.post('/createUser', function(req, res) {
+  // TODO: check if user with username exists
+  // TODO: dont use param and .success
+  models.User.create({
+    username: req.param('username'),
+    firstname: req.param('firstname'),
+    lastname: req.param('lastname'),
+    email: req.param('email'),
+    role: req.param('role'),
+    active: req.param('active'),
+  }).success(function(title) {
+    res.redirect('./');
+  }).error(function(error){
+    console.log(error);
+    res.redirect('./');
+  })
+});
+
+// Check User route, returns user details
+router.post('/checkUser', function(req,res) {
   models.User.find({
-    where: { id: req.param('user_id') }
-  }).success(function(user) {
-    models.Task.find({
-      where: { id: req.param('task_id') }
-    }).success(function(task) {
-      task.setUser(null).success(function() {
-        task.destroy().success(function() {
-          res.redirect('/');
-        });
-      });
-    });
-  });
+    where: {username: req.body.username}
+    //include: [ models.Item ]
+  }).then(function(myUser){
+    res.send(myUser);
+  })
+});
+
+// checkUserItems Route, returns all borrowed items from username
+router.post('/checkUserItems', function(req,res) {
+  models.User.find({
+    where: {username: req.body.username}
+    //include: [ models.Item ]
+  }).then(function(myUser){
+    myUser.getItems().then(function(associatedItems) {
+      res.send(associatedItems)
+    })
+  })
 });
 
 
