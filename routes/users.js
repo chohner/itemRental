@@ -2,15 +2,16 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
+router.get('/', function(req, res) {
+  // TODO: restrict some info if not logged in
 
-router.get('/listUsers', function(req, res) {
   models.User.findAll().then(function(users){
     res.json({'users': users});
   });
 });
 
 
-router.post('/createUser', function(req, res) {
+router.post('/create', function(req, res) {
   // TODO: check if user with username exists
   // TODO: dont use param and .success
   models.User.create({
@@ -29,7 +30,7 @@ router.post('/createUser', function(req, res) {
 });
 
 // Check User route, returns user details
-router.post('/checkUser', function(req,res) {
+router.post('/check', function(req,res) {
   models.User.find({
     where: {username: req.body.username}
     //include: [ models.Item ]
@@ -39,7 +40,7 @@ router.post('/checkUser', function(req,res) {
 });
 
 // checkUserItems Route, returns all borrowed items from username
-router.post('/checkUserItems', function(req,res) {
+router.post('/checkItems', function(req,res) {
   models.User.find({
     where: {username: req.body.username}
     //include: [ models.Item ]
@@ -49,6 +50,5 @@ router.post('/checkUserItems', function(req,res) {
     })
   })
 });
-
 
 module.exports = router;
