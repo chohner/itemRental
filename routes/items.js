@@ -2,7 +2,7 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
-router.get('/listItems', function(req, res) {
+router.get('/listAll', function(req, res) {
   models.Item.findAll().then(function(items){
     res.json({'items': items});
   });
