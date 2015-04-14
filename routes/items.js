@@ -4,7 +4,7 @@ var router  = express.Router();
 
 router.get('/', function(req, res) {
   // TODO: restrict some info if not logged in
-  
+
   models.Item.findAll().then(function(items){
     res.json({'items': items});
   });
@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 
 // only label should be matched, the rest ignored or overwritten, so we can use this to update
 router.post('/create', function(req, res) {
-  if ( req.session.user && req.session.user.role == 'admin'){
+  if ( req.session.user && req.session.user.role == 'Admin'){
     models.Item.findOrCreate({
       where: {
         label: req.body.label,
@@ -47,7 +47,7 @@ router.post('/create', function(req, res) {
 router.post('/createBulk', function(req, res) {
   // TODO check format of input
 
-  if ( req.session.user && req.session.user.role == 'admin'){
+  if ( req.session.user && req.session.user.role == 'Admin'){
     bulkData = req.body;
     models.Item.bulkCreate(
       bulkData

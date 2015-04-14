@@ -3,7 +3,7 @@ var express = require('express');
 var router  = express.Router();
 
 router.get('/', function(req, res) {
-  if ( req.session.user && req.session.user.role == 'admin'){
+  if ( req.session.user && req.session.user.role == 'Admin'){
     models.User.findAll().then(function(users){
       res.json({'users': users});
     })
@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 router.post('/create', function(req, res) {
   // TODO: check if user with username exists
   // TODO: dont use param and .success
-  if ( req.session.user && req.session.user.role == 'admin'){
+  if ( req.session.user && req.session.user.role == 'Admin'){
     models.Users.findOrCreate({
       where: {username: req.body.username},
       defaults:  {firstname: req.body.firstname,
@@ -42,7 +42,7 @@ router.post('/create', function(req, res) {
 // Check route: Admin can check all users, everyone else just themselves, if theyre logged in
 // TODO: enable /:user/check
 router.post('/check', function(req,res) {
-  if ( req.session.user && req.session.user.role == 'admin'){
+  if ( req.session.user && req.session.user.role == 'Admin'){
     models.User.find({
       where: {username: req.body.username}
     }).then(function(myUser){
@@ -62,7 +62,7 @@ router.post('/check', function(req,res) {
 // TODO: Check items of user. Admin can check everyone, everyone else just themselves, if theyre logged in
 // TODO: enable /:user/checkItems
 router.post('/checkItems', function(req,res) {
-  if ( req.session.user && req.session.user.role == 'admin'){
+  if ( req.session.user && req.session.user.role == 'Admin'){
   } else if (req.session.user){
   } else {
     res.status(401).end();
