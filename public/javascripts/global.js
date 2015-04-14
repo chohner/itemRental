@@ -19,7 +19,7 @@ window.onload = function() {
 
     // Data source: ajax call to /listItems, where 'items' object is passed
     ajax:  {
-      url: '/listItems',
+      url: '/items/',
       dataSrc: 'items'
     },
 
@@ -55,7 +55,7 @@ window.onload = function() {
   // TODO error handling
   $('#checkoutButton').click( function(){
     // POST the username and label to borrowItem API
-    $.post('borrowItem',
+    $.post('items/borrow',
       { label: $('#borrowLabel').text(),
         username : curUser.username}, 
     function(returnedData){
@@ -281,7 +281,7 @@ window.onload = function() {
     // POST the stringified array of objects to createItemsBulk
     // contentType important for parsing
     $.ajax({
-      url: '/createItemsBulk',
+      url: 'items/createBulk',
       type: 'POST',
       data: JSON.stringify(parsedDataArray),
       processData: false,

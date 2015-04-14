@@ -19,7 +19,7 @@
           .panel-heading 
             h5.panel-title Add single item
           .panel-body
-            form(action='/createItem',method='post',id='addItemForm')
+            form(action='items/create',method='post',id='addItemForm')
               table#search-results-table.table.table-condensed.table-striped
                 thead
                   tr
@@ -116,7 +116,7 @@
           .panel-heading 
             h5.panel-title Add new user
           .panel-body
-            form(action='/createUser',method='post',id='addUserForm')
+            form(action='users/create',method='post',id='addUserForm')
               table.table.table-striped.table-condensed
                 tbody
                   tr
