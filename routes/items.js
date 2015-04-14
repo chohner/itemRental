@@ -44,7 +44,7 @@ router.post('/create', function(req, res) {
 // createItems Bulk POST
 // receives stringified JSON array of objects
 // TODO check format of input
-router.post('/createItemsBulk', function(req, res) {
+router.post('/createBulk', function(req, res) {
   if ( req.session.user && req.session.user.role == 'admin'){
     bulkData = req.body;
     models.Item.bulkCreate(
@@ -60,8 +60,8 @@ router.post('/createItemsBulk', function(req, res) {
 });
 
 
-// Borrow Item route: send username and item label to borrow item
-router.post('/borrowItem', function(req,res) {
+// Checkout route: send username and item label to borrow item
+router.post('/checkout', function(req,res) {
   
   // TODO: check if already borrowed (if same user -> confirm, else -> error)
   // TODO: handle missing item/user error
@@ -84,7 +84,7 @@ router.post('/borrowItem', function(req,res) {
 });
 
 // Check Item route, returns Item details from label
-router.post('/checkItem', function(req,res) {
+router.post('/check', function(req,res) {
   models.Item.find({
     where: {label: req.body.label}
   }).then(function(Item){
