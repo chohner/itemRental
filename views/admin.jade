@@ -2,14 +2,14 @@
   .panel-heading(style='padding: 5px 5px 0 5px')
     ul.nav.nav-tabs.nav-justified(style='border-bottom: none;margin-bottom: -1px')
       li.active
-        a(href='#addItems',data-toggle='tab') Items
+        a(href='#itemTab',data-toggle='tab') Items
       li
-        a(href='#listUsers',data-toggle='tab') Users
+        a(href='#userTab',data-toggle='tab') Users
       li
         a(href='#addCSV',data-toggle='tab') Add CSV Items
   .panel-body
     .tab-content
-      #addItems.tab-pane.fade.in.active
+      #itemTab.tab-pane.fade.in.active
         .panel.panel-default
           .panel-heading
             h5.panel-title Return item
@@ -83,7 +83,7 @@
                       textarea.form-control(rows='3', id='comment', placeholder='Bought 20.10.2014, repaired 24.11.2015', name='comment')
                       //input(id='comment' type='text' class='form-control' placeholder='- Bought 20.110.2014  -Repaired 24.11.2015' name='comment')
               button(type='submit', form='addItemForm').btn.btn-default Add Item
-      #listUsers.tab-pane.fade.in
+      #userTab.tab-pane.fade.in
         .panel.panel-default
           .panel-heading 
             h5.panel-title List of users
