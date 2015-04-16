@@ -72,23 +72,19 @@ router.delete('/:item_label', function(req,res) {
 
 // ## POST /items/checkout/:item_label - check out item with label
 
-// Checkout route: send username and item label to borrow item
 router.post('/checkout/:item_label', function(req,res) {
   // TODO: check if already borrowed (if same user -> confirm, else -> error)
   // TODO: stop if item doesnt exist
-  // TODO: use req.session.user.username as default
 
   if ( req.session.user ){
     models.Item.find({
       where: {label: req.params.item_label}
     }).then(function(borrowItem){
       models.User.find({
-        where: {username: req.body.username}
+        where: {username: req.session.user.username}
       }).then(function(borrowUser){
-        // borrowItem is item to be checked out
-        // borrowUser is user that is checking out
         borrowItem.setUser(borrowUser.id);
-        res.send(borrowItem)
+        res.status(200).end();
       })
     })
   } else {
