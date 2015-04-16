@@ -2,6 +2,7 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
+// ## GET /items/ - gets all items
 router.get('/', function(req, res) {
   // TODO: restrict some info if not logged in
 
@@ -10,8 +11,9 @@ router.get('/', function(req, res) {
   });
 });
 
+// ## POST /items/ - create item if new label
 // only label should be matched, the rest ignored or overwritten, so we can use this to update
-router.post('/create', function(req, res) {
+router.post('/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
     models.Item.findOrCreate({
       where: {
@@ -42,6 +44,7 @@ router.post('/create', function(req, res) {
   }
 });
 
+// ## POST /items/createBulk - create Bulk of items
 
 // receives stringified JSON array of objects
 router.post('/createBulk', function(req, res) {
@@ -61,6 +64,7 @@ router.post('/createBulk', function(req, res) {
   }
 });
 
+// ## POST /items/checkout/:item_label - check out item with label
 
 // Checkout route: send username and item label to borrow item
 router.post('/checkout', function(req,res) {
@@ -87,6 +91,8 @@ router.post('/checkout', function(req,res) {
   }
 });
 
+// ## GET /items/:item_label - get single item from label
+
 // Check Item route, returns Item details from label
 router.post('/check', function(req,res) {
   models.Item.find({
@@ -95,5 +101,11 @@ router.post('/check', function(req,res) {
     res.send(Item)
   })
 });
+
+// ## POST /items/:item_label - uodate single item from label
+
+
+// ## DELETE /items/:item_label - delete single item from label
+
 
 module.exports = router;
