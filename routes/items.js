@@ -92,6 +92,24 @@ router.post('/checkout/:item_label', function(req,res) {
   }
 });
 
+// ## POST /items/return/:item_label - return item with label and username
+
+router.post('/return/:item_label', function(req,res) {
+  // TODO: check if actually borrowed 
+  // TODO: stop if item doesnt exist
+
+  if ( req.session.user && req.session.user.role == 'Admin'){
+    models.Item.find({
+      where: {label: req.params.item_label}
+    }).then(function(borrowItem){
+      borrowItem.setUser([]);
+      res.status(200).end();
+    })
+  } else {
+    res.status(401).end();
+  }
+});
+
 // ## POST /items/createBulk - create Bulk of items
 
 // receives stringified JSON array of objects
