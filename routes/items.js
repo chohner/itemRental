@@ -93,17 +93,24 @@ router.post('/checkout/:item_label', function(req,res) {
 });
 
 // ## POST /items/return/:item_label - return item with label and username
-
+// Returns 200 if item exists and had a user, 404, if no user or item not found
 router.post('/return/:item_label', function(req,res) {
-  // TODO: check if actually borrowed 
-  // TODO: stop if item doesnt exist
-
   if ( req.session.user && req.session.user.role == 'Admin'){
     models.Item.find({
       where: {label: req.params.item_label}
     }).then(function(borrowItem){
-      borrowItem.setUser([]);
-      res.status(200).end();
+      if (borrowItem) {
+        borrowItem.getUser().then(function(oldUser){
+          if (oldUser) {
+            borrowItem.setUser(null);
+            res.status(200).send('User '+ oldUser.username +' was removed.');
+          } else {
+            res.status(404).send('Item was not borrowed');
+          }
+        });
+      } else {
+        res.status(404).send('Item not found');
+      }
     })
   } else {
     res.status(401).end();
