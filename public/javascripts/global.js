@@ -54,13 +54,10 @@ window.onload = function() {
   // checkoutButton click event
   // TODO error handling
   $('#checkoutButton').click( function(){
-    // POST the username and label to borrowItem API
-    $.post('items/borrow',
-      { label: $('#borrowLabel').text(),
-        username : curUser.username}, 
-    function(returnedData){
-         //console.log(returnedData);
-    }).done(function(){
+    // POST the label to checkout API
+    $.post(
+      'items/checkout/'+$('#borrowLabel').text()
+    ).done(function(){
       // Close modal and reload table once done
       $('#borrowModal').modal('hide')
       window.location.replace('/');
