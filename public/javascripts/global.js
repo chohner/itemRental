@@ -64,6 +64,23 @@ window.onload = function() {
     });
   })
 
+  // returnButton click event
+  // TODO error handling
+  $('#returnButton').click( function(){
+    // POST the label to return API
+    $.post(
+      'items/return/'+$('#returnItemForm').val()
+    ).done( function( response ) {
+      $('#returnResponse').html(response);
+      $('#returnItemGroup').removeClass('has-error');
+      $('#returnItemGroup').addClass('has-success');
+    }).fail( function(xhr, textStatus, errorThrown) {
+      $('#returnItemGroup').removeClass('has-success');
+      $('#returnItemGroup').addClass('has-error');
+      $('#returnResponse').html(xhr.responseText);
+    });
+  })
+
   // Add event listener for opening and closing details
   // TODO: select only row trs, to not try to expand details
   $('#itemTable > tbody').on('click', 'tr', function () {
