@@ -4,8 +4,6 @@ body {
 
 #top-bar {
 	background: #6C7479;
-	/*background: -moz-linear-gradient(top,  #ececec 0%, #9b9b9b 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#9b9b9b));*/
 	padding: 0;
 }
 
@@ -26,58 +24,6 @@ body {
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
 }
-
-/*
-.my-navtab {
-	height: 56px;
-	background: -moz-linear-gradient(top,  #ececec 0%, #9b9b9b 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#9b9b9b));
-}
-
-.my-navtab.active {
-	background: #FFF;
-}
-
-
-.my-navtab a {
-	border: 0 !important;
-	font-size: 17pt;
-	line-height: 56px;
-	color: #fff !important;
-	border-top: 2px solid #6C7479 !important;
-	border-bottom: 2px solid #6C7479 !important;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 0px;
-}
-
-.my-navtab.active a {
-	background: #FFF !important;
-	color: #FF3399 !important;
-	text-shadow: none !important;
-	border-top: 2px solid #6C7479 !important;
-	border-bottom: 2px solid white !important;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 0px;
-	border-radius: 0px !important;
-}
-
-.my-navtab a:hover {
-	color:#FF3399 !important;
-	text-shadow: none !important;
-	background: #FFF !important;
-	border-bottom: 2px solid #FF3399 !important;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 0px;
-	border-radius: 0px !important;
-}
-
-.my-navtab.active a:hover {
-	color:#FF3399 !important;
-	text-shadow: none !important;
-	background: #FFF !important;
-	border-bottom: 0px solid #FF3399 !important;
-}
-*/
 
 #search-clearer{
 	pointer-events: auto;
