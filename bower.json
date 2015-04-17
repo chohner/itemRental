@@ -17,11 +17,32 @@
     "tests"
   ],
   "dependencies": {
+    "jquery": "2.x.x",
     "bootstrap": "~3.x.x",
-    "list.fuzzysearch.js": "~0.x.x",
-    "list.js": "~1.x.x",
-    "list.pagination.js": "~0.x.x",
     "datatables": "~1.x.x",
-    "html5sortable": "*"
+    "html5sortable": "*",
+    "papaparse": "4.1.x"
+  },
+
+  "bowerMove": {
+    "jquery": {
+      "dist/jquery.min.js": "public/javascripts/"
+    },
+    "bootstrap": {
+      "dist/css/bootstrap.min.css": "public/stylesheets/",
+      "dist/fonts/*": "public/fonts/",
+      "dist/js/bootstrap.min.js": "public/javascripts/"
+    },
+    "datatables": {
+      "media/css/jquery.dataTables.min.css": "public/stylesheets/",
+      "media/images/*.png": "public/images/",
+      "media/js/jquery.dataTables.min.js": "public/javascripts/"
+    },
+    "html5sortable": {
+      "jquery.sortable.min.js": "public/javascripts/"
+    },
+    "papaparse": {
+      "papaparse.min.js": "public/javascripts/"
+    }
   }
 }
