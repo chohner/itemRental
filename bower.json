@@ -29,7 +29,8 @@
       "dist/jquery.min.js": "public/javascripts/"
     },
     "bootstrap": {
-      "dist/css/bootstrap.min.css": "public/stylesheets/",
+      "less/[!v]*.less" : "styles/",
+      "less/mixins/*.less": "styles/mixins/",
       "dist/fonts/*": "public/fonts/",
       "dist/js/bootstrap.min.js": "public/javascripts/"
     },
