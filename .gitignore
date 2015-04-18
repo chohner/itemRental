@@ -12,14 +12,13 @@ bower_components
 .bower-registry
 .bower-tmp
 
+### Custom ###
+data
+public/*
+!public/custom/
+.sqlite
+
 ### OSX ###
 .DS_Store
 .AppleDouble
 .LSOverride
-
-
-### Custom ###
-data
-public
-!/public/custom
-.sqlite
