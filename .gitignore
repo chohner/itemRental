@@ -1,0 +1,24 @@
+### Node ###
+# Logs
+logs
+*.log
+
+# Dependency directory
+node_modules
+
+### Bower ###
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+### Custom ###
+data
+public
+.sqlite
