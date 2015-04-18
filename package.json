@@ -9,14 +9,10 @@
     "body-parser": "1.x.x",
     "cookie-parser": "1.x.x",
     "express": "4.x.x",
+    "express-session": "^1.x.x",
+    "jade": "1.x.x",
     "morgan": "1.x.x",
     "sequelize": "2.x.x",
-    "jade": "1.x.x",
     "sqlite3": "3.x.x"
-  },
-  "devDependencies": {
-    "debug": "~2.x.x",
-    "gulp": "^3.x.x",
-    "gulp-jshint": "^1.x.x"
   }
 }
