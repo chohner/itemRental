@@ -40,16 +40,16 @@ window.onload = function() {
 
   // Borrow modal fetches data from row it was opened from
   $('#borrowModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
+    var button = $(event.relatedTarget); // Button that triggered the modal
     data = itemTableList.row( button.parents('tr') ).data(); // Data of tr
     // data now contains an item object
 
     // Update the modal's content
-    var modal = $(this)
-    modal.find('#borrowType').text(data.Category)
-    modal.find('#borrowTitle').text(data.Item)
-    modal.find('#borrowLabel').text(data.Label)
-  })
+    var modal = $(this);
+    modal.find('#borrowType').text(data.Category);
+    modal.find('#borrowTitle').text(data.Item);
+    modal.find('#borrowLabel').text(data.Label);
+  });
 
   // checkoutButton click event
   // TODO error handling
@@ -59,10 +59,10 @@ window.onload = function() {
       'items/checkout/'+$('#borrowLabel').text()
     ).done(function(){
       // Close modal and reload table once done
-      $('#borrowModal').modal('hide')
+      $('#borrowModal').modal('hide');
       window.location.replace('/');
     });
-  })
+  });
 
   // returnButton click event
   // TODO error handling
@@ -79,7 +79,7 @@ window.onload = function() {
       $('#returnItemGroup').addClass('has-error');
       $('#returnResponse').html(xhr.responseText);
     });
-  })
+  });
 
   // Add event listener for opening and closing details
   // TODO: select only row trs, to not try to expand details
@@ -131,7 +131,7 @@ window.onload = function() {
   // Focus username field on login modal open
   $('#loginModal').on('shown.bs.modal', function () {
     $('#loginIDForm').focus();
-  })
+  });
 
   // Login handle
   $('#loginForm').submit(function(){
@@ -247,7 +247,7 @@ window.onload = function() {
         } else {  // else, save as with an empty key
           item[''] = itemElement[idx];
         }
-      })
+      });
 
       // Append the ordered item to our myItems array
       myItems.push(item);
@@ -276,12 +276,12 @@ window.onload = function() {
     parsedTableList.clear().rows.add(myItems).draw();
 
     // We only show results if we have some
-    if(results.data != 0){
+    if(results.data !== 0){
       $('#parsedData').show();
     }
     else{
       $('#parsedData').hide();
-    };
+    }
   });
   
   // Write CSV to db
@@ -290,8 +290,8 @@ window.onload = function() {
     // Collect all rows of parsedTableList into one parsedDataArray
     parsedDataArray=[];
     parsedTableList.data().each(function(elem,key){
-      parsedDataArray.push(elem)
-    })
+      parsedDataArray.push(elem);
+    });
 
     // POST the stringified array of objects to createItemsBulk
     // contentType important for parsing
@@ -304,7 +304,7 @@ window.onload = function() {
       contentType: 'application/json; charset=UTF-8'
     }).done(function() {
       window.location.replace('/');
-    })
+    });
   });
 };
 
