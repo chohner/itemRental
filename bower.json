@@ -29,8 +29,8 @@
       "dist/jquery.min.js": "public/js/"
     },
     "bootstrap": {
-      "less/[!v]*.less" : "styles/",
-      "less/mixins/*.less": "styles/mixins/",
+      "less/[!v]*.less" : "src/bootstrap_style/",
+      "less/mixins/*.less": "src/bootstrap_style/mixins/",
       "dist/fonts/*": "public/fonts/",
       "dist/js/bootstrap.min.js": "public/js/"
     },
