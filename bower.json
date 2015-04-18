@@ -26,24 +26,24 @@
 
   "bowerMove": {
     "jquery": {
-      "dist/jquery.min.js": "public/javascripts/"
+      "dist/jquery.min.js": "public/js/"
     },
     "bootstrap": {
       "less/[!v]*.less" : "styles/",
       "less/mixins/*.less": "styles/mixins/",
       "dist/fonts/*": "public/fonts/",
-      "dist/js/bootstrap.min.js": "public/javascripts/"
+      "dist/js/bootstrap.min.js": "public/js/"
     },
     "datatables": {
-      "media/css/jquery.dataTables.min.css": "public/stylesheets/",
+      "media/css/jquery.dataTables.min.css": "public/css/",
       "media/images/*.png": "public/images/",
-      "media/js/jquery.dataTables.min.js": "public/javascripts/"
+      "media/js/jquery.dataTables.min.js": "public/js/"
     },
     "html5sortable": {
-      "jquery.sortable.min.js": "public/javascripts/"
+      "jquery.sortable.min.js": "public/js/"
     },
     "papaparse": {
-      "papaparse.min.js": "public/javascripts/"
+      "papaparse.min.js": "public/js/"
     }
   }
 }
