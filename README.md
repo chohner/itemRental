@@ -10,5 +10,5 @@
 ### Build the project
 1. run `npm init` from root directory
 2. run `bower-move --delete` from root directory
-3. run `lessc -x bootswatch.less > ../public/custom/bootstrap_flatly_custom.min.css` from `\styles`directory
-4. run `ls -1 | grep -E -v 'variables.less|bootswatch.less' | xargs rm -rf`
+3. run `lessc -x bootswatch.less > ../../public/custom/bootstrap_flatly_custom.min.css` from `\src\bootstrap_style`directory
+4. run `ls -1 | grep -E -v 'variables.less|bootswatch.less' | xargs rm -rf
