@@ -95,7 +95,7 @@ window.onload = function() {
       tr.removeClass('shown');
     }
     else {
-      row.child( format(row.data()) ).show();
+      row.child( expandDetails(row.data()) ).show();
       tr.addClass('shown');
     }
   } );
@@ -309,7 +309,7 @@ window.onload = function() {
 };
 
 // Formatting function for row details
-function format ( d ) {
+function expandDetails( d ) {
   // `d` is the original data object for the row
   return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
     '<tr>'+
