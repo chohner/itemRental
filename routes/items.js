@@ -103,13 +103,13 @@ router.post('/return/:item_label', function(req,res) {
         borrowItem.getUser().then(function(oldUser){
           if (oldUser) {
             borrowItem.setUser(null);
-            res.status(200).send('User '+ oldUser.username +' was removed.');
+            res.status(200).send('Success: Item was returned from '+ oldUser.username +'.');
           } else {
-            res.status(404).send('Item was not borrowed');
+            res.status(404).send('Error: Item was not borrowed.');
           }
         });
       } else {
-        res.status(404).send('Item not found');
+        res.status(404).send('Error: Item not found.');
       }
     })
   } else {
