@@ -39,7 +39,7 @@ router.post('/create', function(req, res) {
 
 // Check route: Admin can check all users (send username req), everyone else just themselves
 // TODO: enable /:user/check
-router.post('/check', function(req,res) {
+router.get('/check', function(req,res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
     if (req.body.username){
       models.User.find({
@@ -67,7 +67,7 @@ router.post('/check', function(req,res) {
 
 // TODO: Check items of user. Admin can check everyone (send username req), everyone else just themselves
 // TODO: enable /:user/checkItems
-router.post('/checkItems', function(req,res) {
+router.get('/checkItems', function(req,res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
     if (req.body.username){
       models.User.find({
