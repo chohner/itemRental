@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
     })
     res.redirect('./');
   } else {
-    res.status(401).end();
+    res.status(401).send('You are either not an Admin or not logged in.');
   }
 });
 
@@ -84,11 +84,11 @@ router.post('/checkout/:item_label', function(req,res) {
         where: {username: req.session.user.username}
       }).then(function(borrowUser){
         borrowItem.setUser(borrowUser.id);
-        res.status(200).end();
+        res.status(200).send('Item ' + req.params.item_label + ' (' + borrowItem.Item + ') was checked out by ' + req.session.user.username);
       })
     })
   } else {
-    res.status(401).end();
+    res.status(401).send('You need to be logged in to check out items.');
   }
 });
 
