@@ -24,22 +24,26 @@ block modals
             span.sr-only Close
           h4#myBorrowLabel.modal-title Borrow Item
         .modal-body
-          | You are borrowing the following item:
-          #borrowItem
-            table#borrowTable.table.table-condensed.table-striped.table-hover
-              thead
-                tr
-                  th.borrowTypeHead.col-xs-3 Type
-                  th.borrowItemHead Item
-                  th.borrowIDHead Label
-              tbody
-                tr
-                  td#borrowType
-                  td#borrowTitle
-                  td#borrowLabel
-          | Please check if the label is correct and hit 
-          strong Check Out Item
-          |  to complete check-out.
+          .container-fluid
+            .row You are borrowing the following item:
+            .row
+              table#borrowTable.table
+                thead
+                  tr
+                    th.col-xs-3 Type
+                    th.borrowItemHead Item
+                    th.borrowIDHead Label
+                tbody
+                  tr
+                    td#borrowType
+                    td#borrowTitle
+                    td#borrowLabel
+            .row
+              | Please check if the label is correct and hit 
+              strong Check Out Item
+              |  to complete check-out.
+            .row
+              #borrowFeedback
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Cancel
           button#checkoutButton.btn.btn-primary(type='button') Check Out Item
