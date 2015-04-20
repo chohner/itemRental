@@ -182,7 +182,7 @@ window.onload = function() {
   });
 
 
-  // Initialize DataTable for user
+  // Initialize DataTable for borrowed items
   var userTableList = $('#borrowedTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
     dom: 'lrt',
@@ -209,6 +209,31 @@ window.onload = function() {
   // Don't alert table errors (such as fetching items for user that is not logged-in)
   // They appear in the JS console instead
   $.fn.dataTable.ext.errMode = 'throw';
+
+  // Initialize DataTable for user list
+  var userTableList = $('#userListTable').DataTable({
+    // Data source: ajax call to /users/checkItems, where 'items' object is passed
+    dom: 'flrt',
+    ajax:  {
+      url: '/users/',
+      dataSrc: 'users'
+    },
+    paging: false,  // turn of paging
+    // Extract each column value from a different object variable
+    columns: [
+      { data: 'username' },
+      { data: 'firstname' },
+      { data: 'lastname' },
+      { data: 'email' },
+      { data: 'role' },
+      { data: 'active' }
+    ],
+    order: [[3, 'asc']], // Order by role
+    columnDefs: [{
+      targets: '_all',
+      defaultContent: ''
+    }] 
+  });
 
   //  CSV STUFF ======================================================
 
