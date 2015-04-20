@@ -70,6 +70,28 @@ router.delete('/:item_label', function(req,res) {
   })
 });
 
+// ## GET :item_label/owner - returns limited owner details of item
+router.get('/:item_label/owner', function(req, res) {
+  models.Item.find({
+    where: {label: req.params.item_label}
+  }).then(function(foundItem) {
+    if (foundItem !== null) {
+      foundItem.getUser().then(function(foundUser) {
+        if (foundUser !== null) {
+          res.json( { username: foundUser.username,
+                      firstname: foundUser.firstname,
+                      lastname: foundUser.lastname })
+        } else {
+          res.status(404).send('Error: Item has no associated User.');
+        }
+      })
+    }
+    else {
+      res.status(404).send('Error: Item not found.');
+    }
+  })
+});
+
 // ## POST /items/checkout/:item_label - check out item with label
 
 router.post('/checkout/:item_label', function(req,res) {
