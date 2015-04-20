@@ -30,11 +30,22 @@ window.onload = function() {
       { data: 'Label' },
       { data: 'Location' },
       { data: 'Condition' },
-      // Insert column full of checkout buttons that open the borrowModal
-      { data: null,
-        orderable: false,
-        'defaultContent' : '<button class="btn btn-default checkoutButton" data-toggle="modal" data-target="#borrowModal">Check out</button>'}
+      { data: 'UserId'}
     ],
+    columnDefs: [ {
+      targets: 5,
+      createdCell: function (td,cellData,rowData,row,col) {
+        if (cellData == null ){
+          $(td).html('<button class="btn btn-default checkoutButton btn-success" data-toggle="modal" data-target="#borrowModal">Check out</button>');
+        } else {
+          $.get( 'items/'+ rowData.Label +'/owner', function(data){
+            $(td).html('<a tabindex="0" class="btn btn-default btn-warning" data-toggle="popover" data-placement="top" data-trigger="focus" title="Item borrowed by:" data-content="'+data.firstname+' '+ data.lastname+'">Out</a>')
+            $('[data-toggle="popover"]').popover();
+            //$(td).html('<button class="btn btn-default checkoutButton btn-warning" data-toggle="modal">Item borrowed by: <br/>'+data.username + '</button>')
+          });
+        }
+      }
+    }],
     order: [[2, 'asc']] // Order by label
   });
 
