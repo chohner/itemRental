@@ -13,11 +13,11 @@ router.get('/', function(req, res) {
 });
 
 
-router.post('/create', function(req, res) {
+router.post('/', function(req, res) {
   // TODO: check if user with username exists
   // TODO: dont use param and .success
   if ( req.session.user && req.session.user.role == 'Admin'){
-    models.Users.findOrCreate({
+    models.User.findOrCreate({
       where: {username: req.body.username},
       defaults:  {firstname: req.body.firstname,
                   lastname: req.body.lastname,
