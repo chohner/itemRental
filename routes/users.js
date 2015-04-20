@@ -29,7 +29,7 @@ router.post('/create', function(req, res) {
       if (created) {
         res.status(200).send('Success: Created user:' + user.username);
       } else {
-        res.status(409).end('Error: user' + user.username' already exists.');
+        res.status(409).end('Error: user' + user.username +' already exists.');
       }
     })
   } else {
@@ -37,15 +37,23 @@ router.post('/create', function(req, res) {
   }
 });
 
-// Check route: Admin can check all users, everyone else just themselves, if theyre logged in
+// Check route: Admin can check all users (send username req), everyone else just themselves
 // TODO: enable /:user/check
 router.post('/check', function(req,res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
-    models.User.find({
-      where: {username: req.body.username}
-    }).then(function(myUser){
-      res.send(myUser);
-    })
+    if (req.body.username){
+      models.User.find({
+        where: {username: req.body.username}
+      }).then(function(myUser){
+        res.send(myUser);
+      })
+    } else {
+      models.User.find({
+        where: {username: req.session.user.username}
+      }).then(function(myUser){
+        res.send(myUser);
+      })
+    }
   } else if (req.session.user){
     models.User.find({
       where: {username: req.session.user.username}
