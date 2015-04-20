@@ -60,19 +60,24 @@ window.onload = function() {
     ).done(function(response){
       // Close modal and reload table once done
       $('#borrowResponse').html(response);
-      $('#borrowResponse').removeClass('has-error');
-      $('#borrowResponse').addClass('has-success');
+      $('#borrowResponse').addClass('alert-success');
 
       // Close modal and reload main page
       window.setTimeout(function() { 
         $('#borrowModal').modal('hide');
         window.location.reload();
-      }, 400);
+      }, 800);
     }).fail( function(xhr, textStatus, errorThrown) {
-      $('#borrowResponse').removeClass('has-success');
-      $('#borrowResponse').addClass('has-error');
       $('#borrowResponse').html(xhr.responseText);
+      $('#borrowResponse').addClass('alert-danger');
     });
+  });
+
+    // Reset #borrowModal on close
+  $('#borrowModal').on('hidden.bs.modal', function (event) {
+    $('#borrowResponse').removeClass('alert-danger');
+    $('#borrowResponse').removeClass('alert-success');
+    $('#borrowResponse').html('');
   });
 
   // returnButton click event
