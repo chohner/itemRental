@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
       res.json({'users': users});
     })
   } else {
-    res.status(401).end();
+    res.status(401).send('Error: You need to be logged in as Admin.');
   };
 });
 
@@ -27,15 +27,13 @@ router.post('/create', function(req, res) {
                 }
     }).spread(function(user, created){
       if (created) {
-        console.log(user.get({plain: true}))
-        console.log(created)
-        res.status(200).end();
+        res.status(200).send('Success: Created user:' + user.username);
       } else {
-        res.status(409).end();
+        res.status(409).end('Error: user' + user.username' already exists.');
       }
     })
   } else {
-    res.status(401).end();
+    res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
 
@@ -55,7 +53,7 @@ router.post('/check', function(req,res) {
       res.send(myUser);
     })
   } else {
-    res.status(401).end();
+    res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
 
@@ -65,7 +63,7 @@ router.post('/checkItems', function(req,res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
   } else if (req.session.user){
   } else {
-    res.status(401).end();
+    res.status(401).send('Error: You need to be logged.');
   }
 });
 

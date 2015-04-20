@@ -113,7 +113,7 @@ router.post('/return/:item_label', function(req,res) {
       }
     })
   } else {
-    res.status(401).end();
+    res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
 
