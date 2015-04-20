@@ -8,14 +8,14 @@ window.onload = function() {
   var itemTableList = $('#itemTable').DataTable({
 
     // DOM control of table:
-    // l - length changing input control
-    // f - filtering input (disabled)
-    // t - The table!
+    // l - length changing input control (disabled)
+    // f - filtering input (disabled, uses global searchfield)
+    // t - The table itself
     // i - Table information summary
     // p - pagination control
     // r - processing display element
 
-    dom: 'lrtip',
+    dom: 'rtip',
 
     // Data source: ajax call to /listItems, where 'items' object is passed
     ajax:  {
