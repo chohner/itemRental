@@ -206,6 +206,8 @@ window.onload = function() {
     }] 
   });
 
+  $.fn.dataTable.ext.errMode = 'throw';
+
   //  CSV STUFF ======================================================
 
   // TODO: redraw table, not reinitilise
