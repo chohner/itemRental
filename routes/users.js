@@ -45,20 +45,20 @@ router.post('/check', function(req,res) {
       models.User.find({
         where: {username: req.body.username}
       }).then(function(myUser){
-        res.send(myUser);
+        res.json({'user': myUser});
       })
     } else {
       models.User.find({
         where: {username: req.session.user.username}
       }).then(function(myUser){
-        res.send(myUser);
+        res.json({'user': myUser});
       })
     }
   } else if (req.session.user){
     models.User.find({
       where: {username: req.session.user.username}
     }).then(function(myUser){
-      res.send(myUser);
+      res.json({'user': myUser});
     })
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
@@ -74,7 +74,7 @@ router.post('/checkItems', function(req,res) {
         where: {username: req.body.username}
       }).then(function(myUser){
         myUser.getItems().then(function(foundItems){
-          res.send(foundItems);
+          res.json({'items': foundItems});
         });
       })
     } else {
@@ -82,7 +82,7 @@ router.post('/checkItems', function(req,res) {
         where: {username: req.session.user.username}
       }).then(function(myUser){
         myUser.getItems().then(function(foundItems){
-          res.send(foundItems);
+          res.json({'items': foundItems});
         });
       })
     }
@@ -91,7 +91,7 @@ router.post('/checkItems', function(req,res) {
       where: {username: req.session.user.username}
     }).then(function(myUser){
       myUser.getItems().then(function(foundItems){
-        res.send(foundItems);
+        res.json({'items': foundItems});
       });
     })
   } else {
