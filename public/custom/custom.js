@@ -57,10 +57,21 @@ window.onload = function() {
     // POST the label to checkout API
     $.post(
       'items/checkout/'+$('#borrowLabel').text()
-    ).done(function(){
+    ).done(function(response){
       // Close modal and reload table once done
-      $('#borrowModal').modal('hide');
-      window.location.replace('/');
+      $('#borrowResponse').html(response);
+      $('#borrowResponse').removeClass('has-error');
+      $('#borrowResponse').addClass('has-success');
+
+      // Close modal and reload main page
+      window.setTimeout(function() { 
+        $('#borrowModal').modal('hide');
+        window.location.reload();
+      }, 400);
+    }).fail( function(xhr, textStatus, errorThrown) {
+      $('#borrowResponse').removeClass('has-success');
+      $('#borrowResponse').addClass('has-error');
+      $('#borrowResponse').html(xhr.responseText);
     });
   });
 
