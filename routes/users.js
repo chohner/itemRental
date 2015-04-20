@@ -65,13 +65,37 @@ router.post('/check', function(req,res) {
   }
 });
 
-// TODO: Check items of user. Admin can check everyone, everyone else just themselves, if theyre logged in
+// TODO: Check items of user. Admin can check everyone (send username req), everyone else just themselves
 // TODO: enable /:user/checkItems
 router.post('/checkItems', function(req,res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
+    if (req.body.username){
+      models.User.find({
+        where: {username: req.body.username}
+      }).then(function(myUser){
+        myUser.getItems().then(function(foundItems){
+          res.send(foundItems);
+        });
+      })
+    } else {
+      models.User.find({
+        where: {username: req.session.user.username}
+      }).then(function(myUser){
+        myUser.getItems().then(function(foundItems){
+          res.send(foundItems);
+        });
+      })
+    }
   } else if (req.session.user){
+    models.User.find({
+      where: {username: req.session.user.username}
+    }).then(function(myUser){
+      myUser.getItems().then(function(foundItems){
+        res.send(foundItems);
+      });
+    })
   } else {
-    res.status(401).send('Error: You need to be logged.');
+    res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
 
