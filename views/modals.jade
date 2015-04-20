@@ -105,7 +105,14 @@ block modals
             .panel-heading 
               h5.panel-title Borrowed items
             .panel-body
-              #borrowedTable
+              table.table.table-condensed.table-hover(id='borrowedTable')
+                  thead
+                    tr
+                      th.col-md-2.noselect.handcursor Category
+                      th.col-md-5.noselect.handcursor Item
+                      th.col-md-1.noselect.handcursor ID
+                      th.col-md-2.noselect.handcursor Location
+                      th.col-md-1.noselect.handcursor Condition
           .panel.panel-default
             .panel-heading 
               h5.panel-title Return items
