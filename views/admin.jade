@@ -97,30 +97,15 @@
           .panel-heading 
             h5.panel-title List of users
           .panel-body
-        //- table.table.table-striped.table-condensed.table-hover
-        //-   thead
-        //-     tr
-        //-       th.col-md-2 Username
-        //-       th.col-md-2 First Name
-        //-       th.col-md-2 Last Name
-        //-       th.col-md-2 E-mail
-        //-       th.col-md-1 role
-        //-       th.col-md-1 active
-        //-     tbody
-        //-       each user in users
-        //-         tr
-        //-           td
-        //-             = user.username
-        //-           td
-        //-             = user.firstname
-        //-           td
-        //-             = user.lastname
-        //-           td
-        //-             =user.email
-        //-           td
-        //-             =user.role
-        //-           td
-        //-             =user.active
+            table.table.table-striped.table-condensed#userListTable
+              thead
+                tr
+                  th Username
+                  th First Name
+                  th Last Name
+                  th E-mail
+                  th Role
+                  th Active
         .panel.panel-default
           .panel-heading 
             h5.panel-title Add new user
