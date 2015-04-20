@@ -26,7 +26,8 @@
 
   "bowerMove": {
     "jquery": {
-      "dist/jquery.min.js": "public/js/"
+      "dist/jquery.min.js": "public/js/",
+      "dist/jquery.min.map": "public/js/"
     },
     "bootstrap": {
       "less/[!v]*.less" : "src/bootstrap_style/",
