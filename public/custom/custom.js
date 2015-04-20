@@ -206,6 +206,8 @@ window.onload = function() {
     }] 
   });
 
+  // Don't alert table errors (such as fetching items for user that is not logged-in)
+  // They appear in the JS console instead
   $.fn.dataTable.ext.errMode = 'throw';
 
   //  CSV STUFF ======================================================
