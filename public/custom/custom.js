@@ -184,9 +184,10 @@ window.onload = function() {
 
   // Initialize DataTable for user
   var userTableList = $('#borrowedTable').DataTable({
-    // Data source: ajax call to /listItems, where 'items' object is passed
+    // Data source: ajax call to /users/checkItems, where 'items' object is passed
+    dom: 'lrt',
     ajax:  {
-      url: '/checkUserItems',
+      url: '/users/checkItems',
       dataSrc: 'items'
     },
     paging: false,  // turn of paging
