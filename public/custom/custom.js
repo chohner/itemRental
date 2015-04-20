@@ -246,6 +246,37 @@ window.onload = function() {
     }] 
   });
 
+  // addUserButton click event
+  // TODO error handling
+  $('#addUserButton').click( function(e){
+    e.preventDefault();
+    // POST the user to users API
+    $.post(
+      'users',
+      {
+        username: $('#newUsername').val(),
+        firstname: $('#newFirstname').val(),
+        lastname: $('#newLastname').val(),
+        email: $('#newEmail').val(),
+        role: $('#newRole').val(),
+        active: $('#newActive').val()
+      }
+    ).done(function(response){
+      // Close modal and reload table once done
+      // $('#borrowResponse').html(response);
+      // $('#borrowResponse').addClass('alert-success');
+
+      // Close modal and reload main page
+      // window.setTimeout(function() { 
+      //   $('#borrowModal').modal('hide');
+      //   window.location.reload();
+      // }, 800);
+    }).fail( function(xhr, textStatus, errorThrown) {
+      // $('#borrowResponse').html(xhr.responseText);
+      // $('#borrowResponse').addClass('alert-danger');
+    });
+  });
+
   //  CSV STUFF ======================================================
 
   // TODO: redraw table, not reinitilise
