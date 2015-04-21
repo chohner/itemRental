@@ -92,6 +92,7 @@ window.onload = function() {
   });
 
   // returnButton click event
+  // TODO: redraw table (worst case: reload)
   // TODO error handling
   $('#returnButton').click( function(){
     // POST the label to return API
