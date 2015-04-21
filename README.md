@@ -3,7 +3,7 @@
 ## Deployment
 
 ### Install core
-1. Have node and npm installed (Either as a (binary install)[https://nodejs.org/download/] or (from a package manager)[https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager])
+1. Have node and npm installed (Either as a [binary install](https://nodejs.org/download/) or from a [package manager](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
 2. Install less: `npm install -g less
 3. Install bower-move: `npm install -g bower-move
 
