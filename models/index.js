@@ -9,7 +9,7 @@ var env       = process.env.NODE_ENV || "development";
 var sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   pool: { max: 5, min: 0, idle: 10000},
-  storage: 'db.sqlite'
+  storage:   (path.join(__dirname, '..', 'db.sqlite'))
 });
 var db        = {};
 
