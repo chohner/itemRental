@@ -240,7 +240,7 @@ window.onload = function() {
       { data: 'role' },
       { data: 'active' }
     ],
-    order: [[3, 'asc']], // Order by role
+    order: [[4, 'asc'], [0, 'asc']], // Order by role, then by username
     columnDefs: [{
       targets: '_all',
       defaultContent: ''
