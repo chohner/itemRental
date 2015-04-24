@@ -63,7 +63,6 @@ window.onload = function() {
   });
 
   // checkoutButton click event
-  // TODO error handling
   $('#checkoutButton').click( function(){
     // POST the label to checkout API
     $.post(
@@ -81,6 +80,7 @@ window.onload = function() {
     }).fail( function(xhr, textStatus, errorThrown) {
       $('#borrowResponse').html(xhr.responseText);
       $('#borrowResponse').addClass('alert-danger');
+      $('#borrowResponse').append(' Want to <a data-toggle="modal", href="#", data-target="#loginModal", style="color: white; text-decoration: underline;")> log in</a>?')
     });
   });
 
