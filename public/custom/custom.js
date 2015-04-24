@@ -22,17 +22,18 @@ window.onload = function() {
 
     // Extract each column value from a different object variable
     columns: [
-      { data: 'Category' },
-      { data: 'Item' },
-      { data: 'Label' },
-      { data: 'Location' },
-      { data: 'Condition' },
+      { className: "expandDetails", data: 'Category' },
+      { className: "expandDetails", data: 'Item' },
+      { className: "expandDetails", data: 'Label' },
+      { className: "expandDetails", data: 'Location' },
+      { className: "expandDetails", data: 'Condition' },
       { data: 'UserId'}
     ],
     // on the last column, we want to either show a checkout button or display a disabled out button with a tooltip showing the owner
     columnDefs: [ {
       targets: 5,
       createdCell: function (td,cellData,rowData,row,col) {
+        $//(td).addClass('noDetail')
         if (cellData == null ){
           $(td).html('<button class="btn btn-default checkoutButton btn-success" data-toggle="modal" data-target="#borrowModal">Check out</button>');
         } else {
@@ -109,9 +110,8 @@ window.onload = function() {
 
   // Add event listener for opening and closing details
   // TODO: select only row trs, to not try to expand details
-  $('#itemTable > tbody').on('click', 'tr', function () {
-    
-    var tr = $(this);
+  $('#itemTable > tbody').on('click', '.expandDetails', function () {
+    var tr = $(this).closest('tr');
     var row = itemTableList.row( tr );
 
     // Details are already open - close them, else open them
