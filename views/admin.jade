@@ -30,8 +30,8 @@
                 th.col-md-1 Category
                 th.col-md-5 Item
                 th.col-md-1 ID
-                th.col-md-2 Location
-                th.col-md-2 Status
+                th.col-md-1 Location
+                th.col-md-2 Condition
             tbody
               tr
                 td
@@ -58,34 +58,31 @@
                     option(value='Tools') Tools
                     option(value='Video Interface') Video Interface
                     option(value='Webcam') Webcam
-                  //-input(id='category' type='text' class='form-control' placeholder='new category' name='category')
                 td
                   input(id='name' type='text' class='form-control' placeholder='Sennheiser HD-25' name='name')
                   input(id='description' type='text' class='form-control' placeholder='Closed on-ear headphones, 25ohm impedance' name='description')
                   input(id='url' type='text' class='form-control' placeholder='http://en-de.sennheiser.com/on-ear-dj-headphones-hd-25-1-ii' name='url')
                 td
                   input(id='label' type='text' class='form-control' placeholder='0001' name='label')
-                  small Current label maximum: 
+                  small Current label max: 
                     b
                       = ("0000" + maxLabel).substr(-4,4)
                 td
                   input(id='location' type='text' class='form-control' placeholder='Pinta 2.3' name='location')
-                  //-input(id='status' type='text' class='form-control' placeholder='In' name='status')
-                  <input type='radio' id='status' name='status' value='In'><label for='status'> Available</label></br>
-                  <input type='radio' id='status' name='status' value='nocirc'><label for='status'> No circulation</label>
-
-                  //select(id='status' class='form-control' name='status')
-                    option(value='In') Available
-                    option(value='nocirc') No circulation
+                  .radio
+                    label
+                      input(type='radio' name ='status' id='status' value='in' checked)
+                      | Available
+                    label
+                      input(type='radio' name ='status' id='status' value='nocirc')
+                      | No circ.
                 td
-                  //-input(id='condition' type='text' class='form-control' placeholder='Working' name='condition')
                   select(id='condition' class='form-control' name='condition')
                     option(value='Working') Working
                     option(value='Mended') Mended
                     option(value='Broken') Broken
                     option(value='Other') Other
                   textarea.form-control(rows='3', id='comment', placeholder='Bought 20.10.2014, repaired 24.11.2015', name='comment')
-                  //input(id='comment' type='text' class='form-control' placeholder='- Bought 20.110.2014  -Repaired 24.11.2015' name='comment')
           button(type='submit', form='addItemForm').btn.btn-default Add Item
       #userTab.tab-pane.fade.in
         .panel.panel-default
