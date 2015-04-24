@@ -38,10 +38,10 @@ module.exports = db;
 if (env === 'development') {
   db.User.findOrCreate({
     where: {
-    username: "hohnerlein.christoph",
-    firstname: 'Christoph',
-    lastname: 'Hohnerlein' ,
-    email: 'a@b.com' ,
+    username: "admin_user",
+    firstname: 'admin',
+    lastname: 'user' ,
+    email: 'admin@admin.com' ,
     role: 'Admin' ,
     active: '1'
     }
