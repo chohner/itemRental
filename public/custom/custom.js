@@ -102,6 +102,7 @@ window.onload = function() {
       $('#returnResponse').html(response);
       $('#returnItemGroup').removeClass('has-error');
       $('#returnItemGroup').addClass('has-success');
+      itemTableList.ajax.reload();
     }).fail( function(xhr, textStatus, errorThrown) {
       $('#returnItemGroup').removeClass('has-success');
       $('#returnItemGroup').addClass('has-error');
