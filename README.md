@@ -17,7 +17,7 @@ If you want to re-theme, you need to install the css-preprocessor LESS to re-com
 1. Install less: `npm install -g less`, if you want to build your own theme
 2. Recheck if bower-move has moved all bootstrap .less files from 'bower_components/bootstrap/less/*' to 'src/boostrap_style'.
 2. Inside 'src/boostrap_style', run `lessc -x bootswatch.less > ../../public/custom/bootstrap_flatly_custom.min.css` to compile the .less files.
-4. Run `ls -1 | grep -E -v 'variables.less|bootswatch.less' | xargs rm -rf to delete all files but bootswatch.less and variables.less
+4. Run `ls -1 | grep -E -v 'variables.less|bootswatch.less' | xargs rm -rf` to delete all files but bootswatch.less and variables.less
 
 ## Set up server
 To make it run on port 80, you first need to disable apache2 and then link port 3000 to port 80. The following has only been tried on Ubuntu.
