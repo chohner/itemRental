@@ -75,7 +75,7 @@ window.onload = function() {
       // Close modal and reload main page
       window.setTimeout(function() { 
         $('#borrowModal').modal('hide');
-        window.location.reload();
+        itemTableList.ajax.reload();
       }, 800);
     }).fail( function(xhr, textStatus, errorThrown) {
       $('#borrowResponse').html(xhr.responseText);
