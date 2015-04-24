@@ -1,8 +1,5 @@
 window.onload = function() {
 
-  // TODO: pass curUser from server to client
-  //var curUser = {username : 'hohnerlein.christoph'};
-
   //  MAIN TABLE ======================================================
 
   var itemTableList = $('#itemTable').DataTable({
@@ -32,6 +29,7 @@ window.onload = function() {
       { data: 'Condition' },
       { data: 'UserId'}
     ],
+    // on the last column, we want to either show a checkout button or display a disabled out button with a tooltip showing the owner
     columnDefs: [ {
       targets: 5,
       createdCell: function (td,cellData,rowData,row,col) {
@@ -39,9 +37,8 @@ window.onload = function() {
           $(td).html('<button class="btn btn-default checkoutButton btn-success" data-toggle="modal" data-target="#borrowModal">Check out</button>');
         } else {
           $.get( 'items/'+ rowData.Label +'/owner', function(data){
-            $(td).html('<a tabindex="0" class="btn btn-default btn-warning" data-toggle="popover" data-placement="top" data-trigger="focus" title="Item borrowed by:" data-content="'+data.firstname+' '+ data.lastname+'">Out</a>')
-            $('[data-toggle="popover"]').popover();
-            //$(td).html('<button class="btn btn-default checkoutButton btn-warning" data-toggle="modal">Item borrowed by: <br/>'+data.username + '</button>')
+            $(td).html('<div  data-toggle="tooltip" data-placement="top" title="Item borrowed by: '+data.firstname+' '+ data.lastname+'"><button type="button" class="btn btn-default btn-warning btn-block" disabled="disabled">Out</button></div>')
+            $('[data-toggle="tooltip"]').tooltip();
           });
         }
       }
