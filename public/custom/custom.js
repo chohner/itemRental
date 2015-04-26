@@ -35,7 +35,7 @@ window.onload = function() {
       createdCell: function (td,cellData,rowData,row,col) {
         $//(td).addClass('noDetail')
         if (cellData == null ){
-          $(td).html('<button class="btn btn-default checkoutButton btn-success" data-toggle="modal" data-target="#borrowModal">Check out</button>');
+          $(td).html('<button class="btn btn-default checkoutButton btn-success btn-block" data-toggle="modal" data-target="#borrowModal">Check out</button>');
         } else {
           $.get( 'items/'+ rowData.Label +'/owner', function(data){
             $(td).html('<div  data-toggle="tooltip" data-placement="top" title="Item borrowed by: '+data.firstname+' '+ data.lastname+'"><button type="button" class="btn btn-default btn-warning btn-block" disabled="disabled">Out</button></div>')
