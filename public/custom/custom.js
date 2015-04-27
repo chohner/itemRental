@@ -60,54 +60,6 @@ window.onload = function() {
     modal.find('#borrowLabel').text(data.Label);
   });
 
-  // checkoutButton click event
-  $('#checkoutButton').click( function(){
-    // POST the label to checkout API
-    $.post(
-      'items/checkout/'+$('#borrowLabel').text()
-    ).done(function(response){
-      // Close modal and reload table once done
-      $('#borrowResponse').html(response);
-      $('#borrowResponse').addClass('alert-success');
-
-      // Close modal and reload main page
-      window.setTimeout(function() { 
-        $('#borrowModal').modal('hide');
-        itemTableList.ajax.reload();
-      }, 800);
-    }).fail( function(xhr, textStatus, errorThrown) {
-      $('#borrowResponse').html(xhr.responseText);
-      $('#borrowResponse').addClass('alert-danger');
-      $('#borrowResponse').append(' Want to <a data-toggle="modal", href="#", data-target="#loginModal", style="color: white; text-decoration: underline;")> log in</a>?')
-    });
-  });
-
-    // Reset #borrowModal on close
-  $('#borrowModal').on('hidden.bs.modal', function (event) {
-    $('#borrowResponse').removeClass('alert-danger');
-    $('#borrowResponse').removeClass('alert-success');
-    $('#borrowResponse').html('');
-  });
-
-  // returnButton click event
-  // TODO: redraw table (worst case: reload)
-  // TODO error handling
-  $('#returnButton').click( function(){
-    // POST the label to return API
-    $.post(
-      'items/return/'+$('#returnItemForm').val()
-    ).done( function( response ) {
-      $('#returnResponse').html(response);
-      $('#returnItemGroup').removeClass('has-error');
-      $('#returnItemGroup').addClass('has-success');
-      itemTableList.ajax.reload();
-    }).fail( function(xhr, textStatus, errorThrown) {
-      $('#returnItemGroup').removeClass('has-success');
-      $('#returnItemGroup').addClass('has-error');
-      $('#returnResponse').html(xhr.responseText);
-    });
-  });
-
   // Add event listener for opening and closing details
   // TODO: select only row trs, to not try to expand details
   $('#itemTable > tbody').on('click', '.expandDetails', function () {
@@ -191,7 +143,42 @@ window.onload = function() {
     });
   });
 
-  // TODO: This should only happen once the user is logged in
+  // Don't alert table errors (such as fetching items for user that is not logged-in)
+  // They appear in the JS console instead
+  $.fn.dataTable.ext.errMode = 'throw';
+
+  //  USER STUFF ======================================================
+  //  TODO this probably should be hidden from non-users
+
+  // checkoutButton click event
+  $('#checkoutButton').click( function(){
+    // POST the label to checkout API
+    $.post(
+      'items/checkout/'+$('#borrowLabel').text()
+    ).done(function(response){
+      // Close modal and reload table once done
+      $('#borrowResponse').html(response);
+      $('#borrowResponse').addClass('alert-success');
+
+      // Close modal and reload main page
+      window.setTimeout(function() { 
+        $('#borrowModal').modal('hide');
+        itemTableList.ajax.reload();
+      }, 800);
+    }).fail( function(xhr, textStatus, errorThrown) {
+      $('#borrowResponse').html(xhr.responseText);
+      $('#borrowResponse').addClass('alert-danger');
+      $('#borrowResponse').append(' Want to <a data-toggle="modal", href="#", data-target="#loginModal", style="color: white; text-decoration: underline;")> log in</a>?')
+    });
+  });
+
+    // Reset #borrowModal on close
+  $('#borrowModal').on('hidden.bs.modal', function (event) {
+    $('#borrowResponse').removeClass('alert-danger');
+    $('#borrowResponse').removeClass('alert-success');
+    $('#borrowResponse').html('');
+  });
+
   // Initialize DataTable for borrowed items
   var userTableList = $('#borrowedTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
@@ -215,12 +202,28 @@ window.onload = function() {
       defaultContent: ''
     }] 
   });
+  
+  //  ADMIN STUFF ======================================================
+  //  TODO this probably should be hidden from non-admins
 
-  // Don't alert table errors (such as fetching items for user that is not logged-in)
-  // They appear in the JS console instead
-  $.fn.dataTable.ext.errMode = 'throw';
+  // returnButton click event
+  // TODO: redraw table (worst case: reload)
+  $('#returnButton').click( function(){
+    // POST the label to return API
+    $.post(
+      'items/return/'+$('#returnItemForm').val()
+    ).done( function( response ) {
+      $('#returnResponse').html(response);
+      $('#returnItemGroup').removeClass('has-error');
+      $('#returnItemGroup').addClass('has-success');
+      itemTableList.ajax.reload();
+    }).fail( function(xhr, textStatus, errorThrown) {
+      $('#returnItemGroup').removeClass('has-success');
+      $('#returnItemGroup').addClass('has-error');
+      $('#returnResponse').html(xhr.responseText);
+    });
+  });
 
-  // TODO: This should only happen once the user is logged in as admin
   // Initialize DataTable for user list
   var userTableList = $('#userListTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
@@ -246,7 +249,6 @@ window.onload = function() {
     }] 
   });
 
-  // TODO: From here to end shoud only be available to admins
   // addUserButton click event
   $('#addUserButton').click( function(e){
     e.preventDefault();
