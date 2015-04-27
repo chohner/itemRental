@@ -73,8 +73,13 @@ window.onload = function() {
       tr.removeClass('shown');
     }
     else {
-      row.child( expandDetails(row.data()) ).show();
-      tr.addClass('shown');
+
+      var rowDetails = expandDetails(row.data());
+
+      if (rowDetails !== '') {
+        row.child( rowDetails ).show();
+        tr.addClass('shown');
+      }
     }
   } );
 
@@ -334,7 +339,6 @@ window.onload = function() {
         // if we have an sortable element for a value, save as key/value pair in item
         if ( idx < columOrder.length ){
           item[columOrder[idx].data] = itemElement[idx];
-          //console.log('key: '+ columOrder[idx].data + ', value: '+ testdata[0][idx])
         } else {  // else, save as with an empty key
           item[''] = itemElement[idx];
         }
@@ -411,14 +415,35 @@ window.onload = function() {
 // Formatting function for row details
 function expandDetails( d ) {
   // `d` is the original data object for the row
-  return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-    '<tr>'+
-      '<td>Description:</td>'+
-      '<td>'+d.Description+'</td>'+
-      '<td>URL:</td>'+
-      '<td>'+d.URL+'</td>'+
-      '<td>Comment:</td>'+
-      '<td>'+d.Comment+'</td>'+
-    '</tr>'+
-  '</table>';
+
+  // this is pretty ugly
+  var resp = '';
+
+  if (d.Description == '' && d.URL == null && d.Comment == null) {
+    return resp;
+  }
+
+  if (d.Description !== '') {
+    resp = resp + '<td class="col-xs-5">Description: '+d.Description+'</td>';
+  } else {
+    resp = resp + '<td class="col-xs-5"></td>';
+  }
+
+  if (d.URL !== null) {
+    resp = resp + '<td class="col-xs-1"><a href="http://'+d.URL+'" target="_blank">More Information</a></td>';
+  } else {
+    resp = resp + '<td class="col-xs-1"></td>';
+  }
+
+  if (d.Comment !== null) {
+    resp = resp + '<td class="col-xs-3">Comment: ' + d.Comment + '</td>';
+  } else {
+    resp = resp + '<td class="col-xs-3"></td>';
+  }
+
+  if (resp !== '') {
+    resp = '<table class="table table-condensed"><tr>' + resp + '</tr></table>';
+  }
+
+  return resp;
 }
