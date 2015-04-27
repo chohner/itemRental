@@ -21,16 +21,16 @@
     "bootstrap": "~3.x.x",
     "datatables": "~1.x.x",
     "html5sortable": "*",
-    "papaparse": "4.1.x"
+    "papaparse": "4.1.x",
+    "introjs": "~1.x.x"
   },
-
   "bowerMove": {
     "jquery": {
       "dist/jquery.min.js": "public/js/",
       "dist/jquery.min.map": "public/js/"
     },
     "bootstrap": {
-      "less/[!v]*.less" : "src/bootstrap_style/",
+      "less/[!v]*.less": "src/bootstrap_style/",
       "less/mixins/*.less": "src/bootstrap_style/mixins/",
       "dist/fonts/*": "public/fonts/",
       "dist/js/bootstrap.min.js": "public/js/"
@@ -45,6 +45,10 @@
     },
     "papaparse": {
       "papaparse.min.js": "public/js/"
+    },
+    "introjs": {
+      "minified/introjs.min.css": "public/css",
+      "minified/intro.min.js": "public/js"
     }
   }
 }
