@@ -191,7 +191,7 @@ window.onload = function() {
     });
   });
 
-
+  // TODO: This should only happen once the user is logged in
   // Initialize DataTable for borrowed items
   var userTableList = $('#borrowedTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
@@ -220,6 +220,7 @@ window.onload = function() {
   // They appear in the JS console instead
   $.fn.dataTable.ext.errMode = 'throw';
 
+  // TODO: This should only happen once the user is logged in as admin
   // Initialize DataTable for user list
   var userTableList = $('#userListTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
@@ -245,8 +246,8 @@ window.onload = function() {
     }] 
   });
 
+  // TODO: From here to end shoud only be available to admins
   // addUserButton click event
-  // TODO error handling
   $('#addUserButton').click( function(e){
     e.preventDefault();
     // POST the user to users API
