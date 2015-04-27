@@ -313,6 +313,7 @@ window.onload = function() {
 
   // Submit button for parsing
   $('#submitCSV').click(function(){
+
     var input = $('#csvInputField').val();
 
     // parse our data from the input field
@@ -340,8 +341,11 @@ window.onload = function() {
       myItems.push(item);
     });
 
-    // Initialize DataTable for parsed content
-    var parsedTableList = $('#parsedTable').DataTable({
+    if(typeof parsedTableList == 'undefined') {
+
+      // FIXME parsedTableList probably shouldn't be global
+      // Initialize DataTable for parsed content
+      parsedTableList = $('#parsedTable').DataTable({
       paging: false,  // turn of paging
       // Extract each column value from a different object variable
       // this time capitalized, since they are extracted from the sortable list
@@ -358,15 +362,17 @@ window.onload = function() {
         defaultContent: ''
       }] 
     });
+    }
 
-    // Now we clear the table, add our rows and finally draw it
-    parsedTableList.clear().rows.add(myItems).draw();
-
-    // We only show results if we have some
-    if(results.data !== 0){
+    // If we have some results:
+    if(results.data[0]){
+      
+      // Clear the table, add parsed content and draw it
+      parsedTableList.clear().rows.add(myItems).draw();
       $('#parsedData').show();
     }
     else{
+      parsedTableList.clear().draw();
       $('#parsedData').hide();
     }
   });
