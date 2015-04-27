@@ -1,19 +1,19 @@
 .navbar-header.hidden-xs.hidden-sm(style='width:14%;')
-  a.navbar-brand(href='/')
+  a#startTour.navbar-brand(href='#')
     |QU &amp; AIPA
     br
     |Hardware 
 .navbar-left(style='width:65%;')
-  form.navbar-form(role='search', action='javascript:void(0)', style='width:100%;margin-top: 18px;margin-bottom: 18px;')
-    .form-group.has-feedback(style='width:100%')
-      input#searchBar.search.form-control(autocomplete='off', placeholder='Search', type='text', style='width:100%')
+  form.navbar-form(role='search', action='javascript:void(0)', style='width:100%;margin-top: 18px;margin-bottom: 18px;' )
+    .form-group.has-feedback(style='width:100%' )
+      input#searchBar.search.form-control(autocomplete='off', placeholder='Search', type='text', style='width:100%' data-intro='Live-search any item property here.' data-position='bottom-middle-aligned')
       span#search-clearer.clearer.glyphicon.glyphicon-remove-circle.form-control-feedback
 #account-info.navbar-text.pull-right
   if !curUser
     #greeting.pull-right You are currently not logged in.
     br
     #loginButton.pull-right
-      a(data-toggle='modal', href='#', data-target='#loginModal') Log in
+      a(data-intro='Log in with you QU credentials to check out items or see currently borrowed items.', data-position='left', data-toggle='modal', href='#', data-target='#loginModal') Log in
   else
     #greeting.pull-right Welcome 
       a(href='#userModal', data-toggle="modal" data-target='#userModal') #{curUser.firstname} #{curUser.lastname}
