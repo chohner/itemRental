@@ -20,7 +20,7 @@ html
     .container-fluid
       .row
         .col-xs-10.col-xs-offset-1
-          table.table.table-condensed.table-hover#itemTable
+          table.table.table-condensed.table-hover#itemTable(data-intro='Relevant items are shown here. Depending on the status, you may either check the current owner or borrow the item.' data-position='bottom-middle-aligned')
               thead
                 tr
                   th.col-md-2.noselect.handcursor Category
@@ -32,6 +32,10 @@ html
 
     //- MODALS
     include modals.jade
+
+    //- SCRIPTS
     script(type='text/javascript', src='./js/papaparse.min.js')
     script(type='text/javascript', src='./js/jquery.sortable.min.js')
     script(type='text/javascript', src='./custom/custom.js')
+    script(type='text/javascript', src='js/intro.min.js')
+    link(rel='stylesheet', href='/css/introjs.min.css')
