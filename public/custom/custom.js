@@ -202,7 +202,7 @@ window.onload = function() {
       defaultContent: ''
     }] 
   });
-  
+
   //  ADMIN STUFF ======================================================
   //  TODO this probably should be hidden from non-admins
 
@@ -401,6 +401,10 @@ window.onload = function() {
     }).done(function() {
       window.location.replace('/');
     });
+  });
+
+  $('#startTour').click(function(){
+    introJs().start();
   });
 };
 
