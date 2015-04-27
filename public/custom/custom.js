@@ -404,7 +404,7 @@ window.onload = function() {
   });
 
   $('#startTour').click(function(){
-    introJs().start();
+    introJs().setOption('showStepNumbers', 'false').start();
   });
 };
 
