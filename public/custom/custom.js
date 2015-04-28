@@ -354,16 +354,21 @@ window.onload = function() {
       // Initialize DataTable for parsed content
       parsedTableList = $('#parsedTable').DataTable({
       paging: false,  // turn of paging
+      autoWidth: false,
       // Extract each column value from a different object variable
       // this time capitalized, since they are extracted from the sortable list
       columns: [
         { data: 'Category' },
         { data: 'Item' },
+        { data: 'Description' },
         { data: 'Label' },
+        { data: 'Serial' },
         { data: 'Location' },
-        { data: 'Condition' }
+        { data: 'Condition' },
+        { data: 'Comment' },
+        { data: 'URL' }
       ],
-      order: [[2, 'asc']], // Order by label
+      order: [[3, 'asc']], // Order by label
       columnDefs: [{
         targets: '_all',
         defaultContent: ''
