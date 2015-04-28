@@ -427,8 +427,8 @@ function expandDetails( d ) {
     resp = resp + '<td class="col-xs-5"></td>';
   }
 
-  if (d.URL !== null) {
-    resp = resp + '<td class="col-xs-1"><a href="http://'+d.URL+'" target="_blank">More Information</a></td>';
+  if (d.URL &&  d.URL !== null) {
+    resp = resp + '<td class="col-xs-1"><a href="' + d.URL + '" target="_blank">More Information</a></td>';
   } else {
     resp = resp + '<td class="col-xs-1"></td>';
   }
