@@ -66,11 +66,21 @@ router.post('/', function(req, res) {
 
 // ## GET /items/:item_label - get single item from label
 router.get('/:item_label', function(req,res) {
-  models.Item.find({
-    where: {label: req.params.item_label}
-  }).then(function(Item){
-    res.send(Item)
-  })
+  var searchLabelInt = parseInt(req.params.item_label, 10);
+  if (!isNaN(searchLabelInt)) {
+    models.Item.find({
+      where: {label: req.params.item_label}
+    }).then(function(Item){
+      if (Item) {
+        res.send(Item);
+      } else {
+        res.status(404).send('Item not found');
+      };
+    })
+  } else {
+    res.status(400).send('Item label should be a number.')
+  }
+  
 });
 
 // ## POST /items/:item_label - update single item from label
