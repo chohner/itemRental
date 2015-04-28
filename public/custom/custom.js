@@ -185,7 +185,7 @@ window.onload = function() {
   });
 
   // Initialize DataTable for borrowed items
-  var userTableList = $('#borrowedTable').DataTable({
+  var borrowTableList = $('#borrowedTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
     dom: 'lrt',
     ajax:  {
