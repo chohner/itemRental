@@ -428,15 +428,21 @@ function expandDetails( d ) {
   }
 
   if (d.URL &&  d.URL !== null) {
-    resp = resp + '<td class="col-xs-1"><a href="' + d.URL + '" target="_blank">More Information</a></td>';
+    resp = resp + '<td class="col-xs-1"><a href="' + d.URL + '" target="_blank">More Info</a></td>';
   } else {
     resp = resp + '<td class="col-xs-1"></td>';
   }
 
-  if (d.Comment !== null) {
-    resp = resp + '<td class="col-xs-3">Comment: ' + d.Comment + '</td>';
+  if (d.Serial &&  d.Serial !== null) {
+    resp = resp + '<td class="col-xs-2">Serial no: ' + d.Serial + '</td>';
   } else {
-    resp = resp + '<td class="col-xs-3"></td>';
+    resp = resp + '<td class="col-xs-2"></td>';
+  }
+
+  if (d.Comment !== null) {
+    resp = resp + '<td class="col-xs-2">Comment: ' + d.Comment + '</td>';
+  } else {
+    resp = resp + '<td class="col-xs-2"></td>';
   }
 
   if (resp !== '') {
