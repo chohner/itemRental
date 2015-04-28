@@ -122,7 +122,8 @@ window.onload = function() {
     event.preventDefault();
 
     $.post('login',{
-      username : $('#loginIDForm').val()
+      username : $('#loginIDForm').val(),
+      password : $('#loginPasswordForm').val()
     }).done(function(){
 
       // Feedback on succesfull login
