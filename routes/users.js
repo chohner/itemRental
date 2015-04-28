@@ -99,4 +99,38 @@ router.get('/checkItems', function(req,res) {
   }
 });
 
+// this is pretty buggy - looks for users.JSON in root and feeds it into the db
+router.get('/syncWithLDAP', function(req, res){
+  if ( req.session.user && req.session.user.role == 'Admin'){
+    var fs = require('fs');
+    fs.readFile('users.JSON', 'utf8', function (err, data) {
+
+      var userList = [];
+      parsedUsers = JSON.parse(data);
+      entries = Object.keys(parsedUsers);
+
+      entries.forEach(function(entry) {
+        if (parsedUsers[entry].uid && parsedUsers[entry].givenname && parsedUsers[entry].sn) {
+          userList.push({
+          username : parsedUsers[entry].uid,
+          firstname : parsedUsers[entry].givenname,
+          lastname : parsedUsers[entry].sn,
+        });
+        }
+      });
+
+      console.log(userList)
+
+      // data is parsed and sits in userList
+      models.User.bulkCreate(
+        userList
+      ).then(function(){
+        res.end();
+      });
+    });
+  } else {
+    res.status(401).send('You must be logged in as admin');
+  }
+});
+
 module.exports = router;
