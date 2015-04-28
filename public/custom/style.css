@@ -104,10 +104,14 @@ tr {
     user-select: none;
 }
 
-.handcursor{
+.handcursor {
 	cursor: pointer;
 }
 
-.centered{
+.centered {
 	text-align: center;
+}
+
+.modal-lg {
+	width: 90%;
 }
