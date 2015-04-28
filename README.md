@@ -23,6 +23,7 @@ Defines an item as a set of:
 * **Label** (INTEGER(4).UNSIGNED, allowNull: false) - The 4 digit label on each piece
 * **Item** (TEXT, allowNull: false) - The name of an item
 * **Description** (TEXT) - A general description of that item
+* **Serial** (TEXT) - SerialNo if that item, if there is one
 * **Category** (TEXT) - The general category of that item
 * **URL** (STRING) - An URL for more information
 * **Location** (TEXT) - Location if that item in the format room shelf.level, ie Pinta 2.4
