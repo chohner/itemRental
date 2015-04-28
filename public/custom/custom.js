@@ -353,7 +353,6 @@ window.onload = function() {
       // Initialize DataTable for parsed content
       parsedTableList = $('#parsedTable').DataTable({
       paging: false,  // turn of paging
-      autoWidth: false,
       // Extract each column value from a different object variable
       // this time capitalized, since they are extracted from the sortable list
       columns: [
@@ -391,18 +390,12 @@ window.onload = function() {
   // Write CSV to db
   $('#writeCSV').click(function(){
 
-    // Collect all rows of parsedTableList into one parsedDataArray
-    parsedDataArray=[];
-    parsedTableList.data().each(function(elem,key){
-      parsedDataArray.push(elem);
-    });
-
     // POST the stringified array of objects to createItemsBulk
     // contentType important for parsing
     $.ajax({
       url: 'items/createBulk',
       type: 'POST',
-      data: JSON.stringify(parsedDataArray),
+      data: JSON.stringify(parsedTableList.data().toArray()),
       processData: false,
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8'
