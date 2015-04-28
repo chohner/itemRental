@@ -138,15 +138,21 @@
                   li
                     button.btn.btn-default.disabled Item
                   li
+                    button.btn.btn-default.disabled Description
+                  li
                     button.btn.btn-default.disabled Label
+                  li
+                    button.btn.btn-default.disabled Serial
                   li
                     button.btn.btn-default.disabled Location
                   li
+                    button.btn.btn-default.disabled 
+                  li
                     button.btn.btn-default.disabled Condition
                   li
-                    button.btn.btn-default.disabled Description
+                    button.btn.btn-default.disabled Comment
                   li
-                    button.btn.btn-default.disabled   
+                    button.btn.btn-default.disabled URL
               .col-sm-2
                 button.btn.btn-success(id='submitCSV', type='button') Submit
         .col-sm-12
@@ -154,9 +160,13 @@
             table.table.table-condensed.table-striped.table-hover(id='parsedTable')
               thead
                 tr
-                  th.col-md-2.noselect.handcursor Category
-                  th.col-md-5.noselect.handcursor Item
-                  th.col-md-1.noselect.handcursor Label
-                  th.col-md-1.noselect.handcursor Location
-                  th.col-md-3.noselect.handcursor Condition
+                  th.col-md-1 Category
+                  th.col-md-2 Item
+                  th.col-md-2 Description
+                  th.col-md-1 Label
+                  th.col-md-1 Serial
+                  th.col-md-1 Location
+                  th.col-md-1 Condition
+                  th.col-md-2 Comment
+                  th.col-md-1 URL
             button.btn.btn-danger(id='writeCSV', type='button') Looks good? Write to db!
