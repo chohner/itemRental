@@ -41,7 +41,6 @@ if (env === 'development') {
     username: "admin_user",
     firstname: 'admin',
     lastname: 'user' ,
-    email: 'admin@admin.com' ,
     role: 'Admin' ,
     active: '1'
     }
