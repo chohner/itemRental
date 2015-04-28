@@ -243,7 +243,6 @@ window.onload = function() {
       { data: 'username' },
       { data: 'firstname' },
       { data: 'lastname' },
-      { data: 'email' },
       { data: 'role' },
       { data: 'active' }
     ],
