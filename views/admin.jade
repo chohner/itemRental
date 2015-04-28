@@ -122,7 +122,7 @@
               button#addUserButton(type='submit', form='addUserForm').btn.btn-default Add User
       #addCSV.tab-pane.fade.in
         .col-sm-12
-          p Paste CSV data below, check order and hit submit. Delimiter is auto-detected but ';' works well.
+          p Paste CSV data below, check order and hit submit. Delimiter is auto-detected but ';' works well. Avoid including header rows or empty lines at the end.
           form.form-horizontal
             .form-group
               .col-sm-10
@@ -154,7 +154,7 @@
                 button.btn.btn-success(id='submitCSV', type='button') Submit
         .col-sm-12
           #parsedData
-            table.table.table-condensed.table-striped.table-hover(id='parsedTable')
+            table.table.table-condensed.table-striped.table-hover(id='parsedTable' style='table-layout:fixed;')
               thead
                 tr
                   th.col-md-1 Category
