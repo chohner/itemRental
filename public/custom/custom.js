@@ -350,6 +350,7 @@ window.onload = function() {
     if(typeof parsedTableList == 'undefined') {
 
       // FIXME parsedTableList probably shouldn't be global
+      // FIXME long unbreakable items such as serials or urls overlap the next cell but scrollX: true doesn't work?
       // Initialize DataTable for parsed content
       parsedTableList = $('#parsedTable').DataTable({
       paging: false,  // turn of paging
