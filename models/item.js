@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       Item: {type: DataTypes.TEXT, allowNull: false,notNull: true},
       Description: DataTypes.TEXT,
+      Serial: DataTypes.TEXT,
       Category: DataTypes.TEXT,
       URL: DataTypes.STRING,
       Location: DataTypes.TEXT, // room shelf.level
