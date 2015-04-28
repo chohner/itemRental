@@ -2,6 +2,27 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
+
+// ## POST /items/createBulk - create Bulk of items
+
+// receives stringified JSON array of objects
+router.post('/createBulk', function(req, res) {
+  // TODO check format of input
+  if ( req.session.user && req.session.user.role == 'Admin'){
+    bulkData = req.body;
+
+    models.Item.bulkCreate(
+      bulkData
+    ).then(function(){
+      models.Item.findAll().then(function(items){
+        res.send(items);
+      })
+    });
+  } else {
+    res.status(401).end();
+  }
+});
+
 // ## GET /items/ - gets all items
 // TODO: restrict some info if not logged in
 router.get('/', function(req, res) {
@@ -139,24 +160,5 @@ router.post('/return/:item_label', function(req,res) {
   }
 });
 
-// ## POST /items/createBulk - create Bulk of items
-
-// receives stringified JSON array of objects
-router.post('/createBulk', function(req, res) {
-  // TODO check format of input
-
-  if ( req.session.user && req.session.user.role == 'Admin'){
-    bulkData = req.body;
-    models.Item.bulkCreate(
-      bulkData
-    ).then(function(){
-      models.Item.findAll().then(function(items){
-        res.send(items);
-      })
-    });
-  } else {
-    res.status(401).end();
-  }
-});
 
 module.exports = router;
