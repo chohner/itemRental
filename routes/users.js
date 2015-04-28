@@ -37,6 +37,21 @@ router.post('/', function(req, res) {
   }
 });
 
+
+// DELETE /:username route. deletes user with that username
+// TODO: implement function
+router.delete('/:username/', function(req, res) {
+  if ( req.session.user && req.session.user.role == 'Admin'){
+    models.User.find({
+      where: {username: req.params.username}
+    }).then(function(foundUser){
+      
+    })
+  } else {
+    res.status(401).send('Error: You need to be logged in as Admin.');
+  };
+});
+
 // Check route: Admin can check all users (send username req), everyone else just themselves
 // TODO: enable /:user/check
 router.get('/check', function(req,res) {
