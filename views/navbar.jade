@@ -13,7 +13,7 @@
     #greeting.pull-right You are currently not logged in.
     br
     #loginButton.pull-right
-      a(data-intro='Log in with you QU credentials to check out items or see currently borrowed items.', data-position='left', data-toggle='modal', href='#', data-target='#loginModal') Log in
+      a(data-intro='Log in with you QU credentials to check out items or see items you are currently borrowing.', data-position='left', data-toggle='modal', href='#', data-target='#loginModal') Log in
   else
     #greeting.pull-right Welcome 
       a(href='#userModal', data-toggle="modal" data-target='#userModal') #{curUser.firstname} #{curUser.lastname}
