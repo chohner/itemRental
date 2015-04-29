@@ -63,27 +63,27 @@ function ldapCheck(username, password, callback) {
   }
   var ldap = require('ldapjs');
 
-  // load ldapConfig.js
-  var ldapConfig = require('../ldapConfig');
+  // load config.js
+  var config = require('../config');
 
   // Create LDAP client with provided URL
   var client = ldap.createClient({
-    url: ldapConfig.url
+    url: config.ldapURL
   });
 
-  var searchOpts = { filter: '(' + ldapConfig.searchFilter + '='+ username +')',
-                      scope: ldapConfig.searchScope };
+  var searchOpts = { filter: '(' + config.ldapSearchFilter + '='+ username +')',
+                      scope: config.ldapSearchScope };
 
   var foundUser = null;
 
   // Connect as system to LDAP
   console.log('Attempting to connect to LDAP server..');
 
-  client.bind(ldapConfig.authUser, ldapConfig.authPW, function(err){
+  client.bind(config.ldapAuthUser, config.ldapAuthPW, function(err){
     if ( !err ) {
       console.log('Connection successful, searching user ...')
 
-      client.search(ldapConfig.searchBase, searchOpts, function(err, res) {
+      client.search(config.ldapSearchBase, searchOpts, function(err, res) {
 
         res.on('searchEntry', function(entry) {
           foundUser = entry.object.dn;
