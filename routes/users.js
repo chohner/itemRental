@@ -180,7 +180,7 @@ router.get('/syncWithLDAP', function(req, res){
             ignoreDuplicates: true
           }
         ).then(function() {
-            res.end();
+            res.end('Fetched a total of ' + userList.length + ' users.');
         })
       })
     }).on('error', function(e) { // show an errors during data fetching
