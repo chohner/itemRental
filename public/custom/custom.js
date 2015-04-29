@@ -117,9 +117,9 @@ window.onload = function() {
   });
 
   // Login handle
-  $('#loginForm').submit(function(){
+  $('#performLogin').click(function(e){
     // prevent default reload
-    event.preventDefault();
+    e.preventDefault();
 
     $.post('login',{
       username : $('#loginIDForm').val(),
