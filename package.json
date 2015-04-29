@@ -13,6 +13,7 @@
     "jade": "1.x.x",
     "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
     "morgan": "1.x.x",
+    "php-serialization": "0.x.x",
     "sequelize": "2.x.x",
     "sqlite3": "3.x.x"
   }
