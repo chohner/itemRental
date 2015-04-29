@@ -238,6 +238,7 @@ window.onload = function() {
       url: '/users/',
       dataSrc: 'users'
     },
+    scrollY: '200px', // bug in datatables shows weird header row
     paging: false,  // turn of paging
     // Extract each column value from a different object variable
     columns: [
