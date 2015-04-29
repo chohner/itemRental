@@ -114,37 +114,80 @@ router.get('/checkItems', function(req,res) {
   }
 });
 
-// this is pretty buggy - looks for users.JSON in root and feeds it into the db
+// GET syncWithLDAP Route
+// Fetches users from config.userURL and adds them to the db with the correct role
+// TODO: option to drop or update users, now it just adds
 router.get('/syncWithLDAP', function(req, res){
   if ( req.session.user && req.session.user.role == 'Admin'){
-    var fs = require('fs');
-    fs.readFile('users.JSON', 'utf8', function (err, data) {
 
-      var userList = [];
-      parsedUsers = JSON.parse(data);
-      entries = Object.keys(parsedUsers);
+    // php-serialization is needed to unserialize the user dump
+    var unserialize = require("php-serialization").unserialize;
+    var https = require('https');
 
-      entries.forEach(function(entry) {
-        if (parsedUsers[entry].uid && parsedUsers[entry].givenname && parsedUsers[entry].sn) {
-          userList.push({
-          username : parsedUsers[entry].uid,
-          firstname : parsedUsers[entry].givenname,
-          lastname : parsedUsers[entry].sn,
+    // load config.js
+    var config = require('../config');
+    var adminList = config.adminList;
+
+    // There's probably a better way but this works..
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
+    var phpData = '';
+     
+    var req = https.get(config.userURL, function(httpRes) {
+
+      // We dont need to buffer objects
+      httpRes.setEncoding('binary');
+
+      console.log('Connection to userlist successfull:')
+      console.log('statusCode: ', httpRes.statusCode);
+      //console.log('headers: ', httpRes.headers); // verbose
+
+      // Concatinate the received data chunks
+      httpRes.on('data', function(chunk) {
+          phpData += chunk;
+      }).on('end', function(){
+
+        // The received data now lies in a pretty horrible format:
+        // For example "phpData.__attr__['username'].val.__attr__.uid.val" returns the uid/username 
+
+        var data = unserialize(phpData).__attr__;
+        var users = Object.keys(data);
+
+        var userList = [];
+
+        // Iterate through data object and add a new username, firstname, lastname and appropriate role to userList array
+        users.forEach(function(user) {
+            var userAttributes = data[user].val.__attr__;
+
+            if (userAttributes.uid.val && userAttributes.givenname.val && userAttributes.sn.val) {
+                userRole = adminList.indexOf(userAttributes.uid.val) > -1 ? 'Admin' : 'User';
+
+                console.log('User found: ' + userAttributes.uid.val + ' ('+ userRole + ')' )
+                userList.push({
+                    username : userAttributes.uid.val,
+                    firstname : userAttributes.givenname.val,
+                    lastname : userAttributes.sn.val,
+                    role: userRole
+                });
+            }
         });
-        }
-      });
 
-      console.log(userList)
+        console.log('Fetched a total of ' + userList.length + ' users.')
 
-      // data is parsed and sits in userList
-      models.User.bulkCreate(
-        userList
-      ).then(function(){
-        res.end();
-      });
+        // Update the db with found users, ignoring any duplicates
+        models.User.bulkCreate(
+          userList, {
+            ignoreDuplicates: true
+          }
+        ).then(function() {
+            res.end();
+        })
+      })
+    }).on('error', function(e) { // show an errors during data fetching
+      console.error(e);
     });
   } else {
-    res.status(401).send('You must be logged in as admin');
+    res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
 
