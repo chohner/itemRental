@@ -24,13 +24,13 @@
                   textarea#returnResponse.form-control(type='text', rows='1' readonly)
       #addItem.tab-pane.fade.in
         form(action='items/create',method='post',id='addItemForm')
-          table#search-results-table.table.table-condensed.table-striped
+          table.table.table-condensed
             thead
               tr
                 th.col-md-1 Category
                 th.col-md-5 Item
-                th.col-md-1 ID
-                th.col-md-1 Location
+                th.col-md-2 ID
+                th.col-md-2 Location
                 th.col-md-2 Condition
             tbody
               tr
@@ -59,16 +59,23 @@
                     option(value='Video Interface') Video Interface
                     option(value='Webcam') Webcam
                 td
-                  input(id='name' type='text' class='form-control' placeholder='Sennheiser HD-25' name='name')
-                  input(id='description' type='text' class='form-control' placeholder='Closed on-ear headphones, 25ohm impedance' name='description')
-                  input(id='url' type='text' class='form-control' placeholder='http://en-de.sennheiser.com/on-ear-dj-headphones-hd-25-1-ii' name='url')
+                  input(id='name' type='text' class='form-control' placeholder='Name, e.g. "Sennheiser HD-25"' name='name')
                 td
-                  input(id='label' type='text' class='form-control' placeholder='0001' name='label')
-                  small Current label max: 
-                    b
-                      = ("0000" + maxLabel).substr(-4,4)
+                  input(id='label' type='text' class='form-control' placeholder='Max: '+ ("0000" + maxLabel).substr(-4,4) name='label')
                 td
                   input(id='location' type='text' class='form-control' placeholder='Pinta 2.3' name='location')
+                td
+                  select(id='condition' class='form-control' name='condition')
+                    option(value='Working') Working
+                    option(value='Mended') Mended
+                    option(value='Broken') Broken
+                    option(value='Other') Other
+              tr
+                td
+                td
+                  input(id='description' type='text' class='form-control' placeholder='Description, e.g. "Closed on-ear headphones, 25 ohm impedance"' name='description')
+                td
+                td(rowspan='2')
                   .radio
                     label
                       input(type='radio' name ='status' id='status' value='in' checked)
@@ -76,14 +83,17 @@
                     label
                       input(type='radio' name ='status' id='status' value='nocirc')
                       | No circ.
+                td(rowspan='2')
+                  textarea.form-control(rows='4', id='comment', placeholder='Comment history, e.g. "Bought 20.10.2014, repaired 24.11.2015"', name='comment')
+              tr
                 td
-                  select(id='condition' class='form-control' name='condition')
-                    option(value='Working') Working
-                    option(value='Mended') Mended
-                    option(value='Broken') Broken
-                    option(value='Other') Other
-                  textarea.form-control(rows='3', id='comment', placeholder='Bought 20.10.2014, repaired 24.11.2015', name='comment')
-          button(type='submit', form='addItemForm').btn.btn-default Add Item
+                td
+                  input(id='url' type='text' class='form-control' placeholder='URL, e.g. http://en-de.sennheiser.com/on-ear-dj-headphones-hd-25-1-ii' name='url')
+                td
+                  input(id='serial' type='text' class='form-control' placeholder='Serial#, e.g. ABCD-0123' name='serial')
+                td
+                td
+          button(type='submit', form='addItemForm').btn.btn-default.pull-right.btn-success Add Item
       #userTab.tab-pane.fade.in
         .panel.panel-default
           .panel-heading 
