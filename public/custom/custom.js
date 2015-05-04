@@ -243,6 +243,7 @@ window.onload = function() {
     paging: false,  // turn of paging
     // Extract each column value from a different object variable
     columns: [
+      { data: 'id' },
       { data: 'username' },
       { data: 'firstname' },
       { data: 'lastname' },
