@@ -87,14 +87,11 @@
                 td
                   input(id='itemDescription' type='text' class='form-control' placeholder='Description, e.g. "Closed on-ear headphones, 25 ohm impedance"' name='description')
                 td
-                td(rowspan='2')
-                  .radio
-                    label
-                      input(type='radio' name ='status' id='itemStatus' value='in' checked)
-                      | Available
-                    label
-                      input(type='radio' name ='status' id='itemStatus' value='nocirc')
-                      | No circ.
+                td
+                  select(id='itemStatus' name='status' class='form-control')
+                    option(value='in') Available
+                    option(value='nocirc') No Circulation
+                    option(value='out') Borrowed
                 td(rowspan='2')
                   textarea.form-control(rows='4', id='itemComment', placeholder='Comment history, e.g. "Bought 20.10.2014, repaired 24.11.2015"', name='comment')
               tr
