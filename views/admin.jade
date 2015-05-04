@@ -103,7 +103,9 @@
                 td
                   input(id='itemUserID' type='text' class='form-control' placeholder='UserID (if borrowed)' name='Userid')
                 td
-          button(type='submit', form='addItemForm').btn.btn-default.pull-right.btn-success Add Item
+          .btn-group.pull-right
+            button#deleteItemButton.btn.btn-default.btn-danger(type='button') Delete Item
+            button(type='submit', form='addItemForm').btn.btn-default.btn-success Add Item
       #userTab.tab-pane.fade.in
         .panel.panel-default
           .panel-heading 
