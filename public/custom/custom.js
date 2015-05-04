@@ -231,6 +231,75 @@ window.onload = function() {
     });
   });
 
+  // fetchButton click event
+  // TODO: redraw table
+  $('#getItemButton').click( function(e){
+    // Get the item
+    $.ajax({
+      url: 'items/'+$('#getItemForm').val(),
+      dataType: 'json',
+      type: 'GET',
+      cache: false,
+      contentType: "application/json"
+    }).done( function( response ){
+      // Fill item data into form
+
+      $('#itemCategory').val(response.Category);
+      $('#itemName').val(response.Item);
+      $('#itemDescription').val(response.Description);
+      $('#itemURL').val(response.URL);
+      $('#itemLabel').val(response.Label);
+      $('#itemSerial').val(response.Serial);
+      $('#itemLocation').val(response.Location);
+
+      // If the item has a UserID it is borrowed
+      if (response.UserId) {
+        $('#itemUserID').val(response.UserId);
+        $('#itemStatus').val('out');
+      } else {
+        if(response.Status) {
+          $('#itemStatus').val(response.Status);
+        } else {
+          $('#itemStatus').val('in');
+        }
+
+        $('#itemUserID').val('');
+      }
+      
+      // No condition means working
+      if (response.Condition) {
+          $('#itemCondition').val(response.Condition);
+      } else {
+        $('#itemCondition').val('Working');
+      }
+      $('#itemComment').val(response.Comment);
+
+      $('#getItemGroup').removeClass('has-error');
+      $('#getItemGroup').addClass('has-success');
+      $('#getItemResponse').html('Item data successfully loaded below..');
+
+    }).fail( function(xhr, textStatus, errorThrown) {
+      // Clear all values, copy label into form
+      $('#itemLabel').val($('#getItemForm').val());
+
+      $('#itemCategory').val('Accessories');
+      $('#itemName').val('');
+      $('#itemDescription').val('');
+      $('#itemURL').val('');
+      $('#itemSerial').val('');
+      $('#itemLocation').val('');
+      $('#itemStatus').val('in');
+      $('#itemUserID').val('');
+      $('#itemCondition').val('Working');
+      $('#itemComment').val('');
+
+      $('#getItemGroup').removeClass('has-success');
+      $('#getItemGroup').addClass('has-error');
+      $('#getItemResponse').html(xhr.responseText);
+    });
+    
+  });
+
   // Initialize DataTable for user list
   var userTableList = $('#userListTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
