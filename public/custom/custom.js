@@ -274,6 +274,9 @@ window.onload = function() {
       }
       $('#itemComment').val(response.Comment);
 
+      // Show delete button
+      $('#deleteItemButton').show();
+
       $('#getItemGroup').removeClass('has-error');
       $('#getItemGroup').addClass('has-success');
       $('#getItemResponse').html('Item data successfully loaded below..');
@@ -293,12 +296,19 @@ window.onload = function() {
       $('#itemCondition').val('Working');
       $('#itemComment').val('');
 
+      // Hide delete button
+      $('#deleteItemButton').hide();
+
       $('#getItemGroup').removeClass('has-success');
       $('#getItemGroup').addClass('has-error');
       $('#getItemResponse').html(xhr.responseText);
     });
     
   });
+
+  // deleteItemButton
+  // hide on load
+  $('#deleteItemButton').hide();
 
   // Initialize DataTable for user list
   var userTableList = $('#userListTable').DataTable({
