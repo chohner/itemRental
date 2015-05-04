@@ -23,6 +23,18 @@
                 .col-xs-offset-1.col-xs-7
                   textarea#returnResponse.form-control(type='text', rows='1' readonly)
       #addItem.tab-pane.fade.in
+        row
+          p Enter label ID to edit item or add a new one based on that item:
+          .form-horizontal
+            .form-group#getItemGroup
+              .col-xs-3
+                .input-group
+                  .input-group-addon Item
+                  input#getItemForm.form-control(type='text', placeholder='0123')
+              .col-xs-1
+                button#getItemButton.btn.btn-default(type='button') Get
+              .col-xs-offset-1.col-xs-7
+                textarea#getItemResponse.form-control(type='text', rows='1' readonly) 
         form(action='items/create',method='post',id='addItemForm')
           table.table.table-condensed
             thead
@@ -35,7 +47,7 @@
             tbody
               tr
                 td
-                  select(id='category' class='form-control' name='category')
+                  select(id='itemCategory' class='form-control' name='category')
                     option(value='Accessories') Accessories
                     option(value='Amplifier') Amplifier
                     option(value='Audio Hardware') Audio Hardware
@@ -59,13 +71,13 @@
                     option(value='Video Interface') Video Interface
                     option(value='Webcam') Webcam
                 td
-                  input(id='name' type='text' class='form-control' placeholder='Name, e.g. "Sennheiser HD-25"' name='name')
+                  input(id='itemName' type='text' class='form-control' placeholder='Name, e.g. "Sennheiser HD-25"' name='name')
                 td
-                  input(id='label' type='text' class='form-control' placeholder='Max: '+ ("0000" + maxLabel).substr(-4,4) name='label')
+                  input(id='itemLabel' type='text' class='form-control' placeholder='Max: '+ ("0000" + maxLabel).substr(-4,4) name='label')
                 td
-                  input(id='location' type='text' class='form-control' placeholder='Pinta 2.3' name='location')
+                  input(id='itemLocation' type='text' class='form-control' placeholder='Pinta 2.3' name='location')
                 td
-                  select(id='condition' class='form-control' name='condition')
+                  select(id='itemCondition' class='form-control' name='condition')
                     option(value='Working') Working
                     option(value='Mended') Mended
                     option(value='Broken') Broken
@@ -73,24 +85,24 @@
               tr
                 td
                 td
-                  input(id='description' type='text' class='form-control' placeholder='Description, e.g. "Closed on-ear headphones, 25 ohm impedance"' name='description')
+                  input(id='itemDescription' type='text' class='form-control' placeholder='Description, e.g. "Closed on-ear headphones, 25 ohm impedance"' name='description')
                 td
                 td(rowspan='2')
                   .radio
                     label
-                      input(type='radio' name ='status' id='status' value='in' checked)
+                      input(type='radio' name ='status' id='itemStatus' value='in' checked)
                       | Available
                     label
-                      input(type='radio' name ='status' id='status' value='nocirc')
+                      input(type='radio' name ='status' id='itemStatus' value='nocirc')
                       | No circ.
                 td(rowspan='2')
-                  textarea.form-control(rows='4', id='comment', placeholder='Comment history, e.g. "Bought 20.10.2014, repaired 24.11.2015"', name='comment')
+                  textarea.form-control(rows='4', id='itemComment', placeholder='Comment history, e.g. "Bought 20.10.2014, repaired 24.11.2015"', name='comment')
               tr
                 td
                 td
-                  input(id='url' type='text' class='form-control' placeholder='URL, e.g. http://en-de.sennheiser.com/on-ear-dj-headphones-hd-25-1-ii' name='url')
+                  input(id='itemURL' type='text' class='form-control' placeholder='URL, e.g. http://en-de.sennheiser.com/on-ear-dj-headphones-hd-25-1-ii' name='url')
                 td
-                  input(id='serial' type='text' class='form-control' placeholder='Serial#, e.g. ABCD-0123' name='serial')
+                  input(id='itemSerial' type='text' class='form-control' placeholder='Serial#, e.g. ABCD-0123' name='serial')
                 td
                 td
           button(type='submit', form='addItemForm').btn.btn-default.pull-right.btn-success Add Item
