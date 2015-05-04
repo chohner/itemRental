@@ -162,14 +162,15 @@ window.onload = function() {
     $.post(
       'items/checkout/'+$('#borrowLabel').text()
     ).done(function(response){
-      // Close modal and reload table once done
+      // Close modal and reload main and borrow table once done
       $('#borrowResponse').html(response);
       $('#borrowResponse').addClass('alert-success');
+      itemTableList.ajax.reload();
+      borrowTableList.ajax.reload();
 
       // Close modal and reload main page
       window.setTimeout(function() { 
         $('#borrowModal').modal('hide');
-        itemTableList.ajax.reload();
       }, 800);
     }).fail( function(xhr, textStatus, errorThrown) {
       $('#borrowResponse').html(xhr.responseText);
