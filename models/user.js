@@ -10,6 +10,13 @@ module.exports = function(sequelize, DataTypes) {
       lastname: DataTypes.STRING,
       role: { type: DataTypes.STRING, defaultValue: 'User'},
       active: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true}
-    });
+    }, {
+    classMethods: {
+      associate: function(models) {
+        User.hasMany(models.Item, {foreignKey: 'Owner'})
+      }
+    }
+  });
+
   return User;
 };
