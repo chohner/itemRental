@@ -6,6 +6,8 @@ module.exports = function(sequelize, DataTypes) {
       // Label with custom getter that zero fills 4 chars
       Label: {
         type: DataTypes.INTEGER(4).UNSIGNED,
+        primaryKey: true,
+        unique: true,
         allowNull: false,
         get: function(){
           return ("000"+this.getDataValue('Label')).slice(-4);
@@ -23,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
     classMethods: {
       associate: function(models) {
-        Item.belongsTo(models.User);
+        Item.belongsTo(models.User, {foreignKey: 'Owner'});
       }
     }
   });
