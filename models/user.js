@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       firstname: DataTypes.STRING,
       lastname: DataTypes.STRING,
       role: { type: DataTypes.STRING, defaultValue: 'User'},
-      active: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true}
+      active: { type: DataTypes.BOOLEAN, defaultValue: 'true'}
     }, {
     classMethods: {
       associate: function(models) {
