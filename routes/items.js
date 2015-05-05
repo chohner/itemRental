@@ -12,7 +12,7 @@ router.post('/createBulk', function(req, res) {
     bulkData = req.body;
 
     models.Item.bulkCreate(
-      bulkData
+      bulkData, {ignoreDuplicates: true}
     ).then(function(){
       models.Item.findAll().then(function(items){
         res.send(items);
