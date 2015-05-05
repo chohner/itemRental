@@ -60,7 +60,7 @@ router.post('/', function(req, res) {
     })
     res.redirect('./');
   } else {
-    res.status(401).send('You are either not an Admin or not logged in.');
+    res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
 
@@ -74,11 +74,11 @@ router.get('/:item_label', function(req,res) {
       if (Item) {
         res.send(Item);
       } else {
-        res.status(404).send('Item not found');
+        res.status(404).send('Error: Item not found.');
       };
     })
   } else {
-    res.status(400).send('Item label should be a number.')
+    res.status(400).send('Error: Item label should be a number.')
   }
   
 });
@@ -101,10 +101,10 @@ router.delete('/:item_label', function(req,res) {
     }).then(function(myItem){
       if(myItem) {
         myItem.destroy().then(function(){
-          res.status(200).send('Item ' + myItem.Label + ' - ' + myItem.Item + ' was removed.');
+          res.status(200).send('Success: Item ' + myItem.Label + ' - ' + myItem.Item + ' was removed.');
         })
       } else {
-        res.status(404).send('No item with label ' + req.params.item_label + ' found.')
+        res.status(404).send('Error: No item with label ' + req.params.item_label + ' found.')
       }
     })
   } else {
@@ -145,10 +145,10 @@ router.post('/checkout/:item_label', function(req,res) {
       where: {Label: req.params.item_label}
     }).then(function(borrowItem){
       borrowItem.setUser(req.session.user.username);
-      res.status(200).send('Item ' + req.params.item_label + ' (' + borrowItem.Item + ') was checked out by ' + req.session.user.username);
+      res.status(200).send('Success: Item ' + req.params.item_label + ' (' + borrowItem.Item + ') was checked out by ' + req.session.user.username);
     })
   } else {
-    res.status(401).send('You need to be logged in to check out items.');
+    res.status(401).send('Error: You need to be logged in to check out items.');
   }
 });
 
