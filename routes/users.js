@@ -38,15 +38,26 @@ router.post('/', function(req, res) {
 });
 
 
-// DELETE /:username route. deletes user with that username
-// TODO: implement function
-router.delete('/:username/', function(req, res) {
+// DELETE /:user route. deletes user with that username or id
+router.delete('/:user/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
-    models.User.find({
-      where: {username: req.params.username}
-    }).then(function(foundUser){
-      
-    })
+    if (!isNaN(req.params.user)) {
+      models.User.find({
+        where: { id: req.params.user}
+      }).then(function(myUser){
+        myUser.destroy().then(function(){
+          res.status(200).send('User ' + myUser.username + ' was removed.');
+        })
+      })
+    } else {
+      models.User.find({
+        where: { username: req.params.user}
+      }).then(function(myUser){
+        myUser.destroy().then(function(){
+          res.status(200).send('User ' + myUser.username + ' was removed.');
+        })
+      })
+    } 
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
   };
@@ -183,13 +194,21 @@ router.get('/:user', function(req, res) {
       models.User.find({
         where: { id: req.params.user}
       }).then(function(myUser){
-        res.json({'user': myUser});
+        if(myUser) {
+          res.json({'user': myUser});
+        } else {
+          res.status(404).send('User with id ' + req.params.user + ' was not found.')
+        }
       })
     } else {
       models.User.find({
         where: { username: req.params.user}
       }).then(function(myUser){
-        res.json({'user': myUser});
+        if(myUser) {
+          res.json({'user': myUser});
+        } else {
+          res.status(404).send('User with username ' + req.params.user + ' was not found.')
+        }
       })
     }
   } else {
