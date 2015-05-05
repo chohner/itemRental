@@ -36,20 +36,16 @@ db.Sequelize = Sequelize;
 module.exports = db;
 
 // add adminuser in development
+console.log(env)
 if (env === 'development') {
   db.User.findOrCreate({
     where: {
-    username: "admin_user",
+    username:  'admin_user',
     firstname: 'admin',
-    lastname: 'user' ,
-    role: 'Admin' ,
-    active: '1'
-    }
+    lastname:  'user' ,
+    role:      'Admin'}
   })
   .spread(function(user, created){
     console.log('Dev-admin created: ' + created)
-    console.log(user.get({
-      plain: true
-    }))
   })
 }
