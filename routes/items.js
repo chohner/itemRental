@@ -3,8 +3,9 @@ var express = require('express');
 var router  = express.Router();
 
 
-// ## POST /items/createBulk - create Bulk of items
+// TODO Treat owner RESTful - GET / POST / DELETE  items/:item_label/owner
 
+// ## POST /items/createBulk - create Bulk of items
 // receives stringified JSON array of objects
 router.post('/createBulk', function(req, res) {
   // TODO check format of input

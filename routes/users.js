@@ -2,6 +2,8 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
+// TODO: GET /users/:username/items route, restrict for normal users
+
 router.get('/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
     models.User.findAll().then(function(users){
@@ -69,25 +71,7 @@ router.get('/check', function(req, res) {
 // TODO: Check items of user. Admin can check everyone (send username req), everyone else just themselves
 // TODO: enable /:user/checkItems
 router.get('/checkItems', function(req,res) {
-  if ( req.session.user && req.session.user.role == 'Admin'){
-    if (req.body.username){
-      models.User.find({
-        where: {username: req.body.username}
-      }).then(function(myUser){
-        myUser.getItems().then(function(foundItems){
-          res.json({'items': foundItems});
-        });
-      })
-    } else {
-      models.User.find({
-        where: {username: req.session.user.username}
-      }).then(function(myUser){
-        myUser.getItems().then(function(foundItems){
-          res.json({'items': foundItems});
-        });
-      })
-    }
-  } else if (req.session.user){
+  if (req.session.user){
     models.User.find({
       where: {username: req.session.user.username}
     }).then(function(myUser){
