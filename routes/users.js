@@ -25,7 +25,7 @@ router.post('/', function(req, res) {
       role: req.body.role,
       active: req.body.active
     }).then(function(){
-      res.status(200).send('User' + user.username + ' successfully updated / added.');
+      res.status(200).send('User' + req.body.username + ' successfully updated / added.');
     })
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
