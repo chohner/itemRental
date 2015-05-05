@@ -38,26 +38,27 @@ router.post('/', function(req, res) {
 });
 
 
-// DELETE /:user route. deletes user with that username or id
+// DELETE /:user route. deletes user by username or id
 router.delete('/:user/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
-    if (!isNaN(req.params.user)) {
-      models.User.find({
-        where: { id: req.params.user}
-      }).then(function(myUser){
+
+    // if input is a number, search the ids, otherwise the usernames
+    var searchKey = (!isNaN(req.params.user)) ? 'id' : 'username';
+
+    var searchOpt = {};
+    searchOpt[searchKey] = req.params.user;
+
+    models.User.find({
+      where: searchOpt
+    }).then(function(myUser){
+      if (myUser) {
         myUser.destroy().then(function(){
           res.status(200).send('User ' + myUser.username + ' was removed.');
         })
-      })
-    } else {
-      models.User.find({
-        where: { username: req.params.user}
-      }).then(function(myUser){
-        myUser.destroy().then(function(){
-          res.status(200).send('User ' + myUser.username + ' was removed.');
-        })
-      })
-    } 
+      } else {
+        res.status(404).send('User with id ' + req.params.user + ' was not found.');
+      }
+    })
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
   };
