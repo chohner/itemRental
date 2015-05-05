@@ -189,28 +189,24 @@ router.get('/syncWithLDAP', function(req, res){
 
 // GET /users/:user: returns user info to admin, both id and username are valid
 router.get('/:user', function(req, res) {
+
   if ( req.session.user && req.session.user.role == 'Admin'){
-    if (!isNaN(req.params.user)) {
-      models.User.find({
-        where: { id: req.params.user}
-      }).then(function(myUser){
-        if(myUser) {
-          res.json({'user': myUser});
-        } else {
-          res.status(404).send('User with id ' + req.params.user + ' was not found.')
-        }
-      })
-    } else {
-      models.User.find({
-        where: { username: req.params.user}
-      }).then(function(myUser){
-        if(myUser) {
-          res.json({'user': myUser});
-        } else {
-          res.status(404).send('User with username ' + req.params.user + ' was not found.')
-        }
-      })
-    }
+
+    // if input is a number, search the ids, otherwise the usernames
+    var searchKey = (!isNaN(req.params.user)) ? 'id' : 'username';
+
+    var searchOpt = {};
+    searchOpt[searchKey] = req.params.user;
+
+    models.User.find({
+      where : searchOpt
+    }).then(function(myUser){
+      if(myUser) {
+        res.json({'user': myUser});
+      } else {
+        res.status(404).send('User with id ' + req.params.user + ' was not found.');
+      }
+    })
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
   }
