@@ -52,31 +52,16 @@ router.delete('/:username/', function(req, res) {
   };
 });
 
-// Check route: Admin can check all users (send username req), everyone else just themselves
-// TODO: enable /:user/check
-router.get('/check', function(req,res) {
-  if ( req.session.user && req.session.user.role == 'Admin'){
-    if (req.body.username){
-      models.User.find({
-        where: {username: req.body.username}
-      }).then(function(myUser){
-        res.json({'user': myUser});
-      })
-    } else {
-      models.User.find({
-        where: {username: req.session.user.username}
-      }).then(function(myUser){
-        res.json({'user': myUser});
-      })
-    }
-  } else if (req.session.user){
+// GET /users/check: returns own user info
+router.get('/check', function(req, res) {
+ if (req.session.user){
     models.User.find({
       where: {username: req.session.user.username}
     }).then(function(myUser){
       res.json({'user': myUser});
     })
   } else {
-    res.status(401).send('Error: You need to be logged in as Admin.');
+    res.status(401).send('Error: You need to be logged in.');
   }
 });
 
@@ -190,5 +175,27 @@ router.get('/syncWithLDAP', function(req, res){
     res.status(401).send('Error: You need to be logged in as Admin.');
   }
 });
+
+// GET /users/:user: returns user info to admin, both id and username are valid
+router.get('/:user', function(req, res) {
+  if ( req.session.user && req.session.user.role == 'Admin'){
+    if (!isNaN(req.params.user)) {
+      models.User.find({
+        where: { id: req.params.user}
+      }).then(function(myUser){
+        res.json({'user': myUser});
+      })
+    } else {
+      models.User.find({
+        where: { username: req.params.user}
+      }).then(function(myUser){
+        res.json({'user': myUser});
+      })
+    }
+  } else {
+    res.status(401).send('Error: You need to be logged in as Admin.');
+  }
+});
+
 
 module.exports = router;
