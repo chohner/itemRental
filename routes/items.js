@@ -97,9 +97,9 @@ router.get('/:item_label/owner', function(req, res) {
   models.Item.find({
     where: {label: req.params.item_label}
   }).then(function(foundItem) {
-    if (foundItem !== null) {
+    if (foundItem) {
       foundItem.getUser().then(function(foundUser) {
-        if (foundUser !== null) {
+        if (foundUser) {
           res.json( { username: foundUser.username,
                       firstname: foundUser.firstname,
                       lastname: foundUser.lastname })
