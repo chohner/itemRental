@@ -12,25 +12,20 @@ router.get('/', function(req, res) {
   };
 });
 
+// POST /users/ route
+// Upserts (update / insert) user with provided data
 
 router.post('/', function(req, res) {
-  // TODO: check if user with username exists
-  // TODO: dont use param and .success
   if ( req.session.user && req.session.user.role == 'Admin'){
-    models.User.findOrCreate({
-      where: {username: req.body.username},
-      defaults:  {firstname: req.body.firstname,
-                  lastname: req.body.lastname,
-                  email: req.body.email,
-                  role: req.body.role,
-                  active: req.body.active
-                }
-    }).spread(function(user, created){
-      if (created) {
-        res.status(200).send('Success: Created user:' + user.username);
-      } else {
-        res.status(409).end('Error: user' + user.username +' already exists.');
-      }
+
+    models.User.upsert({
+      username : req.body.username,
+      firstname : req.body.firstname,
+      lastname : req.body.lastname,
+      role: req.body.role,
+      active: req.body.active
+    }).then(function(){
+      res.status(200).send('User' + user.username + ' successfully updated / added.');
     })
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
