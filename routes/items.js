@@ -142,14 +142,10 @@ router.post('/checkout/:item_label', function(req,res) {
 
   if ( req.session.user ){
     models.Item.find({
-      where: {label: req.params.item_label}
+      where: {Label: req.params.item_label}
     }).then(function(borrowItem){
-      models.User.find({
-        where: {username: req.session.user.username}
-      }).then(function(borrowUser){
-        borrowItem.setUser(borrowUser.id);
-        res.status(200).send('Item ' + req.params.item_label + ' (' + borrowItem.Item + ') was checked out by ' + req.session.user.username);
-      })
+      borrowItem.setUser(req.session.user.username);
+      res.status(200).send('Item ' + req.params.item_label + ' (' + borrowItem.Item + ') was checked out by ' + req.session.user.username);
     })
   } else {
     res.status(401).send('You need to be logged in to check out items.');
