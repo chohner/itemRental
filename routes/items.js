@@ -95,10 +95,21 @@ router.post('/:item_label', function(req,res) {
 // ## DELETE /items/:item_label - delete single item from label
 // TODO: delete function
 router.delete('/:item_label', function(req,res) {
-  models.Item.find({
-    where: {label: req.params.item_label}
-  }).then(function(Item){
-  })
+  if ( req.session.user && req.session.user.role == 'Admin'){
+    models.Item.find({
+      where: {label: req.params.item_label}
+    }).then(function(myItem){
+      if(myItem) {
+        myItem.destroy().then(function(){
+          res.status(200).send('Item ' + myItem.Label + ' - ' + myItem.Item + ' was removed.');
+        })
+      } else {
+        res.status(404).send('No item with label ' + req.params.item_label + ' found.')
+      }
+    })
+  } else {
+    res.status(401).send('Error: You need to be logged in as Admin.');
+  };
 });
 
 // ## GET :item_label/owner - returns limited owner details of item
