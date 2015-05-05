@@ -33,18 +33,12 @@ router.post('/', function(req, res) {
 });
 
 
-// DELETE /:user route. deletes user by username or id
-router.delete('/:user/', function(req, res) {
+// DELETE /:username route
+router.delete('/:username/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
 
-    // if input is a number, search the ids, otherwise the usernames
-    var searchKey = (!isNaN(req.params.user)) ? 'id' : 'username';
-
-    var searchOpt = {};
-    searchOpt[searchKey] = req.params.user;
-
     models.User.find({
-      where: searchOpt
+      where: {username : req.params.username}
     }).then(function(myUser){
       if (myUser) {
         myUser.destroy().then(function(){
