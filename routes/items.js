@@ -35,30 +35,19 @@ router.get('/', function(req, res) {
 // TODO: check if label already exists
 router.post('/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
-    models.Item.findOrCreate({
-      where: {
-        label: req.body.label,
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.category,
-        url: req.body.url,
-        location: req.body.location,
-        status: req.body.status,
-        condition: req.body.condition,
-        comment: req.body.comment
-      },
-      defaults: {
-        status: 'available',
-        condition: 'working'
-      }
+    models.Item.upsert({
+      label: req.body.label,
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      url: req.body.url,
+      location: req.body.location,
+      status: req.body.status,
+      condition: req.body.condition,
+      comment: req.body.comment
+    }).then(function(){
+      res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.'))
     })
-    .spread(function(item, created) {
-      console.log(item.get({
-        plain: true
-      }))
-      console.log(created)
-    })
-    res.redirect('./');
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
   }
@@ -81,15 +70,6 @@ router.get('/:item_label', function(req,res) {
     res.status(400).send('Error: Item label should be a number.')
   }
   
-});
-
-// ## POST /items/:item_label - update single item from label
-// TODO: update function
-router.post('/:item_label', function(req,res) {
-  models.Item.find({
-    where: {label: req.params.item_label}
-  }).then(function(Item){
-  })
 });
 
 // ## DELETE /items/:item_label - delete single item from label
