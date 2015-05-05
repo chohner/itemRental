@@ -27,23 +27,23 @@ window.onload = function() {
       { className: "expandDetails", data: 'Label' },
       { className: "expandDetails", data: 'Location' },
       { className: "expandDetails", data: 'Condition' },
-      { data: 'UserId'}
+      { data: 'Owner'}
     ],
     // on the last column, we want to either show a checkout button or display a disabled out button with a tooltip showing the owner
     columnDefs: [ {
       targets: 5,
       createdCell: function (td,cellData,rowData,row,col) {
-        $//(td).addClass('noDetail')
-        if (cellData == null ){
+        //$(td).addClass('noDetail')
+        if (!cellData){
           $(td).html('<button class="btn btn-default checkoutButton btn-success btn-block" data-toggle="modal" data-target="#borrowModal">Check out</button>');
         } else {
-          $.get( 'items/'+ rowData.Label +'/owner', function(data){
-            $(td).html('<div  data-toggle="tooltip" data-placement="top" title="Item borrowed by: '+data.firstname+' '+ data.lastname+'"><button type="button" class="btn btn-default btn-warning btn-block" disabled="disabled">Out</button></div>')
-            $('[data-toggle="tooltip"]').tooltip();
-          });
+          $(td).html('<div  data-toggle="tooltip" data-placement="top" title="Item borrowed by: ' + cellData + '"><button type="button" class="btn btn-default btn-warning btn-block" disabled="disabled">Out</button></div>');
         }
       }
     }],
+    drawCallback : function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    },
     order: [[2, 'asc']] // Order by label
   });
 
