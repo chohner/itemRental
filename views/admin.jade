@@ -101,11 +101,11 @@
                 td
                   input(id='itemSerial' type='text' class='form-control' placeholder='Serial#, e.g. ABCD-0123' name='serial')
                 td
-                  input(id='itemUserID' type='text' class='form-control' placeholder='UserID (if borrowed)' name='Userid')
+                  input(id='itemOwner' type='text' class='form-control' placeholder='Owner (if borrowed)' name='Owner')
                 td
           .btn-group.pull-right
             button#deleteItemButton.btn.btn-default.btn-danger(type='button') Delete Item
-            button(type='submit', form='addItemForm').btn.btn-default.btn-success Add Item
+            button#addItemButton.btn.btn-default.btn-success(type='button') Add Item
       #userTab.tab-pane.fade.in
         .panel.panel-default
           .panel-heading 
