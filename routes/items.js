@@ -30,22 +30,65 @@ router.get('/', function(req, res) {
 });
 
 // ## POST /items/ - create item if new label
-// TODO: check if label already exists
+// Pretty ugly due to foreignKey constrains. removes owner if empty or null
 router.post('/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
-    models.Item.upsert({
-      label: req.body.label,
-      name: req.body.name,
-      description: req.body.description,
-      category: req.body.category,
-      url: req.body.url,
-      location: req.body.location,
-      status: req.body.status,
-      condition: req.body.condition,
-      comment: req.body.comment
-    }).then(function(){
-      res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.');
-    })
+    if (req.body.owner) {
+      if (req.body.owner === 'null' || req.body.owner === 'NULL') {
+        models.Item.upsert({
+          Label: req.body.label,
+          Item: req.body.name,
+          Description: req.body.description,
+          Category: req.body.category,
+          URL: req.body.url,
+          Location: req.body.location,
+          Status: req.body.status,
+          Condition: req.body.condition,
+          Comment: req.body.comment
+        }).then(function(){
+          models.Item.find({where: {Label: req.body.label}}).then(function(foundItem){
+            foundItem.setUser(null);
+            res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.');
+          })
+        })
+      } else { // req.body.owner was not null
+        models.User.find({where:{username: req.body.owner}}).then(function(foundUser){
+          if (foundUser) {
+            models.Item.upsert({
+              Label: req.body.label,
+              Item: req.body.name,
+              Description: req.body.description,
+              Category: req.body.category,
+              URL: req.body.url,
+              Location: req.body.location,
+              Status: req.body.status,
+              Condition: req.body.condition,
+              Comment: req.body.comment,
+              Owner: req.body.owner
+            }).then(function(){
+              res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.');
+            })
+          } else { // User of req.body.owner was not found
+            res.status(404).send('Error: User ' + req.body.owner + ' was not found.')
+          }
+        })
+      }
+    } else { // no req.body.owner sent
+      models.Item.upsert({
+        Label: req.body.label,
+        Item: req.body.name,
+        Description: req.body.description,
+        Category: req.body.category,
+        URL: req.body.url,
+        Location: req.body.location,
+        Status: req.body.status,
+        Condition: req.body.condition,
+        Comment: req.body.comment,
+        Owner: req.body.owner
+      }).then(function(){
+        res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.');
+      })
+    }
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
   }
