@@ -233,8 +233,8 @@ window.onload = function() {
   });
 
   // fetchButton click event
-  // TODO: redraw table
-  $('#getItemButton').click( function(e){
+  $('#getItemGroup').submit( function(e){
+    e.preventDefault();
     // Get the item
     $.ajax({
       url: 'items/'+$('#getItemForm').val(),
