@@ -254,8 +254,8 @@ window.onload = function() {
       $('#itemLocation').val(response.Location);
 
       // If the item has a UserID it is borrowed
-      if (response.UserId) {
-        $('#itemUserID').val(response.UserId);
+      if (response.Owner) {
+        $('#itemOwner').val(response.Owner);
         $('#itemStatus').val('out');
       } else {
         if(response.Status) {
@@ -264,7 +264,7 @@ window.onload = function() {
           $('#itemStatus').val('in');
         }
 
-        $('#itemUserID').val('');
+        $('#itemOwner').val('');
       }
       
       // No condition means working
@@ -306,6 +306,37 @@ window.onload = function() {
     });
     
   });
+  
+  // #addItemButton
+  $('#addItemButton').click( function(){
+    var addItemData = {
+        label       : $('#itemLabel').val(),
+        name        : $('#itemName').val(),
+        description : $('#itemDescription').val(),
+        category    : $('#itemCategory').val(),
+        url         : $('#itemURL').val(),
+        location    : $('#itemLocation').val(),
+        status      : $('#itemStatus').val(),
+        condition   : $('#itemCondition').val(),
+        comment     : $('#itemComment').val()};
+    addItemData['owner'] = ($('#itemOwner').val() ==='') ? 'null' : $('#itemOwner').val();
+    
+    $.ajax({
+      url: '/items',
+      type: 'POST',
+      data: addItemData
+    }).done (function(response){
+      $('#getItemResponse').html(response);
+      $('#getItemGroup').removeClass('has-error');
+      $('#getItemGroup').addClass('has-success');
+      itemTableList.ajax.reload();
+      borrowTableList.ajax.reload();
+    }).fail( function(xhr, textStatus, errorThrown) {
+      $('#getItemResponse').removeClass('has-success');
+      $('#getItemGroup').addClass('has-error');
+      $('#getItemGroup').html(xhr.responseText);
+    });
+  })
 
   // deleteItemButton
   // hide on load
