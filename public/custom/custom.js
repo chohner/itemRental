@@ -213,8 +213,9 @@ window.onload = function() {
   //  ADMIN STUFF ======================================================
   //  TODO this probably should be hidden from non-admins
 
-  // returnButton click event
-  $('#returnButton').click( function(){
+  // returnItemGroup Event
+  $('#returnItemGroup').submit( function(e){
+    e.preventDefault();
     // POST the label to return API
     $.ajax(
       {url: 'items/' + $('#returnItemForm').val() + '/owner',
