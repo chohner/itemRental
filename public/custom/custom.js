@@ -160,7 +160,7 @@ window.onload = function() {
   $('#checkoutButton').click( function(){
     // POST the label to checkout API
     $.post(
-      'items/checkout/'+$('#borrowLabel').text()
+      'items/' + $('#borrowLabel').text() + '/owner/'
     ).done(function(response){
       // Close modal and reload main and borrow table once done
       $('#borrowResponse').html(response);
@@ -217,8 +217,9 @@ window.onload = function() {
   // TODO: redraw table (worst case: reload)
   $('#returnButton').click( function(){
     // POST the label to return API
-    $.post(
-      'items/return/'+$('#returnItemForm').val()
+    $.ajax(
+      {url: 'items/' + $('#returnItemForm').val() + '/owner',
+       type: 'DELETE'}
     ).done( function( response ) {
       $('#returnResponse').html(response);
       $('#returnItemGroup').removeClass('has-error');
