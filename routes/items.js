@@ -2,9 +2,6 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
-
-// TODO Treat owner RESTful - GET / POST / DELETE  items/:item_label/owner
-
 // ## POST /items/createBulk - create Bulk of items
 // receives stringified JSON array of objects
 router.post('/createBulk', function(req, res) {
@@ -47,7 +44,7 @@ router.post('/', function(req, res) {
       condition: req.body.condition,
       comment: req.body.comment
     }).then(function(){
-      res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.'))
+      res.status(200).send('Success: ' + req.body.label + ' successfully updated / added.');
     })
   } else {
     res.status(401).send('Error: You need to be logged in as Admin.');
@@ -115,35 +112,35 @@ router.get('/:item_label/owner', function(req, res) {
   })
 });
 
-// ## POST /items/checkout/:item_label - check out item with label
-
-router.post('/checkout/:item_label', function(req,res) {
-  // TODO: check if already borrowed (if same user -> confirm, else -> error)
-  // TODO: stop if item doesnt exist
-
+// ## POST :item_label/owner - Sets owner of item
+router.post('/:item_label/owner', function(req, res) {
   if ( req.session.user ){
     models.Item.find({
-      where: {Label: req.params.item_label}
-    }).then(function(borrowItem){
-      borrowItem.setUser(req.session.user.username);
-      res.status(200).send('Success: Item ' + req.params.item_label + ' (' + borrowItem.Item + ') was checked out by ' + req.session.user.username);
+      where: {label: req.params.item_label}
+    }).then(function(foundItem) {
+      if (foundItem) {
+        foundItem.setUser(req.session.user.username);
+        res.status(200).send('Success: Item ' + req.params.item_label + ' (' + foundItem.Item + ') was checked out by ' + req.session.user.username);
+      }
+      else {
+        res.status(404).send('Error: Item not found.');
+      }
     })
   } else {
     res.status(401).send('Error: You need to be logged in to check out items.');
   }
 });
 
-// ## POST /items/return/:item_label - return item with label and username
-// Returns 200 if item exists and had a user, 404, if no user or item not found
-router.post('/return/:item_label', function(req,res) {
-  if ( req.session.user && req.session.user.role == 'Admin'){
+// ## DELETE :item_label/owner - Deletes owner of item (aka returns item)
+router.delete('/:item_label/owner', function(req, res) {
+  if ( req.session.user ){
     models.Item.find({
       where: {label: req.params.item_label}
-    }).then(function(borrowItem){
-      if (borrowItem) {
-        borrowItem.getUser().then(function(oldUser){
+    }).then(function(foundItem){
+      if (foundItem) {
+        foundItem.getUser().then(function(oldUser){
           if (oldUser) {
-            borrowItem.setUser(null);
+            foundItem.setUser(null);
             res.status(200).send('Success: Item was returned from '+ oldUser.username +'.');
           } else {
             res.status(404).send('Error: Item was not borrowed.');
@@ -154,9 +151,8 @@ router.post('/return/:item_label', function(req,res) {
       }
     })
   } else {
-    res.status(401).send('Error: You need to be logged in as Admin.');
+    res.status(401).send('Error: You need to be logged in to check out items.');
   }
 });
-
 
 module.exports = router;
