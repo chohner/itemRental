@@ -340,14 +340,13 @@ window.onload = function() {
     paging: false,  // turn of paging
     // Extract each column value from a different object variable
     columns: [
-      { data: 'id' },
       { data: 'username' },
       { data: 'firstname' },
       { data: 'lastname' },
       { data: 'role' },
       { data: 'active' }
     ],
-    order: [[4, 'asc'], [0, 'asc']], // Order by role, then by username
+    order: [[3, 'asc'], [0, 'asc']], // Order by role, then by username
     columnDefs: [{
       targets: '_all',
       defaultContent: ''
