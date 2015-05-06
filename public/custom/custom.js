@@ -311,6 +311,23 @@ window.onload = function() {
   // hide on load
   $('#deleteItemButton').hide();
 
+  $('#deleteItemButton').click( function(){
+    $.ajax(
+      {url: 'items/' + $('#itemLabel').val(),
+       type: 'DELETE'}
+    ).done( function( response ) {
+      $('#getItemResponse').html(response);
+      $('#getItemGroup').removeClass('has-error');
+      $('#getItemGroup').addClass('has-success');
+      itemTableList.ajax.reload();
+      borrowTableList.ajax.reload();
+    }).fail( function(xhr, textStatus, errorThrown) {
+      $('#getItemResponse').removeClass('has-success');
+      $('#getItemGroup').addClass('has-error');
+      $('#getItemGroup').html(xhr.responseText);
+    });
+  });
+
   // Initialize DataTable for user list
   var userTableList = $('#userListTable').DataTable({
     // Data source: ajax call to /users/checkItems, where 'items' object is passed
