@@ -214,7 +214,6 @@ window.onload = function() {
   //  TODO this probably should be hidden from non-admins
 
   // returnButton click event
-  // TODO: redraw table (worst case: reload)
   $('#returnButton').click( function(){
     // POST the label to return API
     $.ajax(
@@ -225,6 +224,7 @@ window.onload = function() {
       $('#returnItemGroup').removeClass('has-error');
       $('#returnItemGroup').addClass('has-success');
       itemTableList.ajax.reload();
+      borrowTableList.ajax.reload();
     }).fail( function(xhr, textStatus, errorThrown) {
       $('#returnItemGroup').removeClass('has-success');
       $('#returnItemGroup').addClass('has-error');
