@@ -155,6 +155,7 @@ router.get('/:item_label/owner', function(req, res) {
 });
 
 // ## POST :item_label/owner - Sets owner of item
+// TODO Only admins should be able to overwrite existing owners
 router.post('/:item_label/owner', function(req, res) {
   if ( req.session.user ){
     models.Item.find({
