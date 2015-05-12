@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
   });
 });
 
-// ## POST /items/ - create item if new label
+// ## POST /items/ - upserts item
 // Pretty ugly due to foreignKey constrains. removes owner if empty or null
 router.post('/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
@@ -114,7 +114,6 @@ router.get('/:item_label', function(req,res) {
 });
 
 // ## DELETE /items/:item_label - delete single item from label
-// TODO: delete function
 router.delete('/:item_label', function(req,res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
     models.Item.find({
