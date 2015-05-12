@@ -1,9 +1,9 @@
 # Libnode - Node JS library system
-
+This is a item self-checkout system, where the back end is running Node with Sequelize and the front end is implemented in Jade and makes heavy use of DataTables to display data. It was developted at Telekom Innovation Laboratory of the QU chair at the Technical University of Berlin.
 
 ## Backend
 
-### Modules used
+### Modules
 The main app.js file only requires all necessary node plugins and delegates all tasks. Following plugins are used:
 #### Express
 [Express](http://expressjs.com) is used as the minimal framework to handle routing and so on. We also use the bundled [Jade](http://jade-lang.com) rendering engine.
@@ -16,7 +16,7 @@ Since Express 4, [cookieParser](https://github.com/expressjs/cookie-parser), [se
 #### Models
 All models live in /models/, where the index.js both holds the database configuration and traverses the whole folder for other *.js files to use as models. Furthermore it will automatically create an admin user in development mode. Following two models are created:
 ##### user
-Defines an user as a set of `username`, `firstname`, `lastname`, `role` (user/admin) and `active flag. The association is `User.hasMany(models.Item)`.
+Defines an user as a set of `username`, `firstname`, `lastname`, `role` (user/admin) and `active` flag. The association is `User.hasMany(Item, {foreignKey: 'Owner'})`.
 
 ##### item
 Defines an item as a set of:
@@ -37,32 +37,33 @@ get: function(){
   return ("000"+this.getDataValue('Label')).slice(-4);
 }
 ```
-The association of an item is `Item.belongsTo(models.User)
+Mirroring the association for users, an item is defined as `Item.belongsTo(models.User, {foreignKey: 'Owner'})`;
 
 #### Routes / API
 Similarly to the Models, Routes are exported from the /routes folder and are collected by the `index.js`, which also defines the three main routes:
-* `GET / ` will look up the maximum label number and forward it together with the `req.session.user` to render the `index.jade`
-* `POST /login` Will look up the `req.body.username` in the table of users. If we can find someone, we set the current `req.session.user` to that user and send a `200`, otherwise we simply abort with a `401`. Soon, this will also check the provided password with the LDAP system.
+* `GET / ` will look up the maximum label number and forward it together with the `req.session.user` to render the `index.jade` template.
+* `POST /login` will look up the `req.body.username` in the table of users. If we can find someone, we check the `useLDAP` flag, if it is `false` , simply set the current `req.session.user` to that user and send a `200`. If LDAP is used, the `ldapCheck` function is forwarded the provided username and password. If any step fails, we simply abort with a `401`.
 * `ALL /logout` any request to `/logout` is followed by a `req.session.destroy`and a reload.
 
 ##### users
 Following user routes are defined in the `routes/user.js`, most are only accesible as an admin.
 * `GET /users` returns a JSON list of all users if someone is logged in as an admin, otherwise `401` is sent.
-* `POST /users` finds or creates a user with the provided `req.body.username` and following attributes: `req.body.firstname, req.body.lastname, req.body.role, req.body.active`. Returns `200`on successfull creation, `409` if username already exists and `401` if user sending the request is not an admin.
-* `DELETE /users/:username` tries to delete the user with the provided `req.param.usernam`. Returns `200` on succesfull deletion, `404` if user not found and `401` if user sending the request is not an admin.
-* `GET /users/check` Returns information on a user. Normal user can only check themselfs, admins may check other users by providing the corresponding username as `req.body.username`. Returns `401`if not logged in.
-* `GET /users/checkItems` Returns borrowed items on a user. Normal user can only check themselfs, admins may check other users by providing the corresponding username as `req.body.username`. Returns `401`if not logged in.
+* `POST /users` upserts (insert or updates) a user with the provided `req.body.username` and following attributes: `req.body.firstname, req.body.lastname, req.body.role, req.body.active`. Returns `200` on successfull upsertion or `401` if user sending the request is not an admin.
+* `GET /users/:username` returns the information of the provided `req.param.username` to admins or `401` if user sending the request is not an admin.
+* `DELETE /users/:username` deletes user with provided `req.param.username`. Returns `200` on succesfull deletion, `404` if user not found and `401` if user sending the request is not an admin.
+* `GET /users/check` Returns information on logged-in user. Returns `401`if not logged in. TODO: Delete in favor of using GET /users/req.session.username
+* `GET /users/checkItems` Returns borrowed items on a user. Returns `401`if not logged in.
+* `GET /syncWithLDAP` special route that grabs all users from a custom as an php-serialized array, as defined in the config. There, the correct user role is also read from and applied to the user. This is probably not much use for anyone outside this very special case.
 
 ##### items
 * `GET /items` Returns JSON of all items in db. Should in future probably return less data.
-* `POST /items` Finds or creates an item with the provided `req.body.label`. Returns `401`if not logged in as admins.
-* `GET /items/:item_label` Returns item information of provided `req.param.item_label` or `404` if not found.
-* `POST /items/:item_label` TODO: Write update function
-* `DELETE /items/:item_label` TODO: Write delete function
-* `GET /items/:item_label/owner` Returns limited information of an item owner. Sends a `404` with the corresponding description if item doesn`t have an owner or item is not found.
-* `POST /items/checkout/:item_label` Sets current owner of provided `req.param.item_label` to the currently logged in user. Sends `401` if not logged in. TODO: Don't override other checkouts.
-* `POST /items/return/:item_label` Removes owner of provided `req.param.item_label`. Returns `200` if successfull, `404` if item was not borrowed or not found and `401` if user not an admin.
-* `POST /items/createBulk` Special function that takes a stringified JSON array of objects to create them in bulk. Used for writing data from CSV. Returns `401` if user not an admin.
+* `POST /items` Upserts (insert or update) item from the provided req.body data. If a `req.body.owner` is sent, it has to match an existing username. Returns `401` if not logged in as admins.
+* `GET /items/:item_label` Returns item information of provided `item_label` or `404` if not found.
+* `DELETE /items/:item_label` Delets a single item from the provided item_label, returns `401` if user sending the request is not an admin.
+* `GET /items/:item_label/owner` Returns current owner of provided `req.param.item_label`. Returns `404` if the item doesn`t have an owner or item is not found.
+* `POST /items/:item_label/owner` Sets current owner of provided `req.param.item_label`. Returns `404` if the item wasn't found and `401` if user is not logged in. TODO: Don't override other checkouts.
+* `DELETE /items/:item_label/owner` Deletes the current owner of provided `req.param.item_label`. Returns `404` if item or owner wasn't found and `401` if user is not logged in as admin.
+* `POST /items/createBulk` Special function that takes a stringified JSON array of objects to create them in bulk, ignoring duplicates. Used for writing data from CSV and returns `401` if user not an admin.
 
 #### Views
 Only a very small number of views is needed.
@@ -76,10 +77,20 @@ Only a very small number of views is needed.
 * `admin.jade` provides item return, add item, user list, add user and csv bulk creation.
 
 ## Frontend
-### Modules used
-
-Jquery, Bootstrap, dataTables, papaParse, jquery.sortable intojs
-
+### Modules
+The following 3rd party modules were used:
+#### Jquery
+Most button events and ajax calls are done using jquery.
+#### Bootstrap
+Not only the style but a lot of the js plugin functionality was used, inlcuding modals, forms, navbars and panels.
+#### dataTables
+DataTables was used to display most of the data returned by the API. In total, 4 different instances were used: The main item search, overview of borrowed items, list of users (admin only), parsed CSV data (admin only).
+#### papaParse
+PapaParse was used for parsing the CSV data into a JSON array that could be displayed in a dataTable and then send off to bulkCreate.
+#### jquery.sortable
+This small library was used to allow for the reordering of data columns for the CSV data.
+#### intro.js
+Used to display a helpful usage hints.
 
 ## Building
 
