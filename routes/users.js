@@ -2,7 +2,7 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
-// TODO: GET /users/:username/items route, restrict for normal users
+// TODO: GET /users/:username/items route, restricted for normal users
 
 router.get('/', function(req, res) {
   if ( req.session.user && req.session.user.role == 'Admin'){
@@ -161,19 +161,12 @@ router.get('/syncWithLDAP', function(req, res){
   }
 });
 
-// GET /users/:user: returns user info to admin, both id and username are valid
-router.get('/:user', function(req, res) {
+// GET /users/:username: returns user info to admin, both id and username are valid
+router.get('/:username', function(req, res) {
 
   if ( req.session.user && req.session.user.role == 'Admin'){
-
-    // if input is a number, search the ids, otherwise the usernames
-    var searchKey = (!isNaN(req.params.user)) ? 'id' : 'username';
-
-    var searchOpt = {};
-    searchOpt[searchKey] = req.params.user;
-
     models.User.find({
-      where : searchOpt
+      where : {username : req.params.username}
     }).then(function(myUser){
       if(myUser) {
         res.json({'user': myUser});
