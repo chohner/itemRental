@@ -145,6 +145,7 @@ router.get('/syncWithLDAP', function(req, res){
         console.log('Fetched a total of ' + userList.length + ' users.')
 
         // Update the db with found users, ignoring any duplicates
+        // TODO maybe use upsert so updating to admin works
         models.User.bulkCreate(
           userList, {
             ignoreDuplicates: true
