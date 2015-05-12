@@ -549,36 +549,26 @@ function expandDetails( d ) {
   // this is pretty ugly
   var resp = '';
 
-  if (d.Description == '' && d.URL == null && d.Comment == null) {
-    return resp;
-  }
+  // for now, details can be both null and empty
+  var hasDescription = (d.Description &&  d.Description !== null);
+  var hasURL = (d.URL &&  d.URL !== null);
+  var hasSerial = (d.Serial &&  d.Serial !== null);
+  var hasComment = (d.Comment &&  d.Comment !== null);
 
-  if (d.Description !== '') {
-    resp = resp + '<td class="col-xs-5">Description: '+d.Description+'</td>';
+  // If no extra details are available, show short message
+  if (hasDescription === '' && hasURL === '' && hasComment === '' && hasSerial === '') {
+    resp = '<table class="table table-condensed"><tr><td>No further details available.</td></tr></table>';
   } else {
-    resp = resp + '<td class="col-xs-5"></td>';
-  }
-
-  if (d.URL &&  d.URL !== null) {
-    resp = resp + '<td class="col-xs-1"><a href="' + d.URL + '" target="_blank">More Info</a></td>';
-  } else {
-    resp = resp + '<td class="col-xs-1"></td>';
-  }
-
-  if (d.Serial &&  d.Serial !== null) {
-    resp = resp + '<td class="col-xs-2">Serial no: ' + d.Serial + '</td>';
-  } else {
-    resp = resp + '<td class="col-xs-2"></td>';
-  }
-
-  if (d.Comment !== null) {
-    resp = resp + '<td class="col-xs-2">Comment: ' + d.Comment + '</td>';
-  } else {
-    resp = resp + '<td class="col-xs-2"></td>';
-  }
-
-  if (resp !== '') {
-    resp = '<table class="table table-condensed"><tr>' + resp + '</tr></table>';
+    // Else: show only the available information
+    resp = '<table class="table table-condensed"><tr><td class="col-xs-5">';
+    if (hasDescription) {resp = resp +d.Description;}
+    resp = resp + '</td><td class="col-xs-1">';
+    if (hasURL) {resp = resp + '<a href="' + d.URL + '" target="_blank">More Info</a>'}
+    resp = resp + '</td><td class="col-xs-2">';
+    if (hasSerial) {resp = resp + 'Serial no: ' + d.Serial}
+    resp = resp + '</td><td class="col-xs-2">';
+    if (hasComment) {resp = resp + 'Comment: ' + d.Comment}
+    resp = resp + '</td></tr></table>';
   }
 
   return resp;
