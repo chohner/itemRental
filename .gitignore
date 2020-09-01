@@ -1,0 +1,7 @@
+node_modules
+db.sqlite
+public/css
+public/fonts
+public/images
+public/js
+src/bootstrap_style
