@@ -22,13 +22,11 @@ module.exports = function(sequelize, DataTypes) {
       Status: DataTypes.STRING, //in,out,nocirc
       Condition: DataTypes.STRING, // good, mended, broken
       Comment: DataTypes.TEXT //repair history etc
-    }, {
-    classMethods: {
-      associate: function(models) {
-        Item.belongsTo(models.User, {foreignKey: 'Owner'});
-      }
     }
-  });
+  );
+  Item.associate = function(models) {
+    Item.belongsTo(models.User, {foreignKey: 'Owner'});
+  };
 
   return Item;
 };
