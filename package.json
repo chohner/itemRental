@@ -12,7 +12,7 @@
     "express-session": "^1.11.x",
     "jade": "1.9.x",
     "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
-    "morgan": "1.5.x",
+    "morgan": "1.10.x",
     "php-serialization": "0.0.x",
     "sequelize": "2.1.x",
     "sqlite3": "3.0.x"
