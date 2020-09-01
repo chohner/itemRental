@@ -14,7 +14,7 @@
     "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
     "morgan": "1.5.x",
     "php-serialization": "0.0.x",
-    "sequelize": "2.1.x",
+    "sequelize": "6.3.x",
     "sqlite3": "3.0.x"
   }
 }
