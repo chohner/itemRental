@@ -15,6 +15,6 @@
     "php-serialization": "0.0.x",
     "pug": "^3.0.2",
     "sequelize": "^5.22.4",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^4.2.0"
   }
 }
