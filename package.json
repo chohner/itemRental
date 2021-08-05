@@ -9,12 +9,12 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "express-session": "^1.11.x",
-    "jade": "^1.11.0",
+    "express-session": "^1.17.2",
     "ldapjs": "git://github.com/mcavage/node-ldapjs.git",
     "morgan": "^1.10.0",
     "php-serialization": "0.0.x",
-    "sequelize": "5.x.x",
-    "sqlite3": "4.x.x"
+    "pug": "^3.0.2",
+    "sequelize": "^5.22.4",
+    "sqlite3": "^5.0.2"
   }
 }
