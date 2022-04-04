@@ -1,16 +1,16 @@
 {
   "name": "libnode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
     "express-session": "^1.17.2",
-    "ldapjs": "^2.3.1",
+    "ldapjs": "^2.3.2",
     "morgan": "^1.10.0",
     "php-serialization": "0.0.x",
     "pug": "^3.0.2",
