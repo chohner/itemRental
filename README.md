@@ -1,3 +1,5 @@
+This repository has seen no work since 2015 (except dependency updates) and was mostly for learning and internal usage. It is now archived.
+
 # itemRental - Node JS library system
 This is a item self-checkout system, where the back end is running Node with Sequelize and the front end is implemented in Jade and makes heavy use of DataTables to display data. It was developted at Telekom Innovation Laboratory of the QU chair at the Technical University of Berlin.
 
